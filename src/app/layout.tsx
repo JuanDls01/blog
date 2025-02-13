@@ -9,17 +9,19 @@ import { Navbar } from "src/components/nav";
 import Footer from "src/components/footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
   title: {
-    default: "Next.js Portfolio Starter",
-    template: "%s | Next.js Portfolio Starter",
+    default: "Juan De los Santos | Software Engineer",
+    template: "Juan De los Santos | %s",
   },
-  description: "This is my portfolio.",
+  description:
+    "I'm Juan De los Santos, a Frontend Software Engineer with experience in React, Next.js, and high-traffic eCommerce platforms. I specialize in web performance, scalable architectures, and modern frontend technologies. Explore my projects and insights on web development.",
+  metadataBase: new URL(baseUrl),
   openGraph: {
-    title: "My Portfolio",
-    description: "This is my portfolio.",
+    title: "Juan De los Santos | Software Engineer",
+    description:
+      "Frontend Software Engineer with experience in React, Next.js, and high-traffic eCommerce platforms. Explore my projects, experience, and insights on modern web development.",
     url: baseUrl,
-    siteName: "My Portfolio",
+    siteName: "Juan De los Santos | Portfolio",
     locale: "en_US",
     type: "website",
   },
@@ -34,6 +36,18 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  keywords: [
+    "Frontend Developer",
+    "Software Engineer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Web Performance",
+    "eCommerce Development",
+    "SEO",
+    "CWV",
+    "Juan De los Santos",
+  ],
 };
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
