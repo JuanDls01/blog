@@ -7,7 +7,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
 import { Navbar } from "src/components/nav";
 import Footer from "src/components/footer";
-import Aurora from "src/components/ui/aurora";
 
 export const metadata: Metadata = {
   title: {
@@ -68,7 +67,6 @@ export default function RootLayout({
       )}
     >
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <Aurora className={"absolute top-0 left-0 w-full -z-10"} speed={0.5} />
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Navbar />
           {children}
