@@ -1,4 +1,5 @@
-import { SiPuma } from "react-icons/si";
+import { Icon } from "@/src/components/icons";
+import { Badge } from "@/src/components/ui/badge";
 
 export const metadata = {
   title: "Experience",
@@ -21,41 +22,83 @@ const WorkPage = () => {
         <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight mt-4 mb-2">
           {"Software Engineer Frontend (Nov 2023 - Present)"}
         </h3>
-        <p className="text-sm">
+        <span className="text-sm">
           As part of the Puma Frontend team, I support{" "}
           <span className="inline-flex items-center gap-x-1">
-            Puma <SiPuma />
+            Puma <Icon.Puma />
           </span>{" "}
           ecommerce for the USA, Canada, UK, Japan, and India. Using Google
           Cloud Trace Explorer, I identified duplicate and sequential queries
           that reduced the LCP by 25%, boosting conversion rates. I implemented
           changes based on Puma&apos;s Design System to lower bounce rates and
           participated in the migration to Google Analytics 4. Additionally, I
-          optimized the \_app.tsx bundle size by 20%, reducing page load times.
-        </p>
+          optimized the{" "}
+          <Badge variant={"secondary"} className="px-1">
+            \_app.tsx
+          </Badge>{" "}
+          bundle size by 20%, reducing page load times.
+        </span>
         <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight mt-4 mb-2">
           {"Ssr. FullStack Developer (Jul 2023 - Nov 2023)"}
         </h3>
-        <p className="text-sm">
+        <span className="text-sm">
           I led a team of 4 developers to create Crombie&apos;s new, dynamic
           website, coordinating planning and negotiating requirements with
           Marketing to meet critical deadlines. We leveraged WordPress as a CMS,
-          Next.js for server-side rendering to improve performance and SEO, and
-          TypeScript for an optimal development experience. I set up automated
-          deployments on AWS using infrastructure as code, mentored new
-          developers, and taught at Escuelita Crombie.
-        </p>
+          <Badge
+            variant="outline"
+            className="px-1 inline-flex items-center gap-x-1"
+          >
+            Next.js <Icon.NextJs />
+          </Badge>{" "}
+          for server-side rendering to improve performance and SEO, and
+          <Badge
+            variant="outline"
+            className="px-1 inline-flex items-center gap-x-1"
+          >
+            TypeScript <Icon.TypeScript />
+          </Badge>{" "}
+          for an optimal development experience. I set up automated deployments
+          on{" "}
+          <Badge
+            variant="outline"
+            className="px-1 inline-flex items-center gap-x-1"
+          >
+            AWS <Icon.Aws />
+          </Badge>{" "}
+          using infrastructure as code, mentored new developers, and taught at
+          Escuelita Crombie.
+        </span>
         <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight mt-4 mb-2">
           {"Jr. FullStack Developer (Nov 2022 - Jul 2023)"}
         </h3>
-        <p className="text-sm">
+        <span className="text-sm">
           I contributed to the development of an MVP for managing electronic
           equipment and preventive maintenance through alerts and rules. I build
-          a REST API with Python and Django Rest Framework and developed user
-          interfaces—including forms, paginated tables, filters, charts, and
-          dashboards—using React, React Query, and Material UI, achieving over
-          80% test coverage.
-        </p>
+          a REST API with{" "}
+          <Badge
+            variant="outline"
+            className="px-1 inline-flex items-center gap-x-1"
+          >
+            Python <Icon.Python />
+          </Badge>{" "}
+          and{" "}
+          <Badge
+            variant="outline"
+            className="px-1 inline-flex items-center gap-x-1"
+          >
+            Django <Icon.Django />
+          </Badge>{" "}
+          and developed user interfaces—including forms, paginated tables,
+          filters, charts, and dashboards—using{" "}
+          <Badge
+            variant="outline"
+            className="px-1 inline-flex items-center gap-x-1"
+          >
+            React <Icon.React />
+          </Badge>{" "}
+          , React Query, and Material UI, achieving over 80% test coverage.
+        </span>
       </div>
       <hr className="my-6 border-neutral-800" />
       <div>
