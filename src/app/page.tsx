@@ -1,10 +1,20 @@
 "use client";
 
+import Image from "next/image";
 import { Badge } from "../components/ui/badge";
+import profilePic from "../public/me.jpg";
 
 export default function Page() {
   return (
     <section className="flex flex-col gap-y-8">
+      <Image
+        src={profilePic}
+        width={100}
+        height={100}
+        quality={90}
+        alt="Profile Image - Juani De los Santos"
+        className="rounded-full"
+      />
       <h1 className="text-2xl font-semibold tracking-tighter">
         Hello, I&apos;m Juani De los Santos
       </h1>
