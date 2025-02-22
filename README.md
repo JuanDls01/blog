@@ -1,6 +1,10 @@
-# Portfolio Blog Starter
+# 🌐 My Professional Portfolio
 
-This is a porfolio site template complete with a blog. Includes:
+Welcome to my portfolio! This project is a space where I showcase my skills, experience, and projects. It also includes a blog where I share my thoughts, ideas, and reflections on various topics, like insights from my learning journey.
+
+[Link to the deploy](https://juanidls.dev)
+
+I clone this project from Vercel templates and it includes the following:
 
 - MDX and Markdown support
 - Optimized for SEO (sitemap, robots, JSON-LD schema)
@@ -11,32 +15,34 @@ This is a porfolio site template complete with a blog. Includes:
 - Vercel Speed Insights / Web Analytics
 - Geist font
 
-## Demo
+## 🛠 Installation & Usage
 
-https://portfolio-blog-starter.vercel.app
-
-## How to Use
-
-You can choose from one of the following two methods to use this repository:
-
-### One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
-
-### Clone and Deploy
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
+Clone the repository:
 
 ```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
+git clone https://github.com/your-username/my-portfolio.git
 ```
 
-Then, run Next.js in development mode:
+Install dependencies:
 
 ```bash
-pnpm dev
+cd my-portfolio
+npm install
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open in your browser: http://localhost:3000
+
+## 📬 Contact
+
+If you’d like to reach out, you can find me at:
+
+- 💼 [LinkedIn](https://www.linkedin.com/in/juandelossantosdeveloper/)
+- 🐦 [Twitter](https://x.com/JuanDls01)
+
+⚠️ _This project is a work in progress, so more improvements and content will be added soon._ 🚀
