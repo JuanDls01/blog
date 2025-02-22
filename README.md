@@ -20,7 +20,7 @@ I clone this project from Vercel templates and it includes the following:
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/my-portfolio.git
+git clone https://github.com/JuanDls01/blog.git
 ```
 
 Install dependencies:
@@ -36,7 +36,7 @@ Start the development server:
 npm run dev
 ```
 
-Open in your browser: http://localhost:3000
+Open in your browser: [http://localhost:3000](http://localhost:3000)
 
 ## 📬 Contact
 
