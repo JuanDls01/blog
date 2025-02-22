@@ -1,0 +1,61 @@
+---
+title: "Frontend Technical Interview Questions 🚀"
+publishedAt: "2025-02-20"
+summary: "A space to save and share my knowledge about technical interviews and frontend development."
+---
+
+- [Introduction](#introduction)
+- [Questions](#questions)
+  - [React](#react)
+    - [Virtual DOM](#virtual-dom)
+  - [Node](#node)
+
+## Introduction
+
+Welcome to my blog on Frontend technical interviews! In this space, I will store and share everything I learn about frontend development, with a special focus on technical interviews. Here, you'll find common interview questions, detailed explanations, and code examples—both from what I find online and from questions I've been asked myself.
+
+💡 The purpose of this blog is:
+
+1. To serve as a knowledge base for reinforcing what I learn and having well-structured answers readily available.
+2. To help other developers preparing for interviews who want to better understand key concepts.
+
+## React
+
+### Virtual DOM
+
+¿What is it and what is it purpose?
+
+El **Virtual DOM (DOM Virtual)** es una representación en memoria del **DOM real**. Si ejecutamos un `console.log(<App />)`, React nos devuelve un objeto con propiedades y valores que representan la estructura de la UI. En otras palabras, el **Virtual DOM es un objeto que React utiliza internamente para gestionar y optimizar las actualizaciones en la interfaz**.
+
+🔥 **¿Por qué React usa un Virtual DOM?**
+
+Modificar el **DOM real** es un proceso **costoso** en términos de rendimiento. Cada vez que cambiamos un elemento en el DOM, el navegador debe **recalcular estilos, volver a dibujar la pantalla y reorganizar elementos**.
+
+👉 **Ejemplo de manipulación directa del DOM (ineficiente):**
+
+Si este código se ejecuta muchas veces, cada actualización implica un **redibujo completo** de la página, lo que reduce el rendimiento.
+
+```typescript
+function Contador() {
+  const [count, setCount] = React.useState(0);
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>Sumar</button>
+    </div>
+  );
+}
+```
+
+En cambio, React optimiza este proceso con el **Virtual DOM**.
+
+⚙️ **¿Cómo funciona el Virtual DOM en React?**
+
+Cada vez que cambia el estado de un componente, React sigue estos pasos:
+
+1. **Crea un nuevo Virtual DOM** con los cambios aplicados.
+2. **Compara** el nuevo Virtual DOM con la versión anterior (esto se llama "Diffing").
+3. **Determina qué partes del DOM real necesitan actualizarse**.
+4. **Aplica los cambios mínimos al DOM real** (esto se llama "Reconciliation").
+
+## Node
