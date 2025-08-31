@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { createElement } from 'react'
-import { CodeBlock, InlineCode } from './code'
+import { SimpleCode, SimplePre } from './simple-code'
 import { Callout, Note, Tip, Warning, Danger, Info, Success } from './callout'
 import { extractTocFromContent } from './table-of-contents'
 import { TocWrapper } from './toc-wrapper'
@@ -23,18 +23,6 @@ interface CustomImageProps {
   className?: string
 }
 
-interface CustomCodeProps {
-  children: string
-  className?: string
-  filename?: string
-}
-
-interface PreProps {
-  children: React.ReactElement<CustomCodeProps>
-  className?: string
-  filename?: string
-}
-
 interface TableData {
   headers: string[]
   rows: string[][]
@@ -44,7 +32,7 @@ interface TableProps {
   data: TableData
 }
 
-interface CustomMDXProps {
+interface SimpleMDXProps {
   source: string
   components?: Record<string, React.ComponentType<any>>
   options?: {
@@ -117,71 +105,15 @@ function RoundedImage({ alt, className, ...props }: CustomImageProps) {
   )
 }
 
-// Enhanced code component with Shiki highlighting
-function Code({ children, className, ...props }: CustomCodeProps) {
-  // Check if this is inline code (no language class)
-  if (!className || !className.includes('language-')) {
-    return <InlineCode {...props}>{children}</InlineCode>
-  }
-
-  // Extract language from className (format: "language-javascript")
-  const language = className.replace('language-', '')
-  
-  return (
-    <CodeBlock language={language} {...props}>
-      {children}
-    </CodeBlock>
-  )
-}
-
-// Enhanced pre component to work with code blocks
-function Pre({ children, ...props }: PreProps) {
-  // If children is a code element, render with enhanced code block
-  if (children?.props?.className?.includes('language-')) {
-    const language = children.props.className.replace('language-', '')
-    return (
-      <CodeBlock language={language} {...props}>
-        {children.props.children}
-      </CodeBlock>
-    )
-  }
-  
-  // Fallback for regular pre blocks
-  return (
-    <pre className="bg-gray-900 rounded-lg p-4 overflow-x-auto my-6" {...props}>
-      {children}
-    </pre>
-  )
-}
-
-// Math components for KaTeX
-function MathInline({ children }: { children: string }) {
-  return (
-    <span 
-      className="math-inline"
-      dangerouslySetInnerHTML={{ __html: children }}
-    />
-  )
-}
-
-function MathBlock({ children }: { children: string }) {
-  return (
-    <div 
-      className="math-display text-center"
-      dangerouslySetInnerHTML={{ __html: children }}
-    />
-  )
-}
-
 function slugify(str: string): string {
   return str
     .toString()
     .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/&/g, '-and-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
 }
 
 function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
@@ -192,7 +124,7 @@ function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
       { 
         id: slug,
         className: cn(
-          'scroll-mt-20', // Account for fixed header
+          'scroll-mt-20',
           level === 1 && 'text-4xl font-bold mt-12 mb-4',
           level === 2 && 'text-2xl font-semibold mt-10 mb-4',
           level === 3 && 'text-xl font-semibold mt-8 mb-3',
@@ -217,7 +149,7 @@ function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
   return Heading
 }
 
-// Enhanced components with all new features
+// Simple components that work during build
 const components = {
   // Headings with proper anchor links
   h1: createHeading(1),
@@ -234,9 +166,9 @@ const components = {
   // Enhanced links
   a: CustomLink,
   
-  // Enhanced code with Shiki highlighting
-  code: Code,
-  pre: Pre,
+  // Simple code components
+  code: SimpleCode,
+  pre: SimplePre,
   
   // Tables
   Table,
@@ -249,10 +181,6 @@ const components = {
   Danger,
   Info,
   Success,
-  
-  // Math components
-  MathInline,
-  MathBlock,
   
   // Enhanced blockquote
   blockquote: ({ children, ...props }: { children: React.ReactNode }) => (
@@ -267,7 +195,7 @@ const components = {
   )
 }
 
-export function CustomMDX({ source, components: customComponents, options = {} }: CustomMDXProps) {
+export function SimpleMDX({ source, components: customComponents, options = {} }: SimpleMDXProps) {
   const { showTableOfContents = false } = options
   const toc = showTableOfContents ? extractTocFromContent(source) : []
   
@@ -280,16 +208,6 @@ export function CustomMDX({ source, components: customComponents, options = {} }
       )}
       <MDXRemote
         source={source}
-        options={{
-          mdxOptions: {
-            remarkPlugins: [
-              // Add remark plugins here if needed
-            ],
-            rehypePlugins: [
-              // Add rehype plugins here if needed
-            ],
-          },
-        }}
         components={{ ...components, ...(customComponents || {}) }}
       />
     </div>
@@ -304,7 +222,5 @@ export {
   Warning,
   Danger,
   Info,
-  Success,
-  CodeBlock,
-  InlineCode
+  Success
 }
