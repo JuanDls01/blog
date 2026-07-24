@@ -1,16 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname } from "src/i18n/navigation";
 import { ThemeToggle } from "./theme-toggle";
 
-const navItems = {
-  "/": { name: "Home" },
-  "/work": { name: "Work" },
-};
+const locales = ["en", "es"] as const;
 
 export function Navbar() {
   const pathname = usePathname();
+  const locale = useLocale();
+  const t = useTranslations("nav");
+
+  const navItems = {
+    "/": { name: t("home") },
+    "/work": { name: t("work") },
+  };
 
   return (
     <nav className="flex items-center justify-between py-4">
@@ -35,7 +39,27 @@ export function Navbar() {
           );
         })}
       </div>
-      <ThemeToggle />
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 text-[13px] tabular-nums">
+          {locales.map((loc, i) => (
+            <span key={loc} className="flex items-center gap-1.5">
+              {i > 0 && <span className="text-faint">·</span>}
+              <Link
+                href={pathname}
+                locale={loc}
+                className={`uppercase transition-colors duration-150 ${
+                  locale === loc
+                    ? "text-fg font-medium"
+                    : "text-faint hover:text-fg"
+                }`}
+              >
+                {loc}
+              </Link>
+            </span>
+          ))}
+        </div>
+        <ThemeToggle />
+      </div>
     </nav>
   );
 }

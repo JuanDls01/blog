@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "title": "Juan De los Santos | Software Engineer",
+    "description": "I'm Juan De los Santos, a Software Engineer building scalable web applications with React, Next.js, and TypeScript. I specialize in AI-driven solutions, performance optimization, and intelligent user experiences. Currently modernizing public transport ticketing at GeoActio and building estacionar.me, a parking reservation platform for Argentina.",
+    "ogTitle": "Juan De los Santos | Software Engineer",
+    "ogDescription": "Software Engineer with over 3 years of experience in React, Next.js, and AI-driven solutions. Explore my projects, experience, and insights on intelligent web development."
+  },
+  "nav": {
+    "home": "Home",
+    "work": "Work"
+  },
+  "home": {
+    "role": "Software Engineer",
+    "openToOpportunities": "Open to opportunities",
+    "bioP1": "I build fast, thoughtful web applications with <strong>React</strong>, <strong>Next.js</strong> and <strong>TypeScript</strong>. Currently at <geoactio>GeoActio</geoactio>, modernizing public transport ticketing in Spain, while building <estacionar>EstacionAR</estacionar>, a parking reservation platform for Argentina.",
+    "bioP2": "Before that I led AI engineering at Crombie's Center of Excellence and helped run Puma's e-commerce across five countries. My industrial engineering background shapes how I work: break the complex problem down, then ship the simple solution.",
+    "sections": {
+      "experience": "Experience",
+      "projects": "Projects",
+      "stack": "Stack",
+      "contact": "Contact"
+    },
+    "experience": {
+      "geoactio": {
+        "role": "Frontend Engineer",
+        "summary": "Public transport ticketing for Spain. Multi-brand theming and end-to-end purchase flows with Next.js."
+      },
+      "crombieAiLead": {
+        "role": "AI Lead Engineer",
+        "summary": "Led the Center of Excellence designing AI agents and workflows. Vercel AI SDK, AWS Bedrock, Langchain."
+      },
+      "crombiePuma": {
+        "role": "Frontend Engineer",
+        "summary": "Puma e-commerce in 5 markets. Cut LCP by 25% and bundle size by 20%."
+      },
+      "crombieFullstack": {
+        "role": "FullStack Developer",
+        "summary": "Led a team of 4 building Crombie's site. React, Django, AWS with SST."
+      }
+    },
+    "projects": {
+      "estacionar": {
+        "description": "Parking reservations for Argentina — currently building"
+      },
+      "actioticket": {
+        "description": "Buy and manage public transport tickets across Spain"
+      },
+      "aiCoe": {
+        "description": "Agent architectures and AI workflows for client solutions"
+      }
+    },
+    "contactIntro": "Interested in working together, or just want to talk frontend and AI?",
+    "getInTouch": "Get in touch",
+    "seeFullExperience": "See full experience"
+  },
+  "work": {
+    "title": "Work",
+    "intro": "I've contributed to projects spanning software engineering, AI solutions, mentoring and team leadership. This is an overview of my professional journey.",
+    "sections": {
+      "education": "Education"
+    },
+    "positions": {
+      "estacionarFounder": {
+        "role": "Founder & Engineer",
+        "highlights": [
+          "Building estacionar.me, a parking reservation platform for Argentina: drivers discover and book parking spots, operators manage their garages.",
+          "Owning the full product: an Expo (React Native) driver app, a Next.js operator dashboard and a Hono + tRPC API.",
+          "PostgreSQL with PostGIS and Drizzle ORM, deployed to AWS (Lambda, RDS, S3, CloudFront) with SST."
+        ]
+      },
+      "geoactioFrontend": {
+        "role": "Frontend Engineer",
+        "highlights": [
+          "Building ActioTicket, a SaaS platform modernizing public transport ticketing in Spain, serving operators like Navarra and Sabadell.",
+          "Designed a multi-brand theme architecture with Next.js, TypeScript and Material UI, with custom styling per operator.",
+          "Implemented the end-to-end origin–destination ticket purchase flow — routes, dates, fares and checkout — for the Navarra operator.",
+          "Refactored key components with the Composite pattern, improving reuse across brands, and kept unit test coverage above 80% with Vitest and React Testing Library."
+        ]
+      },
+      "crombieAiLead": {
+        "role": "AI Lead Engineer · Center of Excellence",
+        "highlights": [
+          "Technical lead of a new team designing AI-driven solutions: intelligent agents with custom tools and controlled workflows.",
+          "Translated solution designs into requirements for team task division.",
+          "Vercel AI SDK, AWS Bedrock, Lambdas, DynamoDB, Langchain."
+        ]
+      },
+      "crombiePuma": {
+        "role": "Frontend Engineer",
+        "highlights": [
+          "Puma e-commerce across the U.S., Canada, UK, Japan and India with Next.js (SSR + CSR) and Sanity as headless CMS.",
+          "Improved LCP from 4.5s to 3.8s by tracing duplicate server requests with Google Cloud Trace, and cut bundle size by 20% with dynamic imports.",
+          "Implemented technical SEO (rendering strategy, dynamic metadata, structured data, sitemaps) and GA4 e-commerce tracking.",
+          "Built and maintained a shared Storybook component library across markets; unit and E2E testing with React Testing Library and Cypress."
+        ]
+      },
+      "crombieInstructor": {
+        "role": "Software Development Instructor",
+        "highlights": [
+          "Taught JavaScript, TypeScript and React in the second edition of Escuelita Crombie, the company's internal dev school."
+        ]
+      },
+      "crombieSsrFullstack": {
+        "role": "Ssr. FullStack Developer",
+        "highlights": [
+          "Led a team of 4 building Crombie's website with Next.js App Router, Tailwind CSS and TypeScript.",
+          "Configured Bitbucket pipelines for automated AWS deployments, managing infrastructure with SST.",
+          "Ran code reviews and mentored new developers."
+        ]
+      },
+      "crombieJrFullstack": {
+        "role": "Jr. FullStack Developer",
+        "highlights": [
+          "MVP for equipment management and preventive maintenance: REST API with Python and Django REST Framework.",
+          "Interactive UIs (forms, tables, dashboards, charts) with React, Vite, React Query and Material UI. Over 80% unit test coverage."
+        ]
+      },
+      "cagsaIntern": {
+        "role": "Industrial Engineer Intern",
+        "highlights": [
+          "Inventory management and an Excel-based cost and pricing system for GAUSS retail products.",
+          "Redesigned the plant floor layout to implement Just-In-Time with KANBAN cards."
+        ]
+      }
+    },
+    "education": {
+      "unl": {
+        "degree": "Industrial Engineering",
+        "note": "Systems thinking, process optimization and project management applied to software."
+      },
+      "henry": {
+        "degree": "Full Stack Web Developer",
+        "note": "Intensive full-time program: JavaScript, React, Node.js, SQL."
+      }
+    }
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "description": "The page you are looking for does not exist."
+  }
+}

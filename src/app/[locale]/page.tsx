@@ -1,61 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { FaXTwitter } from "react-icons/fa6";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link, getPathname } from "src/i18n/navigation";
 import { SpotlightRow, RowArrow } from "src/components/spotlight-row";
-import profilePic from "../public/me.jpg";
+import profilePic from "../../public/me.jpg";
 
-const experience = [
-  {
-    role: "Frontend Engineer",
-    company: "GeoActio",
-    period: "2025 — Now",
-    summary:
-      "Public transport ticketing for Spain. Multi-brand theming and end-to-end purchase flows with Next.js.",
-  },
-  {
-    role: "AI Lead Engineer",
-    company: "Crombie",
-    period: "2025",
-    summary:
-      "Led the Center of Excellence designing AI agents and workflows. Vercel AI SDK, AWS Bedrock, Langchain.",
-  },
-  {
-    role: "Frontend Engineer",
-    company: "Crombie / Puma",
-    period: "2023 — 2025",
-    summary:
-      "Puma e-commerce in 5 markets. Cut LCP by 25% and bundle size by 20%.",
-  },
-  {
-    role: "FullStack Developer",
-    company: "Crombie",
-    period: "2022 — 2023",
-    summary:
-      "Led a team of 4 building Crombie's site. React, Django, AWS with SST.",
-  },
-];
-
-const projects = [
-  {
-    title: "EstacionAR",
-    description: "Parking reservations for Argentina — currently building",
-    meta: "Next.js · Expo",
-    href: "https://estacionar.me",
-    external: true,
-  },
-  {
-    title: "ActioTicket",
-    description: "Buy and manage public transport tickets across Spain",
-    meta: "Next.js",
-    href: "/work",
-  },
-  {
-    title: "AI Center of Excellence",
-    description: "Agent architectures and AI workflows for client solutions",
-    meta: "AI SDK",
-    href: "/work",
-  },
+const experienceMeta = [
+  { key: "geoactio", company: "GeoActio", period: "2025 — Now" },
+  { key: "crombieAiLead", company: "Crombie", period: "2025" },
+  { key: "crombiePuma", company: "Crombie / Puma", period: "2023 — 2025" },
+  { key: "crombieFullstack", company: "Crombie", period: "2022 — 2023" },
 ];
 
 const stack = [
@@ -103,7 +58,37 @@ const socials = [
   },
 ];
 
-export default function Page() {
+export default async function Page({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "home" });
+  const workHref = getPathname({ href: "/work", locale });
+
+  const projectsMeta = [
+    {
+      key: "estacionar",
+      title: "EstacionAR",
+      meta: "Next.js · Expo",
+      href: "https://estacionar.me",
+      external: true,
+    },
+    {
+      key: "actioticket",
+      title: "ActioTicket",
+      meta: "Next.js",
+      href: workHref,
+    },
+    {
+      key: "aiCoe",
+      title: "AI Center of Excellence",
+      meta: "AI SDK",
+      href: workHref,
+    },
+  ];
+
   return (
     <>
       <section className="reveal flex flex-col gap-5">
@@ -121,44 +106,41 @@ export default function Page() {
             <h1 className="text-[19px] font-semibold tracking-[-0.01em] leading-tight">
               <span className="shine">Juani De los Santos</span>
             </h1>
-            <p className="text-sm text-muted mt-0.5">AI Frontend Engineer</p>
+            <p className="text-sm text-muted mt-0.5">{t("role")}</p>
           </div>
           <span className="ml-auto inline-flex items-center gap-1.5 text-[13px] text-muted whitespace-nowrap max-sm:hidden">
             <span className="size-[7px] rounded-full bg-accent" />
-            Open to opportunities
+            {t("openToOpportunities")}
           </span>
         </div>
 
         <div className="text-muted [&_strong]:text-fg [&_strong]:font-medium">
           <p>
-            I build fast, thoughtful web applications with{" "}
-            <strong>React</strong>, <strong>Next.js</strong> and{" "}
-            <strong>TypeScript</strong>. Currently at{" "}
-            <a
-              href="https://geoactio.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-fg underline decoration-faint underline-offset-[3px] hover:decoration-fg transition-colors duration-150"
-            >
-              GeoActio
-            </a>
-            , modernizing public transport ticketing in Spain, while building{" "}
-            <a
-              href="https://estacionar.me"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-fg underline decoration-faint underline-offset-[3px] hover:decoration-fg transition-colors duration-150"
-            >
-              estacionar.me
-            </a>
-            , a parking reservation platform for Argentina.
+            {t.rich("bioP1", {
+              strong: (chunks) => <strong>{chunks}</strong>,
+              geoactio: (chunks) => (
+                <a
+                  href="https://geoactio.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-fg underline decoration-faint underline-offset-[3px] hover:decoration-fg transition-colors duration-150"
+                >
+                  {chunks}
+                </a>
+              ),
+              estacionar: (chunks) => (
+                <a
+                  href="https://estacionar.me"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-fg underline decoration-faint underline-offset-[3px] hover:decoration-fg transition-colors duration-150"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
           </p>
-          <p className="mt-3.5">
-            Before that I led AI engineering at Crombie&apos;s Center of
-            Excellence and helped run Puma&apos;s e-commerce across five
-            countries. My industrial engineering background shapes how I work:
-            break the complex problem down, then ship the simple solution.
-          </p>
+          <p className="mt-3.5">{t("bioP2")}</p>
         </div>
 
         <div className="flex items-center gap-1 -ml-2">
@@ -179,24 +161,24 @@ export default function Page() {
       </section>
 
       <section className="reveal reveal-1 mt-16">
-        <SectionTitle>Experience</SectionTitle>
+        <SectionTitle>{t("sections.experience")}</SectionTitle>
         <ul className="flex flex-col">
-          {experience.map((job, i) => (
+          {experienceMeta.map((job, i) => (
             <li
-              key={`${job.company}-${job.role}`}
+              key={`${job.company}-${job.key}`}
               className={`grid grid-cols-[1fr_auto] gap-x-4 gap-y-0.5 py-3.5 ${
                 i === 0 ? "pt-0" : "border-t border-line"
               }`}
             >
               <span className="text-[14.5px] font-medium">
-                {job.role} ·{" "}
+                {t(`experience.${job.key}.role`)} ·{" "}
                 <span className="text-muted font-normal">{job.company}</span>
               </span>
               <span className="text-[13px] text-faint tabular-nums whitespace-nowrap pt-px">
                 {job.period}
               </span>
               <span className="col-span-full text-[13.5px] text-muted mt-1">
-                {job.summary}
+                {t(`experience.${job.key}.summary`)}
               </span>
             </li>
           ))}
@@ -204,10 +186,10 @@ export default function Page() {
       </section>
 
       <section className="reveal reveal-2 mt-16">
-        <SectionTitle>Projects</SectionTitle>
+        <SectionTitle>{t("sections.projects")}</SectionTitle>
         <ul className="flex flex-col -mx-3">
-          {projects.map((project) => (
-            <li key={project.title}>
+          {projectsMeta.map((project) => (
+            <li key={project.key}>
               <SpotlightRow
                 href={project.href}
                 {...(project.external
@@ -219,7 +201,7 @@ export default function Page() {
                     {project.title} <RowArrow />
                   </span>
                   <span className="block text-[13.5px] text-muted mt-0.5">
-                    {project.description}
+                    {t(`projects.${project.key}.description`)}
                   </span>
                 </span>
                 <span className="text-[13px] text-faint whitespace-nowrap">
@@ -232,7 +214,7 @@ export default function Page() {
       </section>
 
       <section className="reveal reveal-3 mt-16">
-        <SectionTitle>Stack</SectionTitle>
+        <SectionTitle>{t("sections.stack")}</SectionTitle>
         <p className="text-sm text-muted leading-8">
           {stack.map((tech, i) => (
             <span key={tech}>
@@ -246,22 +228,20 @@ export default function Page() {
       </section>
 
       <section className="reveal reveal-4 mt-16">
-        <SectionTitle>Contact</SectionTitle>
-        <p className="text-muted mb-5">
-          Interested in working together, or just want to talk frontend and AI?
-        </p>
+        <SectionTitle>{t("sections.contact")}</SectionTitle>
+        <p className="text-muted mb-5">{t("contactIntro")}</p>
         <div className="flex items-center gap-5 flex-wrap">
           <a
             href="mailto:juanignaciodelossantos01@gmail.com"
             className="inline-flex items-center rounded-lg bg-fg text-bg text-sm font-medium px-3.5 py-2 transition-[transform,opacity] duration-150 ease-out-strong hover:opacity-85 active:scale-[0.97]"
           >
-            Get in touch
+            {t("getInTouch")}
           </a>
           <Link
             href="/work"
             className="text-sm text-muted underline decoration-line underline-offset-[3px] hover:text-fg hover:decoration-fg transition-colors duration-150"
           >
-            See full experience
+            {t("seeFullExperience")}
           </Link>
         </div>
       </section>
