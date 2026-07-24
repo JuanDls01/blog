@@ -1,91 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* KaTeX styles for math rendering */
-@import 'katex/dist/katex.min.css';
+@import "katex/dist/katex.min.css";
 
-@layer base {
-  :root {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --ring: 216 34% 17%;
-    --radius: 0.5rem;
-    
-    /* Enhanced spacing and animation variables */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --spacing-3xl: 4rem;
-    
-    /* Animation durations */
-    --duration-fast: 150ms;
-    --duration-normal: 300ms;
-    --duration-slow: 500ms;
-    
-    /* Enhanced color palette */
-    --neutral-50: 250 250 250;
-    --neutral-100: 244 244 245;
-    --neutral-200: 228 228 231;
-    --neutral-300: 212 212 216;
-    --neutral-400: 161 161 170;
-    --neutral-500: 113 113 122;
-    --neutral-600: 82 82 91;
-    --neutral-700: 63 63 70;
-    --neutral-800: 39 39 42;
-    --neutral-900: 24 24 27;
-    --neutral-950: 9 9 11;
-  }
-}
+@custom-variant dark (&:is(.dark *));
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply font-sans antialiased bg-background text-foreground;
-    line-height: 1.7;
-    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
-  }
-  
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  /* Focus styles */
-  *:focus-visible {
-    outline: 2px solid hsl(var(--ring));
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-}
-
-::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
-}
-
+/* ============ Design tokens ============ */
 :root {
+  color-scheme: light;
+
+  --bg: #fdfdfc;
+  --fg: #1a1a19;
+  --muted: #6f6f6c;
+  --faint: #a3a39e;
+  --line: rgba(0, 0, 0, 0.08);
+  --surface: rgba(0, 0, 0, 0.035);
+  --surface-hover: rgba(0, 0, 0, 0.06);
+  --accent: #0d6e5f;
+  --nav-bg: rgba(253, 253, 252, 0.7);
+  --spot: rgba(0, 0, 0, 0.045);
+  --shimmer: rgba(255, 255, 255, 0.9);
+
+  /* sugar-high inline code highlighting */
   --sh-class: #2d5e9d;
   --sh-identifier: #354150;
   --sh-sign: #8996a3;
@@ -97,25 +33,205 @@
   --sh-entity: #e25a1c;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295;
-  }
-  html {
-    color-scheme: dark;
+.dark {
+  color-scheme: dark;
+
+  --bg: #111110;
+  --fg: #ededea;
+  --muted: #9c9c97;
+  --faint: #63635e;
+  --line: rgba(255, 255, 255, 0.09);
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --accent: #3ecfae;
+  --nav-bg: rgba(17, 17, 16, 0.7);
+  --spot: rgba(255, 255, 255, 0.06);
+  --shimmer: rgba(255, 255, 255, 0.7);
+
+  --sh-class: #4c97f8;
+  --sh-identifier: #ededea;
+  --sh-keyword: #f47067;
+  --sh-string: #0fa295;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-accent: var(--accent);
+  --color-nav: var(--nav-bg);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Strong easings (emil-style) */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ============ Base ============ */
+html {
+  min-width: 360px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Remove Safari input shadow on mobile */
+input[type="text"],
+input[type="email"] {
+  appearance: none;
+}
+
+.title {
+  text-wrap: balance;
+}
+
+/* ============ Motion ============ */
+
+/* One-time load-in stagger (decorative) */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: reveal 600ms var(--ease-out-strong) forwards;
+}
+.reveal-1 { animation-delay: 60ms; }
+.reveal-2 { animation-delay: 120ms; }
+.reveal-3 { animation-delay: 180ms; }
+.reveal-4 { animation-delay: 240ms; }
+.reveal-5 { animation-delay: 300ms; }
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-html {
-  min-width: 360px;
+/* Aurora background */
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  width: 55vw;
+  height: 40vh;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.13;
+  animation: aurora-drift 26s var(--ease-in-out-strong) infinite alternate;
+}
+.aurora::before {
+  top: -20vh;
+  left: -10vw;
+  background: var(--accent);
+}
+.aurora::after {
+  top: -25vh;
+  right: -15vw;
+  background: #5b7cfa;
+  animation-delay: -13s;
+}
+@keyframes aurora-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(6vw, 4vh, 0) scale(1.15); }
+}
+
+/* Shiny text: slow shimmer sweep (ReactBits-style) */
+.shine {
+  background: linear-gradient(
+    110deg,
+    var(--fg) 45%,
+    color-mix(in srgb, var(--fg) 30%, var(--shimmer)) 50%,
+    var(--fg) 55%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shine 5.5s var(--ease-in-out-strong) 1.2s infinite;
+}
+@keyframes shine {
+  0% { background-position: 115% 0; }
+  35%, 100% { background-position: -35% 0; }
+}
+
+/* Spotlight rows: radial highlight following the cursor (set via --mx/--my) */
+@media (hover: hover) and (pointer: fine) {
+  .spotlight:hover {
+    background: radial-gradient(
+      180px circle at var(--mx, 50%) var(--my, 50%),
+      var(--spot),
+      transparent 70%
+    );
+  }
+}
+
+/* Scroll edge: soft fade under the sticky header instead of a hard border */
+.scroll-edge::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -16px 0;
+  height: 16px;
+  background: linear-gradient(to bottom, var(--bg), transparent);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    animation: reveal-fade 200ms ease forwards;
+    transform: none;
+  }
+  @keyframes reveal-fade {
+    to { opacity: 1; }
+  }
+  .aurora::before,
+  .aurora::after {
+    animation: none;
+  }
+  .shine {
+    animation: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--fg);
+    background: none;
+  }
+}
+
+/* ============ Prose (blog posts) ============ */
+.prose {
+  color: var(--fg);
 }
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
-
+  position: absolute;
+  visibility: hidden;
+  text-decoration: none;
   margin-left: -1em;
   padding-right: 0.5em;
   width: 80%;
@@ -123,86 +239,102 @@ html {
   cursor: pointer;
 }
 
-.anchor:hover {
-  @apply visible;
-}
-
-.prose a {
-  @apply underline transition-all decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+.prose .anchor:hover,
+.prose *:hover > .anchor {
+  visibility: visible;
 }
 
 .prose .anchor:after {
-  @apply text-neutral-700;
   content: "#";
+  color: var(--faint);
 }
 
-.prose *:hover > .anchor {
-  @apply visible;
+.prose a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--faint);
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
 }
 
+.prose a:hover {
+  text-decoration-color: var(--fg);
+}
+
+.prose p {
+  margin-block: 1.5rem;
+  color: var(--fg);
+  line-height: 1.7;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--fg);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.prose h1 { font-size: 2rem; line-height: 1.2; margin: 3rem 0 1rem; }
+.prose h2 { font-size: 1.4rem; line-height: 1.3; margin: 2.5rem 0 1rem; }
+.prose h3 { font-size: 1.15rem; line-height: 1.4; margin: 2rem 0 0.75rem; }
+.prose h4 { font-size: 1rem; line-height: 1.5; margin: 1.5rem 0 0.5rem; }
+
+.prose strong {
+  font-weight: 500;
+}
+
+.prose ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.prose ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  color: var(--fg);
+}
+
+.prose img {
+  margin: 0;
+}
+
+.prose > :first-child {
+  margin-top: 1.25em !important;
+  margin-bottom: 1.25em !important;
+}
+
+/* Code */
 .prose pre {
-  @apply bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-900 py-2 px-3 text-sm;
+  background: #0d1117;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
 }
 
 .prose code {
-  @apply px-1 py-0.5 rounded-lg;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.375rem;
+  background: var(--surface);
+  font-size: 0.875em;
 }
 
 .prose pre code {
-  @apply p-0;
+  padding: 0;
+  background: none;
   border: initial;
   line-height: 1.5;
 }
 
 .prose code span {
-  @apply font-medium;
-}
-
-.prose img {
-  /* Don't apply styles to next/image */
-  @apply m-0;
-}
-
-.prose p {
-  @apply my-6 text-neutral-200 leading-relaxed;
-}
-
-.prose h1 {
-  @apply text-4xl font-semibold tracking-tight mt-12 mb-4 text-neutral-100;
-  line-height: 1.2;
-}
-
-.prose h2 {
-  @apply text-2xl font-semibold tracking-tight mt-10 mb-4 text-neutral-100;
-  line-height: 1.3;
-}
-
-.prose h3 {
-  @apply text-xl font-semibold tracking-tight mt-8 mb-3 text-neutral-200;
-  line-height: 1.4;
-}
-
-.prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2 text-neutral-200;
-  line-height: 1.5;
-}
-
-.prose strong {
-  @apply font-medium;
-}
-
-.prose ul {
-  @apply list-disc pl-6;
-}
-
-.prose ol {
-  @apply list-decimal pl-6;
-}
-
-.prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
-  margin-bottom: 1.25em !important;
+  font-weight: 500;
 }
 
 pre::-webkit-scrollbar {
@@ -210,168 +342,78 @@ pre::-webkit-scrollbar {
 }
 
 pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
 
-/* Remove Safari input shadow on mobile */
-input[type="text"],
-input[type="email"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-table {
-  display: block;
-  max-width: fit-content;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.title {
-  text-wrap: balance;
-}
-
-/* Custom animations and utilities */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slide-in-from-bottom-4 {
-  from {
-    transform: translateY(1rem);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes slide-in-from-bottom-8 {
-  from {
-    transform: translateY(2rem);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.animate-in {
-  animation-fill-mode: both;
-}
-
-.fade-in {
-  animation-name: fade-in;
-}
-
-.slide-in-from-bottom-4 {
-  animation-name: slide-in-from-bottom-4;
-}
-
-.slide-in-from-bottom-8 {
-  animation-name: slide-in-from-bottom-8;
-}
-
-.duration-300 {
-  animation-duration: 300ms;
-}
-
-.duration-700 {
-  animation-duration: 700ms;
-}
-
-.duration-1000 {
-  animation-duration: 1000ms;
-}
-
-.delay-150 {
-  animation-delay: 150ms;
-}
-
-.delay-300 {
-  animation-delay: 300ms;
-}
-
-/* Line clamp utility */
-.line-clamp-2 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-/* Shiki syntax highlighting overrides */
+/* Code blocks stay dark in both themes (highlighted with github-dark) */
 .shiki-pre {
-  @apply bg-gray-900 rounded-lg overflow-x-auto p-4 my-6;
-  border: 1px solid rgb(55, 65, 81);
+  background: #0d1117 !important;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  padding: 1rem;
+  margin-block: 1.5rem;
 }
 
 .shiki-code {
-  @apply text-sm leading-relaxed;
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-family: var(--font-mono);
 }
 
-/* Dark mode Shiki overrides */
-@media (prefers-color-scheme: dark) {
-  .shiki-pre[data-theme="github-dark"] {
-    @apply bg-gray-900 border-gray-700;
-  }
+/* Tables */
+.prose table {
+  display: table;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: normal;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+  margin-block: 1.5rem;
+  font-size: 0.875rem;
 }
 
-/* Light mode Shiki overrides */
-@media (prefers-color-scheme: light) {
-  .shiki-pre[data-theme="github-light"] {
-    @apply bg-gray-50 border-gray-200;
-  }
+.prose th {
+  background: var(--surface);
+  padding: 0.5rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid var(--line);
 }
 
-/* KaTeX custom styling for dark mode compatibility */
-.katex {
-  color: inherit !important;
+.prose td {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--line);
 }
 
+.prose tbody tr:nth-child(even) {
+  background: var(--surface);
+}
+
+/* Blockquotes */
+.prose blockquote {
+  border-left: 2px solid var(--accent);
+  padding: 0.5rem 0 0.5rem 1rem;
+  margin-block: 1.5rem;
+}
+
+.prose blockquote p {
+  color: var(--muted);
+  margin-block: 0.5rem;
+}
+
+/* KaTeX */
+.katex,
 .katex .base {
   color: inherit !important;
 }
 
-/* Math block styling */
 .math-display {
-  @apply my-6 overflow-x-auto;
+  margin-block: 1.5rem;
+  overflow-x: auto;
 }
 
 .math-inline {
-  @apply mx-1;
-}
-
-/* Enhanced table styling */
-.prose table {
-  @apply w-full border-collapse border border-gray-300 dark:border-gray-600 my-6 text-sm;
-  display: table;
-  white-space: normal;
-}
-
-.prose th {
-  @apply bg-gray-100 dark:bg-gray-800 px-4 py-2 text-left font-semibold border border-gray-300 dark:border-gray-600;
-}
-
-.prose td {
-  @apply px-4 py-2 border border-gray-300 dark:border-gray-600;
-}
-
-.prose tbody tr:nth-child(even) {
-  @apply bg-gray-50 dark:bg-gray-800/50;
-}
-
-/* Enhanced blockquote styling */
-.prose blockquote {
-  @apply border-l-4 border-blue-500 pl-4 py-2 my-6 bg-blue-50 dark:bg-blue-950/20 rounded-r;
-}
-
-.prose blockquote p {
-  @apply italic text-gray-700 dark:text-gray-300 my-2;
+  margin-inline: 0.25rem;
 }

@@ -73,7 +73,7 @@ export function TableOfContents({ toc, className }: TableOfContentsProps) {
                 level === 3 && 'pl-8 text-xs',
                 level >= 4 && 'pl-12 text-xs',
                 activeId === id
-                  ? 'text-blue-600 dark:text-blue-400 font-medium'
+                  ? 'text-accent font-medium'
                   : 'text-gray-600 dark:text-gray-400'
               )}
             >

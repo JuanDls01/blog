@@ -1,170 +1,193 @@
-import { Icon } from "@/src/components/icons";
-import { Badge } from "@/src/components/ui/badge";
-
 export const metadata = {
   title: "Experience",
   description: "An overview of my professional journey",
 };
 
+type Position = {
+  role: string;
+  period: string;
+  highlights: string[];
+};
+
+type Job = {
+  company: string;
+  positions: Position[];
+};
+
+const jobs: Job[] = [
+  {
+    company: "EstacionAR",
+    positions: [
+      {
+        role: "Founder & Engineer",
+        period: "2026 — Now",
+        highlights: [
+          "Building estacionar.me, a parking reservation platform for Argentina: drivers discover and book parking spots, operators manage their garages.",
+          "Owning the full product: an Expo (React Native) driver app, a Next.js operator dashboard and a Hono + tRPC API.",
+          "PostgreSQL with PostGIS and Drizzle ORM, deployed to AWS (Lambda, RDS, S3, CloudFront) with SST.",
+        ],
+      },
+    ],
+  },
+  {
+    company: "GeoActio",
+    positions: [
+      {
+        role: "Frontend Engineer",
+        period: "Jul 2025 — Now",
+        highlights: [
+          "Building ActioTicket, a SaaS platform modernizing public transport ticketing in Spain, serving operators like Navarra and Sabadell.",
+          "Designed a multi-brand theme architecture with Next.js, TypeScript and Material UI, with custom styling per operator.",
+          "Implemented the end-to-end origin–destination ticket purchase flow — routes, dates, fares and checkout — for the Navarra operator.",
+          "Refactored key components with the Composite pattern, improving reuse across brands, and kept unit test coverage above 80% with Vitest and React Testing Library.",
+        ],
+      },
+    ],
+  },
+  {
+    company: "Crombie",
+    positions: [
+      {
+        role: "AI Lead Engineer · Center of Excellence",
+        period: "May 2025 — Jul 2025",
+        highlights: [
+          "Technical lead of a new team designing AI-driven solutions: intelligent agents with custom tools and controlled workflows.",
+          "Translated solution designs into requirements for team task division.",
+          "Vercel AI SDK, AWS Bedrock, Lambdas, DynamoDB, Langchain.",
+        ],
+      },
+      {
+        role: "Frontend Engineer",
+        period: "Nov 2023 — May 2025",
+        highlights: [
+          "Puma e-commerce across the U.S., Canada, UK, Japan and India with Next.js (SSR + CSR) and Sanity as headless CMS.",
+          "Improved LCP from 4.5s to 3.8s by tracing duplicate server requests with Google Cloud Trace, and cut bundle size by 20% with dynamic imports.",
+          "Implemented technical SEO (rendering strategy, dynamic metadata, structured data, sitemaps) and GA4 e-commerce tracking.",
+          "Built and maintained a shared Storybook component library across markets; unit and E2E testing with React Testing Library and Cypress.",
+        ],
+      },
+      {
+        role: "Software Development Instructor",
+        period: "Jul 2023 — Nov 2023",
+        highlights: [
+          "Taught JavaScript, TypeScript and React in the second edition of Escuelita Crombie, the company's internal dev school.",
+        ],
+      },
+      {
+        role: "Ssr. FullStack Developer",
+        period: "May 2023 — Nov 2023",
+        highlights: [
+          "Led a team of 4 building Crombie's website with Next.js App Router, Tailwind CSS and TypeScript.",
+          "Configured Bitbucket pipelines for automated AWS deployments, managing infrastructure with SST.",
+          "Ran code reviews and mentored new developers.",
+        ],
+      },
+      {
+        role: "Jr. FullStack Developer",
+        period: "Nov 2022 — May 2023",
+        highlights: [
+          "MVP for equipment management and preventive maintenance: REST API with Python and Django REST Framework.",
+          "Interactive UIs (forms, tables, dashboards, charts) with React, Vite, React Query and Material UI. Over 80% unit test coverage.",
+        ],
+      },
+    ],
+  },
+  {
+    company: "CAGSA",
+    positions: [
+      {
+        role: "Industrial Engineer Intern",
+        period: "Jan 2021 — Jan 2022",
+        highlights: [
+          "Inventory management and an Excel-based cost and pricing system for GAUSS retail products.",
+          "Redesigned the plant floor layout to implement Just-In-Time with KANBAN cards.",
+        ],
+      },
+    ],
+  },
+];
+
+const education = [
+  {
+    school: "Universidad Nacional del Litoral",
+    degree: "Industrial Engineering",
+    period: "2017 — 2026",
+    note: "Systems thinking, process optimization and project management applied to software.",
+  },
+  {
+    school: "Henry Bootcamp",
+    degree: "Full Stack Web Developer",
+    period: "2022",
+    note: "Intensive full-time program: JavaScript, React, Node.js, SQL.",
+  },
+];
+
 const WorkPage = () => {
   return (
-    <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">My work</h1>
-      <p className="text-base">
-        Passionate about building impactful digital solutions and enhancing user
-        experiences, I&apos;ve contributed to projects spanning software
-        engineering, mentoring, and team collaboration. This is an overview of
-        my professional journey:
+    <section className="reveal">
+      <h1 className="text-[19px] font-semibold tracking-[-0.01em]">Work</h1>
+      <p className="text-muted mt-3">
+        I&apos;ve contributed to projects spanning software engineering, AI
+        solutions, mentoring and team leadership. This is an overview of my
+        professional journey.
       </p>
-      <hr className="my-6 border-neutral-800" />
-      <div>
-        <h2 className="font-semibold text-xl tracking-tighter my-4">
-          GeoActio
-        </h2>
-        <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight mt-4 mb-2">
-          {"Software Engineer Frontend (Jul 2025 - Present)"}
-        </h3>
-        <span className="text-sm">
-          Currently developing the ActioTicket web application using{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            Next.js <Icon.NextJs />
-          </Badge>{" "}
-          , a platform that enables users to purchase and manage public
-          transportation tickets in Spain. Building intuitive user interfaces
-          with{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            TypeScript <Icon.TypeScript />
-          </Badge>{" "}
-          and implementing comprehensive unit testing to ensure code quality and
-          application reliability. Contributing to modernizing public
-          transportation ticketing systems with digital solutions.
-        </span>
-      </div>
-      <hr className="my-6 border-neutral-800" />
-      <div>
-        <h2 className="font-semibold text-xl tracking-tighter my-4">Crombie</h2>
-        <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight mt-4 mb-2">
-          {"AI Lead Engineer - Center of Excellence (May 2025 - Jul 2025)"}
-        </h3>
-        <span className="text-sm">
-          Served as Technical Lead of Crombie&apos;s CoE, a new team focused on
-          designing AI-driven solutions based on client needs. Proposed
-          technical designs for client solutions, from intelligent agents with
-          custom tools to workflows with greater execution control. Translated
-          solutions into requirements for team task division. Utilized
-          technologies such as{" "}
-          <Badge variant="outline" className="px-1">
-            Vercel AI SDK
-          </Badge>
-          ,{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            AWS <Icon.Aws />
-          </Badge>{" "}
-          Bedrock, Lambdas, DynamoDB, and Langchain.
-        </span>
-        <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight mt-4 mb-2">
-          {"Software Engineer Frontend (Nov 2023 - May 2025)"}
-        </h3>
-        <span className="text-sm">
-          Part of an interdisciplinary team managing{" "}
-          <span className="inline-flex items-center gap-x-1">
-            Puma <Icon.Puma />
-          </span>{" "}
-          e-commerce in the U.S., Canada, UK, Japan, and India. Used{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            Next.js <Icon.NextJs />
-          </Badge>{" "}
-          with Server-Side Rendering (SSR) to optimize SEO and Client-Side
-          Rendering (CSR) to enhance interactivity. Employed Google Cloud Trace
-          Explorer to detect duplicate queries, reducing Largest Contentful
-          Paint (LCP) by 25% and improving conversion rates. Reduced bundle size
-          by 20% by dynamically importing unnecessary files. Developed
-          middlewares in a custom Next.js server using Node.js and Express.
-        </span>
-        <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight mt-4 mb-2">
-          {"Ssr. FullStack Developer (Jun. 2023 - Nov. 2023)"}
-        </h3>
-        <span className="text-sm">
-          Led a team of 4 developers to build Crombie&apos;s new website, using{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            Next.js <Icon.NextJs />
-          </Badge>{" "}
-          with App Router for server-side rendering, improving performance and
-          SEO. Added styles and animations with Tailwind CSS. Used{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            TypeScript <Icon.TypeScript />
-          </Badge>{" "}
-          to improve code quality. Configured Bitbucket pipelines for automated
-          deployments in{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            AWS <Icon.Aws />
-          </Badge>{" "}
-          and managed infrastructure with SST (Serverless Stack).
-        </span>
-        <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight mt-4 mb-2">
-          {"Jr. FullStack Developer (Nov 2022 - Jun 2023)"}
-        </h3>
-        <span className="text-sm">
-          Developed an MVP for equipment management and preventive maintenance.
-          Built a REST API using{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            Python <Icon.Python />
-          </Badge>{" "}
-          and{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            Django <Icon.Django />
-          </Badge>{" "}
-          Rest Framework and developed interactive user interfaces (forms,
-          tables, dashboards, and charts) using{" "}
-          <Badge
-            variant="outline"
-            className="px-1 inline-flex items-center gap-x-1"
-          >
-            React <Icon.React />
-          </Badge>{" "}
-          , Vite, React Query, and Material UI. Achieved over 80% test coverage
-          in unit tests.
-        </span>
-      </div>
-      <hr className="my-6 border-neutral-800" />
-      <div>
-        <h2 className="font-semibold text-xl tracking-tighter my-4">CAGSA</h2>
-        <h3 className="font-semibold text-base text-neutral-400/70 leading-none tracking-tight my-4">
-          {"Industrial Engineer Intern (Jan 2021 - Jan 2022)"}
-        </h3>
-        <p className="text-sm">
-          I assisted in inventory management and developed an Excel-based system
-          for managing costs and pricing of GAUSS retail products. I also
-          redesigned the plant floor layout to implement a Just-In-Time (JIT)
-          methodology using KANBAN cards.
-        </p>
+
+      <div className="mt-10 flex flex-col gap-10">
+        {jobs.map((job) => (
+          <div key={job.company}>
+            <h2 className="text-[13px] font-medium uppercase tracking-[0.05em] text-faint mb-4">
+              {job.company}
+            </h2>
+            <ul className="flex flex-col gap-6">
+              {job.positions.map((position) => (
+                <li key={position.role}>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h3 className="text-[14.5px] font-medium">
+                      {position.role}
+                    </h3>
+                    <span className="text-[13px] text-faint tabular-nums whitespace-nowrap">
+                      {position.period}
+                    </span>
+                  </div>
+                  <ul className="mt-2 flex flex-col gap-1.5">
+                    {position.highlights.map((highlight) => (
+                      <li
+                        key={highlight}
+                        className="text-[13.5px] text-muted pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-faint"
+                      >
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        <div>
+          <h2 className="text-[13px] font-medium uppercase tracking-[0.05em] text-faint mb-4">
+            Education
+          </h2>
+          <ul className="flex flex-col gap-6">
+            {education.map((item) => (
+              <li key={item.school}>
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="text-[14.5px] font-medium">
+                    {item.degree} ·{" "}
+                    <span className="text-muted font-normal">
+                      {item.school}
+                    </span>
+                  </h3>
+                  <span className="text-[13px] text-faint tabular-nums whitespace-nowrap">
+                    {item.period}
+                  </span>
+                </div>
+                <p className="text-[13.5px] text-muted mt-1">{item.note}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
