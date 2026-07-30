@@ -189,6 +189,13 @@ input[type="email"] {
   }
 }
 
+/* Theme switch: crossfade old/new page snapshots instead of an instant color cut */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 300ms;
+  animation-timing-function: var(--ease-in-out-strong);
+}
+
 /* Scroll edge: soft fade under the sticky header instead of a hard border */
 .scroll-edge::after {
   content: "";
@@ -220,6 +227,10 @@ input[type="email"] {
     -webkit-text-fill-color: currentColor;
     color: var(--fg);
     background: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
   }
 }
 
