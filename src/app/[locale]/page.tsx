@@ -4,7 +4,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link, getPathname } from "src/i18n/navigation";
 import { SpotlightRow, RowArrow } from "src/components/spotlight-row";
-import profilePic from "../../public/me.jpg";
+import profilePic from "../../../public/me.jpg";
 
 const experienceMeta = [
   { key: "geoactio", company: "GeoActio", period: "2025 — Now" },
