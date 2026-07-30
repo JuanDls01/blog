@@ -134,6 +134,12 @@
       }
     }
   },
+  "blog": {
+    "title": "Blog",
+    "intro": "Thoughts on software development, web performance, and the technologies I work with.",
+    "draft": "Draft",
+    "fallbackNotice": "This post is not translated to English yet — showing the original version."
+  },
   "notFound": {
     "title": "404 - Page Not Found",
     "description": "The page you are looking for does not exist."

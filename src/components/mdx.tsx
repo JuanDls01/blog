@@ -1,247 +1,163 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { MDXRemote } from 'next-mdx-remote/rsc'
-import { createElement } from 'react'
-import { CodeBlock, InlineCode } from './code'
-import { Callout, Note, Tip, Warning, Danger, Info, Success } from './callout'
-import { extractTocFromContent } from './table-of-contents'
-import { TocWrapper } from './toc-wrapper'
-import { cn } from 'src/lib/utils'
+import Link from "next/link";
+import Image from "next/image";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { createElement } from "react";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import { highlightCode } from "src/lib/shiki";
+import { CopyButton } from "./copy-button";
+import { Callout, Note, Tip, Warning, Danger, Info, Success } from "./callout";
+import { cn } from "src/lib/utils";
 
-// Types for better TypeScript support
-interface CustomLinkProps {
-  href: string
-  children: React.ReactNode
-  className?: string
+interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string;
+  children: React.ReactNode;
 }
 
-interface CustomImageProps {
-  src: string
-  alt: string
-  width?: number
-  height?: number
-  className?: string
-}
-
-interface CustomCodeProps {
-  children: string
-  className?: string
-  filename?: string
-}
-
-interface PreProps {
-  children: React.ReactElement<CustomCodeProps>
-  className?: string
-  filename?: string
-}
-
-interface TableData {
-  headers: string[]
-  rows: string[][]
-}
-
-interface TableProps {
-  data: TableData
-}
-
-interface CustomMDXProps {
-  source: string
-  components?: Record<string, React.ComponentType<any>>
-  options?: {
-    showTableOfContents?: boolean
-    enableMath?: boolean
-  }
-}
-
-function Table({ data }: TableProps) {
-  const headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
-  ))
-  const rows = data.rows.map((row, index) => (
-    <tr key={index}>
-      {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
-      ))}
-    </tr>
-  ))
-
-  return (
-    <div className="overflow-x-auto my-6">
-      <table className="w-full">
-        <thead>
-          <tr>{headers}</tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
-    </div>
-  )
-}
-
-function CustomLink({ href, children, className, ...props }: CustomLinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
-  if (href.startsWith('/')) {
+function CustomLink({ href, children, ...props }: CustomLinkProps) {
+  if (href.startsWith("/")) {
     return (
-      <Link href={href} className={className} {...props}>
+      <Link href={href} {...props}>
         {children}
       </Link>
-    )
+    );
   }
 
-  if (href.startsWith('#')) {
+  if (href.startsWith("#")) {
     return (
-      <a href={href} className={className} {...props}>
+      <a href={href} {...props}>
         {children}
       </a>
-    )
+    );
   }
 
   return (
-    <a 
-      href={href} 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      className={className}
-      {...props}
-    >
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
       {children}
     </a>
-  )
-}
-
-function RoundedImage({ alt, className, ...props }: CustomImageProps) {
-  return (
-    <Image 
-      alt={alt} 
-      className={cn("rounded-lg my-6 mx-auto", className)} 
-      {...props} 
-    />
-  )
-}
-
-// Enhanced code component with Shiki highlighting
-function Code({ children, className, ...props }: CustomCodeProps) {
-  // Check if this is inline code (no language class)
-  if (!className || !className.includes('language-')) {
-    return <InlineCode {...props}>{children}</InlineCode>
-  }
-
-  // Extract language from className (format: "language-javascript")
-  const language = className.replace('language-', '')
-  
-  return (
-    <CodeBlock language={language} {...props}>
-      {children}
-    </CodeBlock>
-  )
-}
-
-// Enhanced pre component to work with code blocks
-function Pre({ children, ...props }: PreProps) {
-  // If children is a code element, render with enhanced code block
-  if (children?.props?.className?.includes('language-')) {
-    const language = children.props.className.replace('language-', '')
-    return (
-      <CodeBlock language={language} {...props}>
-        {children.props.children}
-      </CodeBlock>
-    )
-  }
-  
-  // Fallback for regular pre blocks
-  return (
-    <pre className="bg-gray-900 rounded-lg p-4 overflow-x-auto my-6" {...props}>
-      {children}
-    </pre>
-  )
-}
-
-// Math components for KaTeX
-function MathInline({ children }: { children: string }) {
-  return (
-    <span 
-      className="math-inline"
-      dangerouslySetInnerHTML={{ __html: children }}
-    />
-  )
-}
-
-function MathBlock({ children }: { children: string }) {
-  return (
-    <div 
-      className="math-display text-center"
-      dangerouslySetInnerHTML={{ __html: children }}
-    />
-  )
+  );
 }
 
 function slugify(str: string): string {
   return str
     .toString()
     .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/&/g, "-and-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-");
+}
+
+function flattenChildren(children: React.ReactNode): string {
+  if (typeof children === "string") return children;
+  if (Array.isArray(children)) return children.map(flattenChildren).join("");
+  if (
+    children &&
+    typeof children === "object" &&
+    "props" in children &&
+    (children as React.ReactElement<{ children?: React.ReactNode }>).props
+  ) {
+    return flattenChildren(
+      (children as React.ReactElement<{ children?: React.ReactNode }>).props.children
+    );
+  }
+  return "";
 }
 
 function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
-  const Heading = ({ children, ...props }: { children: React.ReactNode }) => {
-    const slug = slugify(typeof children === 'string' ? children : children?.toString() || '')
+  const Heading = ({ children, ...props }: { children?: React.ReactNode }) => {
+    const slug = slugify(flattenChildren(children));
     return createElement(
       `h${level}`,
-      { 
-        id: slug,
-        className: cn(
-          'scroll-mt-20', // Account for fixed header
-          level === 1 && 'text-4xl font-bold mt-12 mb-4',
-          level === 2 && 'text-2xl font-semibold mt-10 mb-4',
-          level === 3 && 'text-xl font-semibold mt-8 mb-3',
-          level === 4 && 'text-lg font-medium mt-6 mb-2',
-          level >= 5 && 'text-base font-medium mt-4 mb-2'
-        ),
-        ...props
-      },
+      { id: slug, className: "scroll-mt-20", ...props },
       [
-        createElement('a', {
+        createElement("a", {
           href: `#${slug}`,
           key: `link-${slug}`,
-          className: 'anchor',
-          'aria-label': `Link to ${children}`
+          className: "anchor",
+          "aria-label": `Link to ${slug}`,
         }),
-        children
+        children,
       ]
-    )
-  }
+    );
+  };
 
-  Heading.displayName = `Heading${level}`
-  return Heading
+  Heading.displayName = `Heading${level}`;
+  return Heading;
 }
 
-// Enhanced components with all new features
+interface PreProps {
+  children?: React.ReactNode;
+}
+
+// Server component: highlights fenced code blocks with Shiki at render time
+async function Pre({ children }: PreProps) {
+  const codeElement = children as
+    | React.ReactElement<{ className?: string; children?: string }>
+    | undefined;
+
+  const rawCode =
+    typeof codeElement?.props?.children === "string"
+      ? codeElement.props.children.replace(/\n$/, "")
+      : flattenChildren(children);
+  const language =
+    codeElement?.props?.className?.replace("language-", "") ?? "text";
+
+  const html = await highlightCode(rawCode, language);
+
+  return (
+    <div className="relative group my-6">
+      <CopyButton code={rawCode} />
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </div>
+  );
+}
+
+function RoundedImage({
+  alt,
+  className,
+  ...props
+}: React.ComponentProps<typeof Image>) {
+  return (
+    <Image
+      alt={alt ?? ""}
+      className={cn("rounded-lg my-6 mx-auto", className)}
+      {...props}
+    />
+  );
+}
+
+// Plain markdown images (![alt](src)) have no intrinsic size, so they can't go
+// through next/image — use <Image> directly in MDX when dimensions are known.
+function MarkdownImage({
+  alt,
+  className,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement>) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      alt={alt ?? ""}
+      loading="lazy"
+      className={cn("rounded-lg my-6 mx-auto max-w-full", className)}
+      {...props}
+    />
+  );
+}
+
 const components = {
-  // Headings with proper anchor links
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
-  
-  // Enhanced media
-  Image: RoundedImage,
-  img: RoundedImage,
-  
-  // Enhanced links
   a: CustomLink,
-  
-  // Enhanced code with Shiki highlighting
-  code: Code,
   pre: Pre,
-  
-  // Tables
-  Table,
-  
-  // Callout components
+  Image: RoundedImage,
+  img: MarkdownImage,
   Callout,
   Note,
   Tip,
@@ -249,62 +165,27 @@ const components = {
   Danger,
   Info,
   Success,
-  
-  // Math components
-  MathInline,
-  MathBlock,
-  
-  // Enhanced blockquote
-  blockquote: ({ children, ...props }: { children: React.ReactNode }) => (
-    <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-6 bg-blue-50 dark:bg-blue-950/20 rounded-r italic" {...props}>
-      {children}
-    </blockquote>
-  ),
-  
-  // Enhanced HR
-  hr: ({ ...props }) => (
-    <hr className="my-8 border-gray-300 dark:border-gray-600" {...props} />
-  )
+};
+
+interface MDXProps {
+  source: string;
+  components?: Record<string, React.ComponentType<any>>;
 }
 
-export function CustomMDX({ source, components: customComponents, options = {} }: CustomMDXProps) {
-  const { showTableOfContents = false } = options
-  const toc = showTableOfContents ? extractTocFromContent(source) : []
-  
+export function CustomMDX({ source, components: customComponents }: MDXProps) {
   return (
-    <div className="relative">
-      {showTableOfContents && toc.length > 0 && (
-        <div className="mb-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-          <TocWrapper toc={toc} />
-        </div>
-      )}
-      <MDXRemote
-        source={source}
-        options={{
-          mdxOptions: {
-            remarkPlugins: [
-              // Add remark plugins here if needed
-            ],
-            rehypePlugins: [
-              // Add rehype plugins here if needed
-            ],
-          },
-        }}
-        components={{ ...components, ...(customComponents || {}) }}
-      />
-    </div>
-  )
-}
-
-// Export individual components for direct use in MDX
-export {
-  Callout,
-  Note,
-  Tip,
-  Warning,
-  Danger,
-  Info,
-  Success,
-  CodeBlock,
-  InlineCode
+    <MDXRemote
+      source={source}
+      options={{
+        // Our MDX comes from this repo, not from users — allow JSX expressions
+        // like width={800} (next-mdx-remote v6 strips them by default)
+        blockJS: false,
+        mdxOptions: {
+          remarkPlugins: [remarkGfm, remarkMath],
+          rehypePlugins: [rehypeKatex],
+        },
+      }}
+      components={{ ...components, ...(customComponents || {}) }}
+    />
+  );
 }

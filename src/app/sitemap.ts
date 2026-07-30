@@ -1,4 +1,4 @@
-import { getBlogPosts } from "./blog/utils";
+import { getAllSlugs, getPost } from "src/lib/posts";
 import { routing } from "src/i18n/routing";
 
 export const baseUrl = "https://juanidls.dev";
@@ -12,12 +12,7 @@ function localizedUrl(path: string, locale: string) {
 export default async function sitemap() {
   const today = new Date().toISOString().split("T")[0];
 
-  const blogs = getBlogPosts().map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
-  }));
-
-  const localizedRoutes = ["", "/work"].flatMap((path) =>
+  const localizedRoutes = ["", "/work", "/blog"].flatMap((path) =>
     routing.locales.map((locale) => ({
       url: localizedUrl(path, locale),
       lastModified: today,
@@ -29,5 +24,23 @@ export default async function sitemap() {
     }))
   );
 
-  return [...localizedRoutes, { url: `${baseUrl}/blog`, lastModified: today }, ...blogs];
+  const blogs = getAllSlugs().flatMap((slug) =>
+    routing.locales.flatMap((locale) => {
+      const post = getPost(slug, locale as (typeof routing.locales)[number]);
+      if (!post) return [];
+      return [
+        {
+          url: localizedUrl(`/blog/${slug}`, locale),
+          lastModified: post.metadata.publishedAt,
+          alternates: {
+            languages: Object.fromEntries(
+              routing.locales.map((l) => [l, localizedUrl(`/blog/${slug}`, l)])
+            ),
+          },
+        },
+      ];
+    })
+  );
+
+  return [...localizedRoutes, ...blogs];
 }

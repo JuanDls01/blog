@@ -134,6 +134,12 @@
       }
     }
   },
+  "blog": {
+    "title": "Blog",
+    "intro": "Reflexiones sobre desarrollo de software, performance web y las tecnologías con las que trabajo.",
+    "draft": "Borrador",
+    "fallbackNotice": "Esta entrada todavía no está traducida al español — se muestra la versión original."
+  },
   "notFound": {
     "title": "404 - Página no encontrada",
     "description": "La página que buscás no existe."
