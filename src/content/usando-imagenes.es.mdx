@@ -1,0 +1,58 @@
+---
+title: "Referencia: cómo usar imágenes en un post"
+publishedAt: "2026-07-30"
+summary: "Borrador de referencia con las dos formas de agregar imágenes a un post MDX."
+published: false
+---
+
+Este post es una referencia personal (queda en `published: false` para que nunca se publique).
+
+## Dónde van los archivos
+
+Las imágenes de cada post viven en `public/blog/<slug>/`, por ejemplo:
+
+```
+public/
+  blog/
+    usando-imagenes/
+      ejemplo.svg
+      captura.png
+```
+
+La URL pública es la misma ruta sin `public`: `/blog/usando-imagenes/ejemplo.svg`.
+
+## Opción 1: sintaxis markdown
+
+Para la mayoría de los casos alcanza con la sintaxis normal de markdown. Renderiza un `<img>` con lazy loading y bordes redondeados:
+
+```md
+![Imagen de ejemplo](/blog/usando-imagenes/ejemplo.svg)
+```
+
+![Imagen de ejemplo](/blog/usando-imagenes/ejemplo.svg)
+
+## Opción 2: componente Image (next/image)
+
+Cuando la imagen es pesada (fotos, capturas grandes) conviene el componente `Image`, que optimiza y evita layout shift. Requiere `width` y `height`:
+
+```mdx
+<Image
+  src="/blog/usando-imagenes/ejemplo.svg"
+  width={800}
+  height={400}
+  alt="Imagen de ejemplo"
+/>
+```
+
+<Image
+  src="/blog/usando-imagenes/ejemplo.svg"
+  width={800}
+  height={400}
+  alt="Imagen de ejemplo"
+/>
+
+## Notas
+
+- El `alt` siempre: describe la imagen para lectores de pantalla y SEO.
+- Para que la imagen sirva de portada/OG del post, agregá `image: "/blog/<slug>/portada.png"` al frontmatter.
+- Si el post tiene versión en inglés y en español, ambas pueden apuntar a las mismas imágenes en `public/blog/<slug>/`.
