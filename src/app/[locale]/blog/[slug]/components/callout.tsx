@@ -7,7 +7,7 @@ import {
   Lightbulb,
   Zap
 } from 'lucide-react'
-import { cn } from 'src/lib/utils'
+import { cn } from '@/lib/utils'
 
 type CalloutType = 'note' | 'tip' | 'warning' | 'danger' | 'info' | 'success'
 

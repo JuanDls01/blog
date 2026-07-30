@@ -6,10 +6,10 @@ import {
   getAllSlugs,
   getPost,
   type PostLocale,
-} from "src/lib/posts";
-import { routing } from "src/i18n/routing";
-import { baseUrl } from "src/app/sitemap";
-import { CustomMDX } from "src/components/mdx";
+} from "@/lib/posts";
+import { routing } from "@/i18n/routing";
+import { baseUrl } from "@/lib/site";
+import { CustomMDX } from "./components/mdx";
 
 function blogUrl(slug: string, locale: string) {
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;

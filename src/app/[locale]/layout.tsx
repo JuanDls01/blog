@@ -6,10 +6,10 @@ import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "next-themes";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
-import { routing } from "src/i18n/routing";
-import { baseUrl } from "../sitemap";
-import { Navbar } from "src/components/nav";
-import { SiteShell } from "src/components/site-shell";
+import { routing } from "@/i18n/routing";
+import { baseUrl } from "@/lib/site";
+import { Navbar } from "@/components/navigation/bar";
+import { SiteShell } from "@/components/site/shell";
 
 type Locale = (typeof routing.locales)[number];
 

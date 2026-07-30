@@ -171,7 +171,7 @@ input[type="email"] {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shine 5.5s var(--ease-in-out-strong) 1.2s infinite;
+  animation: shine 5.5s var(--ease-in-out-strong) 1.2s 2;
 }
 @keyframes shine {
   0% { background-position: 115% 0; }

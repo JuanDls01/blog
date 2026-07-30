@@ -1,8 +1,8 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { Link, usePathname } from "src/i18n/navigation";
-import { ThemeToggle } from "./theme-toggle";
+import { Link, usePathname } from "@/i18n/navigation";
+import { ThemeToggle } from "@/components/theme/toggle";
 
 const locales = ["en", "es"] as const;
 
@@ -28,7 +28,7 @@ export function Navbar() {
               key={path}
               href={path}
               aria-current={isActive ? "page" : undefined}
-              className={`px-2.5 py-1.5 rounded-lg text-sm transition-colors duration-150 active:scale-95 ${
+              className={`px-2.5 py-1.5 rounded-lg text-sm transition-[color,background-color,scale] duration-150 active:scale-[0.96] ${
                 isActive
                   ? "text-fg font-medium"
                   : "text-muted hover:text-fg hover:bg-surface"

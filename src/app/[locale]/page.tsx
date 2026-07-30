@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
-import { FaXTwitter } from "react-icons/fa6";
+import { Github, Linkedin, Mail, X } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link, getPathname } from "src/i18n/navigation";
-import { SpotlightRow, RowArrow } from "src/components/spotlight-row";
+import { Link, getPathname } from "@/i18n/navigation";
+import { SpotlightRow, RowArrow } from "@/components/spotlight/row";
 import profilePic from "../../../public/me.jpg";
 
 const experienceMeta = [
@@ -39,22 +38,22 @@ const socials = [
   {
     label: "GitHub",
     href: "https://github.com/JuanDls01/",
-    icon: FiGithub,
+    icon: Github,
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/juanidlsdev/",
-    icon: FiLinkedin,
+    icon: Linkedin,
   },
   {
     label: "X (Twitter)",
     href: "https://x.com/JuanDls01",
-    icon: FaXTwitter,
+    icon: X,
   },
   {
     label: "Email",
     href: "mailto:juanignaciodelossantos01@gmail.com",
-    icon: FiMail,
+    icon: Mail,
   },
 ];
 
@@ -152,7 +151,7 @@ export default async function Page({
               {...(href.startsWith("http")
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="p-2 text-faint hover:text-fg hover:bg-surface rounded-lg transition-colors duration-150 active:scale-95"
+              className="p-2 text-faint hover:text-fg hover:bg-surface rounded-lg transition-[color,background-color,scale] duration-150 active:scale-[0.96]"
             >
               <Icon size={16} strokeWidth={1.75} />
             </a>
@@ -233,7 +232,7 @@ export default async function Page({
         <div className="flex items-center gap-5 flex-wrap">
           <a
             href="mailto:juanignaciodelossantos01@gmail.com"
-            className="inline-flex items-center rounded-lg bg-fg text-bg text-sm font-medium px-3.5 py-2 transition-[transform,opacity] duration-150 ease-out-strong hover:opacity-85 active:scale-[0.97]"
+            className="inline-flex items-center rounded-lg bg-fg text-bg text-sm font-medium px-3.5 py-2 transition-[scale,opacity] duration-150 ease-out-strong hover:opacity-85 active:scale-[0.96]"
           >
             {t("getInTouch")}
           </a>

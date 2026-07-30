@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import { formatDate, getBlogPosts, type PostLocale } from "src/lib/posts";
-import { routing } from "src/i18n/routing";
-import { SpotlightRow, RowArrow } from "src/components/spotlight-row";
+import { formatDate, getBlogPosts, type PostLocale } from "@/lib/posts";
+import { routing } from "@/i18n/routing";
+import { SpotlightRow, RowArrow } from "@/components/spotlight/row";
 
 function blogHref(slug: string, locale: PostLocale) {
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;

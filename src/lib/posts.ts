@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { z } from "zod";
-import { routing } from "src/i18n/routing";
+import { routing } from "@/i18n/routing";
 
 const CONTENT_DIR = path.join(process.cwd(), "src", "content");
 

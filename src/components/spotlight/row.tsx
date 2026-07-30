@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 type SpotlightRowProps = {
   href: string;
@@ -42,7 +42,7 @@ export function RowArrow() {
   return (
     <span
       aria-hidden
-      className="text-faint text-[13px] opacity-0 -translate-x-1 transition-[opacity,transform] duration-200 ease-out-strong group-hover:opacity-100 group-hover:translate-x-0"
+      className="text-faint text-[13px] opacity-0 -translate-x-1 transition-[opacity,translate] duration-200 ease-out-strong group-hover:opacity-100 group-hover:translate-x-0"
     >
       →
     </span>

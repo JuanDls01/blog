@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { BlogPosts } from "src/components/posts";
-import type { PostLocale } from "src/lib/posts";
+import { BlogPosts } from "./components/list";
+import type { PostLocale } from "@/lib/posts";
 
 export async function generateMetadata({
   params: { locale },

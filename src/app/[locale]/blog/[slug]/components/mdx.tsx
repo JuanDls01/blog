@@ -5,10 +5,10 @@ import { createElement } from "react";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import { highlightCode } from "src/lib/shiki";
-import { CopyButton } from "./copy-button";
+import { highlightCode } from "@/lib/shiki";
+import { CopyButton } from "./copy";
 import { Callout, Note, Tip, Warning, Danger, Info, Success } from "./callout";
-import { cn } from "src/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -123,7 +123,10 @@ function RoundedImage({
   return (
     <Image
       alt={alt ?? ""}
-      className={cn("rounded-lg my-6 mx-auto", className)}
+      className={cn(
+        "rounded-lg my-6 mx-auto outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10",
+        className
+      )}
       {...props}
     />
   );
@@ -141,7 +144,10 @@ function MarkdownImage({
     <img
       alt={alt ?? ""}
       loading="lazy"
-      className={cn("rounded-lg my-6 mx-auto max-w-full", className)}
+      className={cn(
+        "rounded-lg my-6 mx-auto max-w-full outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10",
+        className
+      )}
       {...props}
     />
   );

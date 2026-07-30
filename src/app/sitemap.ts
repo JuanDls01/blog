@@ -1,7 +1,6 @@
-import { getAllSlugs, getPost } from "src/lib/posts";
-import { routing } from "src/i18n/routing";
-
-export const baseUrl = "https://juanidls.dev";
+import { getAllSlugs, getPost } from "@/lib/posts";
+import { routing } from "@/i18n/routing";
+import { baseUrl } from "@/lib/site";
 
 function localizedUrl(path: string, locale: string) {
   return locale === routing.defaultLocale
