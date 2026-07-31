@@ -7,7 +7,8 @@
   },
   "nav": {
     "home": "Inicio",
-    "work": "Experiencia"
+    "work": "Experiencia",
+    "blog": "Blog"
   },
   "home": {
     "role": "Ingeniero de Software",

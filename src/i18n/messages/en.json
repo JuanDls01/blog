@@ -7,7 +7,8 @@
   },
   "nav": {
     "home": "Home",
-    "work": "Work"
+    "work": "Work",
+    "blog": "Blog"
   },
   "home": {
     "role": "Software Engineer",
