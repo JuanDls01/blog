@@ -27,7 +27,7 @@ export function SpotlightRow({ href, className, children, ...props }: SpotlightR
       href={href}
       onPointerMove={onPointerMove}
       className={cn(
-        "spotlight group relative flex items-baseline justify-between gap-4 rounded-[10px] p-3",
+        "spotlight group relative flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 rounded-[10px] p-3",
         "no-underline text-inherit active:bg-surface-hover",
         className
       )}
