@@ -90,7 +90,7 @@ export default async function BlogPost({
             "@type": "BlogPosting",
             headline: post.metadata.title,
             datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
+            dateModified: post.metadata.updatedAt ?? post.metadata.publishedAt,
             description: post.metadata.summary,
             image: post.metadata.image
               ? `${baseUrl}${post.metadata.image}`
@@ -104,13 +104,22 @@ export default async function BlogPost({
           }),
         }}
       />
-      <h1 className="title font-semibold text-2xl tracking-[-0.01em]">
+      <h1 className="title font-semibold text-3xl leading-tight tracking-[-0.02em]">
         {post.metadata.title}
       </h1>
-      <div className="flex items-center gap-3 mt-2 mb-8 text-sm">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 mb-8 text-sm">
         <p className="text-sm text-faint tabular-nums">
           {formatDate(post.metadata.publishedAt, locale as PostLocale)}
+          <span className="mx-1.5" aria-hidden="true">·</span>
+          {t("readingTime", { minutes: post.readingMinutes })}
         </p>
+        {post.metadata.updatedAt && (
+          <p className="text-sm text-faint tabular-nums">
+            {t("updated", {
+              date: formatDate(post.metadata.updatedAt, locale as PostLocale),
+            })}
+          </p>
+        )}
         {!post.metadata.published && (
           <span className="text-[11px] font-medium uppercase tracking-wider text-faint border border-line rounded px-1.5 py-0.5">
             {t("draft")}

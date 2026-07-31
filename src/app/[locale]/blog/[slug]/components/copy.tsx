@@ -20,7 +20,7 @@ export function CopyButton({ code }: { code: string }) {
     <button
       onClick={copy}
       aria-label={copied ? "Copied" : "Copy code"}
-      className="absolute top-1.5 right-1.5 p-1.5 rounded-[2px] text-gray-400 hover:text-gray-100 hover:bg-white/10 transition-[opacity,color,background-color] duration-150 opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+      className="absolute top-1.5 right-1.5 p-1.5 rounded-[2px] text-gray-400 hover:text-gray-100 hover:bg-white/10 transition-[opacity,color,background-color] duration-150 opacity-100 pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100 focus-visible:opacity-100"
     >
       <span className="relative block size-3.5">
         <Check

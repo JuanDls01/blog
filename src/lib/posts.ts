@@ -8,15 +8,18 @@ const CONTENT_DIR = path.join(process.cwd(), "src", "content");
 
 export type PostLocale = (typeof routing.locales)[number];
 
+const dateSchema = z
+  .union([z.string(), z.date()])
+  .transform((value) =>
+    value instanceof Date ? value.toISOString().split("T")[0] : value,
+  )
+  .pipe(z.string().regex(/^\d{4}-\d{2}-\d{2}/, "expected YYYY-MM-DD"));
+
 const frontmatterSchema = z.object({
   title: z.string().min(1),
   summary: z.string().min(1),
-  publishedAt: z
-    .union([z.string(), z.date()])
-    .transform((value) =>
-      value instanceof Date ? value.toISOString().split("T")[0] : value,
-    )
-    .pipe(z.string().regex(/^\d{4}-\d{2}-\d{2}/, "expected YYYY-MM-DD")),
+  publishedAt: dateSchema,
+  updatedAt: dateSchema.optional(),
   published: z.boolean().default(false),
   image: z.string().optional(),
   tags: z.array(z.string()).default([]),
@@ -32,7 +35,18 @@ export type Post = {
   isFallback: boolean;
   metadata: PostMetadata;
   content: string;
+  readingMinutes: number;
 };
+
+const WORDS_PER_MINUTE = 200;
+
+function readingMinutes(content: string): number {
+  const words = content
+    .replace(/```[\s\S]*?```/g, "")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+}
 
 // Post files are named <slug>.<locale>.mdx, e.g. my-post.en.mdx
 const FILE_PATTERN = /^(?<slug>.+)\.(?<locale>[a-z]{2})\.mdx$/;
@@ -71,12 +85,15 @@ function readPostFile(file: string): Post | null {
     return null;
   }
 
+  const trimmed = content.trim();
+
   return {
     slug,
     locale: locale as PostLocale,
     isFallback: false,
     metadata: parsed.data,
-    content: content.trim(),
+    content: trimmed,
+    readingMinutes: readingMinutes(trimmed),
   };
 }
 

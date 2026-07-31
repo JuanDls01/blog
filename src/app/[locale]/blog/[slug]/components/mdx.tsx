@@ -153,6 +153,24 @@ function MarkdownImage({
   );
 }
 
+// Horizontal scroll for wide tables — overflow-x doesn't work on <table> itself
+function Table(props: React.TableHTMLAttributes<HTMLTableElement>) {
+  return (
+    <div className="table-wrap" tabIndex={0} role="region" aria-label="Table">
+      <table {...props} />
+    </div>
+  );
+}
+
+// Quiet in-post table of contents: wrap a markdown list of anchor links
+function Toc({ children }: { children: React.ReactNode }) {
+  return (
+    <nav className="toc" aria-label="Table of contents">
+      {children}
+    </nav>
+  );
+}
+
 const components = {
   h1: createHeading(1),
   h2: createHeading(2),
@@ -162,8 +180,10 @@ const components = {
   h6: createHeading(6),
   a: CustomLink,
   pre: Pre,
+  table: Table,
   Image: RoundedImage,
   img: MarkdownImage,
+  Toc,
   Callout,
   Note,
   Tip,

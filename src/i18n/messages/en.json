@@ -139,6 +139,8 @@
     "title": "Blog",
     "intro": "Thoughts on software development, web performance, and the technologies I work with.",
     "draft": "Draft",
+    "readingTime": "{minutes} min read",
+    "updated": "Updated {date}",
     "fallbackNotice": "This post is not translated to English yet — showing the original version."
   },
   "notFound": {
