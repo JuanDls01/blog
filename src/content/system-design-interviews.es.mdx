@@ -1,0 +1,663 @@
+---
+title: "System Design Interviews 🏗️"
+publishedAt: "2026-07-30"
+summary: "Machete vivo de arquitectura para entrevistas de system design: load balancers, colas, CAP theorem, patrones de resiliencia y todo lo que vaya sumando."
+published: true
+tags: ["system-design", "arquitectura", "entrevistas"]
+---
+
+- [Introducción](#introduccin)
+- [Framework para responder en la entrevista](#framework-para-responder-en-la-entrevista)
+- [Fundamentos](#fundamentos)
+- [Networking](#networking)
+- [Comunicación entre servicios](#comunicacin-entre-servicios)
+- [Capa de datos](#capa-de-datos)
+- [Consistencia](#consistencia)
+- [Patrones de resiliencia](#patrones-de-resiliencia)
+{/* - [Estilos de arquitectura](#estilos-de-arquitectura) */}
+{/* - [Observabilidad](#observabilidad) */}
+
+## Introducción
+
+{/* TODO: por qué existe este post, para quién es, que se va actualizando con el tiempo. */}
+
+El objetivo de empezar a escribir este post creo que fueron dos cosas, por un lado lo obvio, tener un machete para repasar antes de una entrevista de este estilo, pero por otro lado para intentar frenar la pelota y poner escrito todo lo que voy aprendiendo. De esta manera seguramente en un futuro probablemente vuelva y diga que increible lo que uno va aprendiendo con el tiempo.
+
+## Framework para responder en la entrevista
+
+El framework es simple, esta tomado de System Design Interview (Volumen 1 y 2) de Alex Xu, gran libro, super recomendado. Pero tambien tiene algunas notas personales.
+
+Algo que me quedó grabado y que trato de tener presente antes de entrar: tomarlo como una instancia de aprendizaje, de mostrar lo que fui aprendiendo en el tiempo. Si nos va mal, no pasa nada — hay que dar espacio a la creatividad para resolver el problema, no recitar la respuesta perfecta de memoria.
+
+El lente con el que se lee todo lo demás: ante cualquier pregunta de diseño, este es el orden.
+
+1. **Clarificar requisitos** — funcionales y no funcionales (escala, latencia, consistencia vs disponibilidad)
+2. **Estimar** — usuarios, QPS, storage, ancho de banda (back-of-envelope)
+3. **Diseño de alto nivel** — componentes principales y cómo se conectan
+4. **Deep dive** — el o los componentes que el entrevistador quiera profundizar
+5. **Trade-offs** — qué se sacrificó y por qué, cuellos de botella y cómo escalarían
+
+## Fundamentos
+
+| Concepto                             | Resumen                                                                                             | Cuándo importa                                                    |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Escalabilidad vertical vs horizontal | Vertical: sumarle recursos a una sola máquina. Horizontal: sumar más máquinas al pool.              | Al diseñar para escalar sin depender de un solo servidor.         |
+| SPOF y Redundancy                    | SPOF: la parte que si falla, tira todo abajo. Redundancy: duplicar lo crítico para que eso no pase. | Para justificar por qué agregás réplicas o instancias de más.     |
+| Stateless vs Stateful                | Stateless: cada request es independiente. Stateful: el server guarda contexto entre requests.       | Al diseñar el web tier para escalar horizontalmente sin fricción. |
+
+<details>
+<summary><strong>Escalabilidad vertical vs horizontal</strong> — más recursos por máquina vs más máquinas</summary>
+
+**Problema que resuelve**
+
+Que la aplicación aguante más tráfico del que aguanta hoy sin caerse.
+
+**Cómo funciona**
+
+- **Escalamiento vertical:** sumarle más CPU, RAM, etc. al mismo servidor. Es simple, no necesitás repartir tráfico entre nada, pero tiene techo — no podés sumar CPU infinita. Si el server es Node.js (single thread), esto me hace ruido: no tengo del todo claro hasta qué punto escalar verticalmente ayuda si el bottleneck termina siendo el thread único.
+- **Escalamiento horizontal:** sumar más servidores al pool de recursos en lugar de agrandar uno solo. Suele necesitar un load balancer para repartir el tráfico.
+
+**Trade-offs / cuándo no usarlo**
+
+- Vertical suele ser más caro por unidad (una máquina grande sale más que la suma de varias chicas) y tiene mayor riesgo de SPOF si es un único servidor.
+- Vertical no tiene failover ni redundancy — si se cae, se cae todo. Horizontal sí, porque el tráfico se puede redirigir a un servidor sano.
+- Horizontal no tiene techo de escalamiento, pero suma complejidad (statelessness, balanceo, sincronización de datos).
+
+**Pregunta típica de entrevista**
+
+> ¿Por qué elegirías escalamiento horizontal en vez de vertical para este sistema?
+
+</details>
+
+<details>
+<summary><strong>Latencia vs Throughput</strong> — tiempo de una request vs requests por segundo</summary>
+
+**Problema que resuelve**
+
+{/* TODO */}
+
+**Cómo funciona**
+
+{/* TODO */}
+
+**Trade-offs / cuándo no usarlo**
+
+{/* TODO */}
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+<details>
+<summary><strong>SPOF y Redundancy</strong> — el punto que si falla, tira todo abajo</summary>
+
+**Problema que resuelve**
+
+Evitar que la falla de una sola parte del sistema tumbe el sistema entero.
+
+**Cómo funciona**
+
+Un **SPOF (Single Point of Failure)** es cualquier componente que, si falla solo, para todo el sistema directamente. La solución es **redundancy**: duplicar componentes críticos (datos, servidores, procesos) para mejorar tres cosas:
+
+- **Reliability (confiabilidad):** la probabilidad de que el sistema haga lo que tiene que hacer, correctamente, durante un intervalo dado. A menos fallas y más cortas, más disponibilidad.
+- **Availability (disponibilidad):** el % de tiempo que el sistema está funcional y accesible, medido en "nueves" (99.999% uptime, etc).
+- **Fault tolerance (tolerancia a fallos):** que el sistema siga funcionando, aunque sea en un nivel reducido, cuando un componente falla, en vez de caerse por completo.
+
+**Trade-offs / cuándo no usarlo**
+
+Redundancy cuesta plata y complejidad (sincronizar réplicas, decidir quién es la fuente de verdad). No todo necesita estar duplicado — hay que priorizar los componentes que realmente son SPOF.
+
+**Pregunta típica de entrevista**
+
+> ¿Dónde están los single points of failure en tu diseño y cómo los resolverías?
+
+</details>
+
+<details>
+<summary><strong>Stateless vs Stateful</strong> — el server guarda contexto entre requests o no</summary>
+
+**Problema que resuelve**
+
+Poder escalar horizontalmente sin que el usuario dependa de pegarle siempre al mismo servidor.
+
+**Cómo funciona**
+
+- **Stateful:** el servidor persiste información entre consultas. Si un usuario se autenticó en el servidor 1, y su siguiente request cae en el servidor 2, tiene que autenticarse de nuevo — cada servidor tiene su propio estado.
+- **Stateless:** las requests son independientes entre sí, no queda info persistida en el server entre una y otra. Cualquier servidor puede atender cualquier request.
+
+**Trade-offs / cuándo no usarlo**
+
+Stateless es lo que te permite meter un load balancer y escalar horizontalmente sin dolores de cabeza — por eso casi siempre conviene diseñar así el web tier. El estado que necesitás (sesión, por ejemplo) se saca del servidor y se pone en un lugar compartido (DB, cache tipo Redis).
+
+**Pregunta típica de entrevista**
+
+> ¿Cómo diseñarías el web tier para que sea stateless?
+
+</details>
+
+## Networking
+
+| Concepto      | Resumen                                                                                            | Cuándo importa                                                              |
+| ------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| DNS           | Traduce nombres de dominio a las IPs de tus servidores.                                            | Siempre está en el diagrama, aunque no sea el foco de la entrevista.        |
+| Load Balancer | Reparte tráfico entre instancias para que ninguna se sobrecargue ni sea un punto único de falla.   | Cuando escalás horizontalmente.                                             |
+| CDN           | Sirve contenido estático desde servidores (PoPs) cerca del usuario.                                | Cuando la latencia por distancia geográfica importa.                        |
+| API Gateway   | Middleware fully-managed: rate limiting, auth, SSL termination, reverse proxy, contenido estático. | Cuando tenés varios servicios detrás y necesitás un único punto de entrada. |
+
+<details>
+<summary><strong>DNS</strong> — traduce nombres a IPs</summary>
+
+**Problema que resuelve**
+
+Que no tengas que acordarte (ni tus usuarios) la IP de tus servidores.
+
+**Cómo funciona**
+
+Por lo general son proveedores third-party que vinculan la IP de tus servidores a un nombre que le podés asignar. Ejemplo en AWS: `Route53`.
+
+**Trade-offs / cuándo no usarlo**
+
+{/* TODO */}
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+<details>
+<summary><strong>Load Balancer</strong> — distribuye tráfico entre múltiples instancias</summary>
+
+**Problema que resuelve**
+
+Que un solo servidor no se sobrecargue y que el sistema no dependa de que ese único servidor esté sano.
+
+**Cómo funciona**
+
+Es, en esencia, otro servidor (o set de servidores) que distribuye el tráfico entrante entre los servidores de un pool configurado. Se para entre el cliente y los servidores de aplicación: el DNS pasa a apuntar a la IP pública del load balancer, y los servidores de aplicación pasan a tener IP privada — dejan de ser accesibles directamente desde internet, solo desde dentro de la misma red. Ejemplo en AWS: `Elastic Load Balancing (ELB)`.
+
+![Diagrama de un load balancer: DNS apunta a la IP pública del LB, que reparte tráfico entre un pool de servers con IP privada](/blog/system-design-interviews/load-balancer.svg)
+
+**Trade-offs / cuándo no usarlo**
+
+Ventajas: aumenta la reliability (si un server cae, redirige el tráfico a uno sano), evita que un servicio se sobrecargue, mantiene buena performance. El costo es que agrega un componente más al sistema — y si no lo hacés redundante, se vuelve tu propio SPOF.
+
+**Pregunta típica de entrevista**
+
+> ¿Qué pasa si el load balancer mismo se cae?
+
+</details>
+
+<details>
+<summary><strong>CDN</strong> — contenido servido cerca del usuario</summary>
+
+**Problema que resuelve**
+
+Que servir contenido estático (imágenes, CSS, HTML, JS) no dependa de la distancia geográfica hasta tu data center.
+
+**Cómo funciona**
+
+Es una red de servidores más chicos, los PoP (Points of Presence), distribuidos geográficamente — mucho más repartidos que los data centers. El cacheo suele basarse en el path, los query parameters y headers como el TTL (Time-to-Live). Ejemplo en AWS: `Cloudfront`.
+
+**Trade-offs / cuándo no usarlo**
+
+{/* TODO */}
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+<details>
+<summary><strong>API Gateway</strong> — punto de entrada único para tus servicios</summary>
+
+**Problema que resuelve**
+
+No querer resolver rate limiting, auth, SSL, whitelisting de IPs y reverse proxy por separado en cada servicio.
+
+**Cómo funciona**
+
+Es un servicio fully-managed que actúa como middleware entre el cliente y tus servicios, y suele soportar rate limiting, autenticación, IP whitelisting, terminación de SSL, servir contenido estático y reverse proxy. Ejemplo en AWS: `Amazon API Gateway`.
+
+**Trade-offs / cuándo no usarlo**
+
+{/* TODO */}
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+<details>
+<summary><strong>Multi-data center</strong> — repartir tu infraestructura por región</summary>
+
+**Problema que resuelve**
+
+Que todo tu tráfico dependa de una sola ubicación geográfica, tanto en latencia como en disponibilidad.
+
+**Cómo funciona**
+
+Los data centers son instalaciones físicas con gran poder de cómputo, a diferencia de los PoP de un CDN, que son muchos y chicos — hay pocos data centers y están distribuidos por región. Algunas cosas a resolver cuando tenés más de uno:
+
+- **Direccionamiento del tráfico:** necesitás las herramientas correctas para mandar al usuario al data center correcto, normalmente con GeoDNS, al más cercano.
+- **Data synchronization:** si un data center se cae y redirigís el tráfico a otro, puede que ese otro no tenga la data a la que el usuario accedía — de ahí la necesidad de replicar datos entre regiones.
+- **Test y deployment:** hay que poder testear en las distintas regiones, no solo en una.
+
+**Trade-offs / cuándo no usarlo**
+
+{/* TODO */}
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+{/*
+## Estilos de arquitectura
+
+|                     | Monolito     | Microservicios | Serverless   | Event-driven |
+| ------------------- | ------------ | -------------- | ------------ | ------------ |
+| Cuándo usarlo       | {/ * TODO * /} | {/ * TODO * /}   | {/ * TODO * /} | {/ * TODO * /} |
+| Trade-off principal | {/ * TODO * /} | {/ * TODO * /}   | {/ * TODO * /} | {/ * TODO * /} |
+
+<details>
+<summary><strong>Monolito</strong> — una sola unidad desplegable</summary>
+
+**Problema que resuelve**
+
+TODO
+
+**Cómo funciona**
+
+TODO
+
+**Trade-offs / cuándo no usarlo**
+
+TODO
+
+**Pregunta típica de entrevista**
+
+TODO
+
+</details>
+
+<details>
+<summary><strong>Microservicios</strong> — servicios independientes por dominio</summary>
+
+**Problema que resuelve**
+
+TODO
+
+**Cómo funciona**
+
+TODO
+
+**Trade-offs / cuándo no usarlo**
+
+TODO
+
+**Pregunta típica de entrevista**
+
+TODO
+
+</details>
+*/}
+
+## Comunicación entre servicios
+
+{/*
+|                     | Sync (REST/gRPC) | Cola de mensajes | Pub/Sub      | Event streaming |
+| ------------------- | ---------------- | ---------------- | ------------ | --------------- |
+| Cuándo usarlo       | {/ * TODO * /}     | {/ * TODO * /}     | {/ * TODO * /} | {/ * TODO * /}    |
+| Trade-off principal | {/ * TODO * /}     | {/ * TODO * /}     | {/ * TODO * /} | {/ * TODO * /}    |
+*/}
+
+<details>
+<summary><strong>Colas de mensajes</strong> — desacopla productor y consumidor</summary>
+
+**Problema que resuelve**
+
+Que dos componentes tengan que estar disponibles al mismo tiempo para poder comunicarse.
+
+**Cómo funciona**
+
+Es un componente que vive en memoria y permite comunicación asíncrona entre partes de un sistema: un **producer** publica un mensaje en la cola, y un **consumer** se conecta a la cola y ejecuta la acción que ese mensaje pide. El producer puede publicar aunque el consumer esté ocupado, y el consumer puede leer aunque el producer esté ocupado — desacopla ambas partes en el tiempo.
+
+![Diagrama de una cola de mensajes: el producer publica mensajes en la queue, el consumer los consume de forma asíncrona](/blog/system-design-interviews/colas-de-mensajes.svg)
+
+**Trade-offs / cuándo no usarlo**
+
+{/* TODO — at-least-once vs at-most-once, dead-letter queues, quedan pendientes de profundizar. */}
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+{/*
+<details>
+<summary><strong>Eventos (event-driven)</strong> — reaccionar a hechos que ya pasaron</summary>
+
+**Problema que resuelve**
+
+TODO
+
+**Cómo funciona**
+
+TODO
+
+**Trade-offs / cuándo no usarlo**
+
+TODO
+
+**Pregunta típica de entrevista**
+
+TODO
+
+</details>
+*/}
+
+## Capa de datos
+
+| Concepto         | Resumen                                                                                                    | Cuándo importa                                                                |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| SQL vs NoSQL     | Relacional: tablas y filas, consistencia fuerte. No relacional: key-value, document, graph o column store. | Según necesites consistencia estricta o velocidad/flexibilidad.               |
+| Replicación      | Duplicar la base de datos, típicamente con relación master/slave.                                          | Para separar lecturas de escrituras y ganar reliability.                      |
+| Sharding         | Partir la base de datos en shards más chicas, cada una con su propio servidor.                             | Cuando una sola base de datos ya no da abasto (horizontal scaling de datos).  |
+| Indexing         | {/* TODO */}                                                                                               | {/* TODO */}                                                                  |
+| Caching          | Guardar en memoria datos caros de obtener o muy consultados.                                               | Cuando los datos se leen mucho y cambian poco.                                |
+| Desnormalización | Duplicar información entre tablas para evitar joins caros.                                                 | Cuando el join es el cuello de botella y podés sacrificar algo de integridad. |
+
+<details>
+<summary><strong>SQL vs NoSQL</strong> — esquema rígido vs flexible</summary>
+
+**Problema que resuelve**
+
+Elegir cómo modelar y guardar los datos según lo que el sistema realmente necesita.
+
+**Cómo funciona**
+
+- **Relacionales (SQL):** la información se guarda en tablas y filas. Mantienen consistencia de datos fuerte (ACID).
+- **No relacionales (NoSQL):** hay varias categorías — key-value stores, graph stores, column stores, document stores. Suelen ser buena opción cuando la aplicación necesita baja latencia, los datos no están estructurados (o no hay relación clara entre ellos), o hay que almacenar grandes volúmenes de información.
+
+**Trade-offs / cuándo no usarlo**
+
+Las relacionales garantizan ACID compliance; las no relacionales suelen sacrificar consistencia de datos a cambio de performance y disponibilidad.
+
+**Pregunta típica de entrevista**
+
+> ¿Por qué elegirías una base NoSQL en vez de una relacional para este caso?
+
+</details>
+
+<details>
+<summary><strong>Replicación</strong> — copiar la base de datos para separar lecturas de escrituras</summary>
+
+**Problema que resuelve**
+
+Que toda la carga (lecturas y escrituras) recaiga sobre una sola base de datos.
+
+**Cómo funciona**
+
+Una estrategia común es la relación **master/slave**: existe una base maestra que se encarga de las escrituras (write, update, delete), y bases esclavas que atienden las lecturas, pudiendo escalar cada una por separado. La maestra siempre tiene la información más actualizada.
+
+**Trade-offs / cuándo no usarlo**
+
+Ventajas de replicar: más performance (se procesan más consultas en paralelo), más reliability (al estar replicada, es más difícil perder la información) y high availability (si la maestra cae, se promueve una esclava; si cae una esclava, otra u la maestra atienden la consulta).
+
+**Pregunta típica de entrevista**
+
+> ¿Qué pasa si la base maestra se cae antes de que la réplica se ponga al día?
+
+</details>
+
+<details>
+<summary><strong>Sharding</strong> — particionar datos entre varias bases</summary>
+
+**Problema que resuelve**
+
+Que una sola base de datos ya no pueda con el volumen de datos o de tráfico, y verticalmente ya no dé más.
+
+**Cómo funciona**
+
+Se divide la base de datos en bases más chicas (shards), cada una con su propio servidor, para poder manejarlas de forma independiente. Todas las shards comparten el mismo schema, pero los datos de cada una son únicos — no se repiten entre shards. Se necesita una **sharding key** (la columna que se pasa por una hash function) para saber a qué shard ir a buscar o modificar un dato.
+
+**Trade-offs / cuándo no usarlo**
+
+Complejidades que suma:
+
+- **Resharding:** hay que reorganizar los datos cuando un shard crece demasiado o queda con una distribución desbalanceada (shard exhaustion) — ahí conviene consistent hashing.
+- **Celebrity problem:** un shard puede recibir tráfico desproporcionado.
+- **Joins:** hacer join entre shards es complejo, por eso a veces conviene desnormalizar en vez de resolverlo con joins.
+
+**Pregunta típica de entrevista**
+
+> ¿Qué usarías como sharding key acá, y qué pasa si esa key genera un shard mucho más cargado que los demás?
+
+</details>
+
+<details>
+<summary><strong>Caching</strong> — evitar recalcular o reconsultar lo mismo</summary>
+
+**Problema que resuelve**
+
+Responder rápido datos que son caros de obtener o que se consultan muy seguido.
+
+**Cómo funciona**
+
+Es un espacio de almacenamiento temporal en memoria. Se puede aplicar en distintas capas:
+
+- **Client-side:** en el browser, con un CDN.
+- **Application level:** en la memoria del servidor, con algo como Redis — útil, por ejemplo, para guardar la sesión del usuario.
+- **Database level:** para no repetir consultas que consumen mucho tiempo.
+
+**Trade-offs / cuándo no usarlo**
+
+- Conviene cuando los datos se consultan seguido pero cambian poco — no es un punto de almacenamiento persistente, es volátil.
+- Necesita una **expiration policy**: ni tan larga que sirva contenido viejo, ni tan corta que estés consultando la fuente todo el tiempo.
+- Puede haber inconsistencias entre lo que hay en cache y lo que hay en la base de datos.
+- Un único cache server es, de nuevo, un SPOF potencial.
+- Hace falta también una **eviction policy** para cuando el cache se llena.
+
+**Pregunta típica de entrevista**
+
+> ¿Cómo mantenés la cache consistente con la base de datos?
+
+</details>
+
+<details>
+<summary><strong>Desnormalización</strong> — duplicar datos para evitar joins caros</summary>
+
+**Problema que resuelve**
+
+Consultas o joins complejos que se vuelven lentos a medida que el sistema crece.
+
+**Cómo funciona**
+
+Se agrega información redundante, que en un modelo normalizado estaría en otra tabla, directamente en la tabla que más se consulta. Por ejemplo, en vez de tener una tabla `Profesor` y otra `Cursos` separadas, tener una única tabla `Profesor` que ya incluya la info de los cursos que dicta.
+
+**Trade-offs / cuándo no usarlo**
+
+Se pierde algo de integridad de los datos (la información duplicada se puede desincronizar), pero se gana en performance al evitar el join.
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+## Consistencia
+
+|              | CP                                                             | AP                                                             | CA                                                                                               |
+| ------------ | -------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Qué prioriza | Consistencia + Partition tolerance, sacrificás disponibilidad. | Disponibilidad + Partition tolerance, sacrificás consistencia. | Consistencia + Disponibilidad, sin partition tolerance — poco realista en sistemas distribuidos. |
+| Ejemplo      | Bases tipo HBase, MongoDB en su config estricta.               | Cassandra, DynamoDB.                                           | Solo tiene sentido si el sistema no está distribuido.                                            |
+
+<details>
+<summary><strong>CAP theorem</strong> — consistencia, disponibilidad, tolerancia a particiones: elegís 2</summary>
+
+**Problema que resuelve**
+
+Entender qué le podés prometer a un cliente cuando tu sistema está distribuido en varios nodos.
+
+**Cómo funciona**
+
+Cuando un sistema está distribuido en distintos servicios, solo podés garantizar 2 de estos 3 atributos:
+
+- **Consistency:** todos los clientes ven la misma información.
+- **Availability:** todos los clientes siempre pueden leer y escribir, aunque no sea la última información.
+- **Partition tolerance:** el sistema sigue funcionando por más que partes del mismo no puedan comunicarse entre sí.
+
+**Trade-offs / cuándo no usarlo**
+
+En la práctica, partition tolerance no es opcional en un sistema distribuido — las particiones de red van a pasar tarde o temprano. Así que la elección real termina siendo entre C y A: CP sacrifica disponibilidad para garantizar que todos vean lo mismo, AP sacrifica consistencia para que el sistema nunca deje de responder.
+
+**Pregunta típica de entrevista**
+
+> ¿Este sistema necesita ser CP o AP? ¿Por qué?
+
+</details>
+
+<details>
+<summary><strong>ACID vs BASE</strong> — garantías fuertes vs consistencia eventual</summary>
+
+**Problema que resuelve**
+
+Elegir qué tan estrictas necesitás que sean las garantías de tus transacciones.
+
+**Cómo funciona**
+
+**ACID** (típico de SQL):
+
+- **Atomicity:** todas las tareas de una transacción se completan, o ninguna. Se maneja con transaction logs — si algo falla a mitad de camino, el log permite volver al último estado consistente conocido. Ejemplo: en una transferencia bancaria, si el débito se hizo pero el crédito falló, la atomicidad se encarga de revertir el débito.
+- **Consistency:** la transacción lleva la base de datos de un estado consistente a otro, sin violar las reglas de integridad. Ejemplo: después de una transferencia, la suma de los balances de las cuentas sigue siendo la misma.
+- **Isolation:** las operaciones de transacciones concurrentes son invisibles entre sí hasta que se completan, para protegerse de conflictos. Hay distintos niveles: read uncommitted, read committed, repeatable read, serializable.
+- **Durability:** una vez que la transacción se confirma, los cambios persisten incluso si el sistema falla justo después — típicamente con write-ahead logging y buffer management.
+
+**BASE** (típico de NoSQL): Basically Available, Soft state, Eventually consistent — se prioriza la disponibilidad y se acepta que, por un rato, distintos nodos puedan tener versiones distintas del dato hasta que converjan.
+
+**Trade-offs / cuándo no usarlo**
+
+ACID da garantías fuertes pero cuesta en performance y disponibilidad cuando el sistema se distribuye. BASE escala mucho mejor, pero le pedís al cliente (o al negocio) que tolere inconsistencias temporales.
+
+**Pregunta típica de entrevista**
+
+> ¿Qué pasa en tu diseño si dos transacciones concurrentes modifican el mismo registro?
+
+</details>
+
+## Patrones de resiliencia
+
+| Concepto        | Resumen                                                                  | Cuándo importa                                                     |
+| --------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| Circuit Breaker | {/* TODO */}                                                             | {/* TODO */}                                                       |
+| Retry / Backoff | {/* TODO */}                                                             | {/* TODO */}                                                       |
+| Bulkhead        | {/* TODO */}                                                             | {/* TODO */}                                                       |
+| Rate Limiting   | Controla cuánto tráfico dejás pasar por cliente o por ventana de tiempo. | Para evitar DoS, sobrecarga y costos innecesarios contra terceros. |
+| Idempotencia    | {/* TODO */}                                                             | {/* TODO */}                                                       |
+
+<details>
+<summary><strong>Circuit Breaker</strong> — corta llamadas a un servicio que está fallando</summary>
+
+**Problema que resuelve**
+
+{/* TODO */}
+
+**Cómo funciona**
+
+{/* TODO — estados closed / open / half-open. */}
+
+**Trade-offs / cuándo no usarlo**
+
+{/* TODO */}
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+<details>
+<summary><strong>Retry / Backoff</strong> — reintentar con espera creciente</summary>
+
+**Problema que resuelve**
+
+{/* TODO */}
+
+**Cómo funciona**
+
+{/* TODO */}
+
+**Trade-offs / cuándo no usarlo**
+
+{/* TODO */}
+
+**Pregunta típica de entrevista**
+
+{/* TODO */}
+
+</details>
+
+<details>
+<summary><strong>Rate Limiting</strong> — controlar cuánto tráfico dejás pasar</summary>
+
+**Problema que resuelve**
+
+Que un cliente (con o sin mala intención) tire abajo tu servicio a fuerza de mandar demasiadas requests.
+
+**Cómo funciona**
+
+Controla la cantidad de tráfico que un cliente puede mandarle a un servidor — por ejemplo, cuántas cuentas puede crear un mismo usuario por minuto. Algoritmos típicos:
+
+- **Token Bucket:** hay un bucket con "monedas"; cada request que llega saca una moneda, y cada tanto tiempo se hace refill. Si no hay monedas disponibles, la request se dropea o se manda a una cola para procesarse cuando se libere el servicio. Parámetros: tamaño del bucket y refill rate.
+- **Leaking Bucket**, **Fixed window counter** (se divide el tiempo en ventanas fijas con un máximo de requests por ventana; lo que excede se dropea), **Sliding window log** y **Sliding window counter** — variantes con distintos trade-offs de precisión vs memoria.
+
+El resultado se suele comunicar con headers como `X-Ratelimit-Remaining`, `X-Ratelimit-Limit` y `X-Ratelimit-Retry-After`.
+
+**Trade-offs / cuándo no usarlo**
+
+Beneficios: evita que un ataque DoS agote tus recursos, reduce costos (importante si pagás por consulta a un servicio de terceros) y evita que tus propios servidores se sobrecarguen. El costo es la complejidad de coordinarlo si tenés varios servidores — necesitás un estado compartido (tipo Redis) para que el límite sea global y no por instancia.
+
+**Pregunta típica de entrevista**
+
+> ¿Cómo implementarías rate limiting en un sistema con múltiples servidores?
+
+</details>
+
+{/*
+## Observabilidad
+
+| Concepto      | Resumen      | Cuándo importa |
+| ------------- | ------------ | -------------- |
+| Logs          | {/ * TODO * /} | {/ * TODO * /}   |
+| Métricas      | {/ * TODO * /} | {/ * TODO * /}   |
+| Tracing       | {/ * TODO * /} | {/ * TODO * /}   |
+| Health checks | {/ * TODO * /} | {/ * TODO * /}   |
+
+<details>
+<summary><strong>Distributed tracing</strong> — seguir una request a través de varios servicios</summary>
+
+**Problema que resuelve**
+
+TODO
+
+**Cómo funciona**
+
+TODO
+
+**Trade-offs / cuándo no usarlo**
+
+TODO
+
+**Pregunta típica de entrevista**
+
+TODO
+
+</details>
+*/}

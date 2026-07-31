@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" font-family="ui-sans-serif, system-ui, sans-serif">
+  <defs>
+    <marker id="arrowDark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e1e1e"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <rect x="1" y="1" width="798" height="518" rx="16" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"/>
+
+  <text x="400" y="45" text-anchor="middle" font-size="26" font-weight="600" fill="#1e1e1e">Load Balancer</text>
+
+  <!-- DNS -->
+  <rect x="320" y="80" width="160" height="60" rx="10" fill="#fff3bf" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="115" text-anchor="middle" font-size="16" fill="#1e1e1e">DNS (Route53)</text>
+
+  <!-- LB -->
+  <rect x="320" y="290" width="160" height="80" rx="10" fill="#d0bfff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="400" y="335" text-anchor="middle" font-size="18" fill="#1e1e1e">Load Balancer</text>
+  <text x="400" y="392" text-anchor="middle" font-size="14" fill="#6b7280">IP pública</text>
+
+  <!-- DNS -> LB -->
+  <path d="M400,140 L400,286" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrowAmber)"/>
+  <text x="415" y="215" font-size="14" fill="#92600d">apunta a</text>
+
+  <!-- Cliente -->
+  <rect x="40" y="310" width="140" height="70" rx="10" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="110" y="350" text-anchor="middle" font-size="18" fill="#1e1e1e">Cliente</text>
+
+  <!-- Cliente -> LB -->
+  <path d="M180,345 L316,330" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowDark)"/>
+  <text x="205" y="325" font-size="14" fill="#1e1e1e">request</text>
+
+  <!-- Zone -->
+  <rect x="560" y="100" width="220" height="420" rx="12" fill="#dbe4ff" fill-opacity="0.35" stroke="#4a9eed" stroke-width="1"/>
+  <text x="572" y="122" font-size="14" fill="#2f4b99">Pool de servers — IP privada</text>
+
+  <!-- Servers -->
+  <rect x="590" y="140" width="160" height="70" rx="10" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="670" y="180" text-anchor="middle" font-size="16" fill="#1e1e1e">Server 1</text>
+
+  <rect x="590" y="290" width="160" height="70" rx="10" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="670" y="330" text-anchor="middle" font-size="16" fill="#1e1e1e">Server 2</text>
+
+  <rect x="590" y="440" width="160" height="70" rx="10" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="670" y="480" text-anchor="middle" font-size="16" fill="#1e1e1e">Server 3</text>
+
+  <!-- LB -> servers -->
+  <path d="M480,315 L586,180" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowDark)"/>
+  <path d="M480,330 L586,325" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowDark)"/>
+  <text x="500" y="315" font-size="14" fill="#1e1e1e">reparte tráfico</text>
+  <path d="M480,345 L586,470" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowDark)"/>
+</svg>
