@@ -12,13 +12,12 @@
   },
   "home": {
     "role": "Ingeniero de Software",
-    "openToOpportunities": "Disponible para nuevas oportunidades",
-    "bioP1": "Construyo aplicaciones web rápidas y bien pensadas con <strong>React</strong>, <strong>Next.js</strong> y <strong>TypeScript</strong>. Actualmente en <geoactio>GeoActio</geoactio>, modernizando el sistema de venta de boletos de transporte público en España, mientras desarrollo <estacionar>EstacionAR</estacionar>, una plataforma de reserva de estacionamientos para Argentina.",
-    "bioP2": "Antes lideré ingeniería de IA en el Centro de Excelencia de Crombie y ayudé a operar el e-commerce de Puma en cinco países. Mi formación en ingeniería industrial define cómo trabajo: descomponer el problema complejo y después enviar la solución simple.",
+    "bio": "Construyo aplicaciones web rápidas y bien pensadas con <strong>React</strong>, <strong>Next.js</strong> y <strong>TypeScript</strong>. Mi formación en ingeniería industrial define cómo trabajo: descomponer el problema complejo y después enviar la solución simple.",
+    "nowLabel": "Now",
+    "now": "Frontend en <geoactio>GeoActio</geoactio>, construyendo <estacionar>EstacionAR</estacionar> de noche.",
     "sections": {
       "experience": "Experiencia",
-      "projects": "Proyectos",
-      "stack": "Stack",
+      "beyond": "Más allá del código",
       "contact": "Contacto"
     },
     "experience": {
@@ -29,26 +28,13 @@
       "crombieAiLead": {
         "role": "AI Lead Engineer",
         "summary": "Lideré el Centro de Excelencia diseñando agentes y workflows de IA. Vercel AI SDK, AWS Bedrock, Langchain."
-      },
-      "crombiePuma": {
-        "role": "Frontend Engineer",
-        "summary": "E-commerce de Puma en 5 mercados. Reduje el LCP un 25% y el bundle un 20%."
-      },
-      "crombieFullstack": {
-        "role": "FullStack Developer",
-        "summary": "Lideré un equipo de 4 personas construyendo el sitio de Crombie. React, Django, AWS con SST."
       }
     },
-    "projects": {
-      "estacionar": {
-        "description": "Reserva de estacionamientos para Argentina — en desarrollo"
-      },
-      "actioticket": {
-        "description": "Comprá y gestioná boletos de transporte público en España"
-      },
-      "aiCoe": {
-        "description": "Arquitecturas de agentes y workflows de IA para soluciones de clientes"
-      }
+    "beyond": {
+      "body": "Cuando no estoy programando, entreno. Este año me propuse correr la Media Maratón de Buenos Aires, así que mis semanas se reparten entre el gimnasio y salidas de running cada vez más largas.",
+      "stats": "{recentKm} km en las últimas 4 semanas · {recentRuns, plural, one {# corrida} other {# corridas}} · {ytdKm} km en el año",
+      "longestRun": "Corrida más larga: {km} km — {pct}% del camino a los 21K",
+      "perWeek": "km / semana"
     },
     "contactIntro": "¿Te interesa trabajar juntos, o solo querés hablar de frontend e IA?",
     "getInTouch": "Escribime",

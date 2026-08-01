@@ -114,6 +114,49 @@ input[type="email"] {
   text-wrap: balance;
 }
 
+/* Instant CSS-only tooltip (content from data-tip) */
+.tip {
+  position: relative;
+}
+.tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  z-index: 10;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  translate: -50% 0;
+  white-space: nowrap;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  padding: 5px 8px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+.tip:hover::after {
+  opacity: 1;
+}
+
+/* Live-position ripple: soft ring emanating from the route marker */
+.ripple {
+  animation: ripple 3s var(--ease-out-strong) infinite;
+}
+@keyframes ripple {
+  0% {
+    scale: 0.55;
+    opacity: 0.8;
+  }
+  70%,
+  100% {
+    scale: 1.9;
+    opacity: 0;
+  }
+}
+
 /* ============ Motion ============ */
 
 /* One-time load-in stagger (decorative) */
@@ -254,6 +297,9 @@ input[type="email"] {
   }
   .aurora::before,
   .aurora::after {
+    animation: none;
+  }
+  .ripple {
     animation: none;
   }
   .shine {

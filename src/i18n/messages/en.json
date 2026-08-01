@@ -12,13 +12,12 @@
   },
   "home": {
     "role": "Software Engineer",
-    "openToOpportunities": "Open to opportunities",
-    "bioP1": "I build fast, thoughtful web applications with <strong>React</strong>, <strong>Next.js</strong> and <strong>TypeScript</strong>. Currently at <geoactio>GeoActio</geoactio>, modernizing public transport ticketing in Spain, while building <estacionar>EstacionAR</estacionar>, a parking reservation platform for Argentina.",
-    "bioP2": "Before that I led AI engineering at Crombie's Center of Excellence and helped run Puma's e-commerce across five countries. My industrial engineering background shapes how I work: break the complex problem down, then ship the simple solution.",
+    "bio": "I build fast, thoughtful web applications with <strong>React</strong>, <strong>Next.js</strong> and <strong>TypeScript</strong>. My industrial engineering background shapes how I work: break the complex problem down, then ship the simple solution.",
+    "nowLabel": "Now",
+    "now": "Frontend at <geoactio>GeoActio</geoactio>, building <estacionar>EstacionAR</estacionar> at night.",
     "sections": {
       "experience": "Experience",
-      "projects": "Projects",
-      "stack": "Stack",
+      "beyond": "Beyond code",
       "contact": "Contact"
     },
     "experience": {
@@ -29,26 +28,13 @@
       "crombieAiLead": {
         "role": "AI Lead Engineer",
         "summary": "Led the Center of Excellence designing AI agents and workflows. Vercel AI SDK, AWS Bedrock, Langchain."
-      },
-      "crombiePuma": {
-        "role": "Frontend Engineer",
-        "summary": "Puma e-commerce in 5 markets. Cut LCP by 25% and bundle size by 20%."
-      },
-      "crombieFullstack": {
-        "role": "FullStack Developer",
-        "summary": "Led a team of 4 building Crombie's site. React, Django, AWS with SST."
       }
     },
-    "projects": {
-      "estacionar": {
-        "description": "Parking reservations for Argentina — currently building"
-      },
-      "actioticket": {
-        "description": "Buy and manage public transport tickets across Spain"
-      },
-      "aiCoe": {
-        "description": "Agent architectures and AI workflows for client solutions"
-      }
+    "beyond": {
+      "body": "When I'm not coding, I train. This year I set out to run the Buenos Aires Half Marathon, so my weeks are split between the gym and increasingly long runs.",
+      "stats": "{recentKm} km in the last 4 weeks · {recentRuns, plural, one {# run} other {# runs}} · {ytdKm} km this year",
+      "longestRun": "Longest run: {km} km — {pct}% of the way to 21K",
+      "perWeek": "km / week"
     },
     "contactIntro": "Interested in working together, or just want to talk frontend and AI?",
     "getInTouch": "Get in touch",

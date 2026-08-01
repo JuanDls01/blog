@@ -17,10 +17,10 @@ export function SiteShell({
       />
 
       <header className="scroll-edge sticky top-0 z-50 bg-nav backdrop-blur-lg backdrop-saturate-150">
-        <div className="max-w-155 mx-auto px-6">{nav}</div>
+        <div className="max-w-170 mx-auto px-6">{nav}</div>
       </header>
 
-      <main className="max-w-155 w-full mx-auto px-6 pt-14 pb-10 flex-1 flex flex-col">
+      <main className="max-w-170 w-full mx-auto px-6 pt-14 pb-10 flex-1 flex flex-col">
         <div className="flex-1">{children}</div>
         <Footer />
         <Analytics />

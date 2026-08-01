@@ -1,30 +1,30 @@
 import Image from "next/image";
 import { Github, Linkedin, Mail, X } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link, getPathname } from "@/i18n/navigation";
-import { SpotlightRow, RowArrow } from "@/components/spotlight/row";
+import { Link } from "@/i18n/navigation";
+import { getTrainingData } from "@/lib/intervals";
+import { Training } from "./components/training";
 import profilePic from "../../../public/me.jpg";
+
+export const revalidate = 3600;
 
 const experienceMeta = [
   { key: "geoactio", company: "GeoActio", period: "2025 — Now" },
   { key: "crombieAiLead", company: "Crombie", period: "2025" },
-  { key: "crombiePuma", company: "Crombie / Puma", period: "2023 — 2025" },
-  { key: "crombieFullstack", company: "Crombie", period: "2022 — 2023" },
 ];
 
-const stack = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "React Native",
-  "Tailwind CSS",
-  "Node.js",
-  "tRPC",
-  "PostgreSQL",
-  "AWS",
-  "Vercel AI SDK",
-  "Langchain",
-];
+function TextLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-fg underline decoration-faint underline-offset-[3px] hover:decoration-fg transition-colors duration-150"
+    >
+      {children}
+    </a>
+  );
+}
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -64,29 +64,7 @@ export default async function Page({
 }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "home" });
-  const workHref = getPathname({ href: "/work", locale });
-
-  const projectsMeta = [
-    {
-      key: "estacionar",
-      title: "EstacionAR",
-      meta: "Next.js · Expo",
-      href: "https://estacionar.me",
-      external: true,
-    },
-    {
-      key: "actioticket",
-      title: "ActioTicket",
-      meta: "Next.js",
-      href: workHref,
-    },
-    {
-      key: "aiCoe",
-      title: "AI Center of Excellence",
-      meta: "AI SDK",
-      href: workHref,
-    },
-  ];
+  const training = await getTrainingData();
 
   return (
     <>
@@ -107,40 +85,32 @@ export default async function Page({
             </h1>
             <p className="text-sm text-muted mt-0.5">{t("role")}</p>
           </div>
-          <span className="ml-auto inline-flex items-center gap-1.5 text-[13px] text-muted whitespace-nowrap max-sm:hidden">
-            <span className="size-[7px] rounded-full bg-accent" />
-            {t("openToOpportunities")}
-          </span>
         </div>
 
-        <div className="text-muted [&_strong]:text-fg [&_strong]:font-medium">
-          <p>
-            {t.rich("bioP1", {
-              strong: (chunks) => <strong>{chunks}</strong>,
+        <p className="text-muted [&_strong]:text-fg [&_strong]:font-medium">
+          {t.rich("bio", {
+            strong: (chunks) => <strong>{chunks}</strong>,
+          })}
+        </p>
+
+        <p className="flex items-baseline gap-2.5 text-[14px]">
+          <span className="inline-flex items-center gap-1.5 shrink-0">
+            <span className="size-[7px] rounded-full bg-accent" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.08em] leading-none text-faint">
+              {t("nowLabel")}
+            </span>
+          </span>
+          <span className="text-muted">
+            {t.rich("now", {
               geoactio: (chunks) => (
-                <a
-                  href="https://geoactio.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-fg underline decoration-faint underline-offset-[3px] hover:decoration-fg transition-colors duration-150"
-                >
-                  {chunks}
-                </a>
+                <TextLink href="https://geoactio.com">{chunks}</TextLink>
               ),
               estacionar: (chunks) => (
-                <a
-                  href="https://estacionar.me"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-fg underline decoration-faint underline-offset-[3px] hover:decoration-fg transition-colors duration-150"
-                >
-                  {chunks}
-                </a>
+                <TextLink href="https://estacionar.me">{chunks}</TextLink>
               ),
             })}
-          </p>
-          <p className="mt-3.5">{t("bioP2")}</p>
-        </div>
+          </span>
+        </p>
 
         <div className="flex items-center gap-1 -ml-2">
           {socials.map(({ label, href, icon: Icon }) => (
@@ -182,67 +152,42 @@ export default async function Page({
             </li>
           ))}
         </ul>
+        <Link
+          href="/work"
+          className="inline-block mt-3 text-[13.5px] text-muted underline decoration-line underline-offset-[3px] hover:text-fg hover:decoration-fg transition-colors duration-150"
+        >
+          {t("seeFullExperience")}
+        </Link>
       </section>
 
       <section className="reveal reveal-2 mt-16">
-        <SectionTitle>{t("sections.projects")}</SectionTitle>
-        <ul className="flex flex-col -mx-3">
-          {projectsMeta.map((project) => (
-            <li key={project.key}>
-              <SpotlightRow
-                href={project.href}
-                {...(project.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-              >
-                <span className="min-w-0">
-                  <span className="inline-flex items-center gap-1.5 text-[14.5px] font-medium">
-                    {project.title} <RowArrow />
-                  </span>
-                  <span className="block text-[13.5px] text-muted mt-0.5">
-                    {t(`projects.${project.key}.description`)}
-                  </span>
-                </span>
-                <span className="text-[13px] text-faint whitespace-nowrap">
-                  {project.meta}
-                </span>
-              </SpotlightRow>
-            </li>
-          ))}
-        </ul>
+        <SectionTitle>{t("sections.beyond")}</SectionTitle>
+        <p className="text-muted">{t("beyond.body")}</p>
+        {training && (
+          <>
+            <div className="mt-7">
+              <Training data={training} locale={locale} />
+            </div>
+            <p className="mt-4 text-[13px] text-faint tabular-nums">
+              {t("beyond.stats", {
+                recentKm: training.running.recentDistanceKm,
+                recentRuns: training.running.recentRuns,
+                ytdKm: training.running.ytdDistanceKm,
+              })}
+            </p>
+          </>
+        )}
       </section>
 
       <section className="reveal reveal-3 mt-16">
-        <SectionTitle>{t("sections.stack")}</SectionTitle>
-        <p className="text-sm text-muted leading-8">
-          {stack.map((tech, i) => (
-            <span key={tech}>
-              {tech}
-              {i < stack.length - 1 && (
-                <span className="text-faint mx-1.5">·</span>
-              )}
-            </span>
-          ))}
-        </p>
-      </section>
-
-      <section className="reveal reveal-4 mt-16">
         <SectionTitle>{t("sections.contact")}</SectionTitle>
         <p className="text-muted mb-5">{t("contactIntro")}</p>
-        <div className="flex items-center gap-5 flex-wrap">
-          <a
-            href="mailto:juanignaciodelossantos01@gmail.com"
-            className="inline-flex items-center rounded-lg bg-fg text-bg text-sm font-medium px-3.5 py-2 transition-[scale,opacity] duration-150 ease-out-strong hover:opacity-85 active:scale-[0.96]"
-          >
-            {t("getInTouch")}
-          </a>
-          <Link
-            href="/work"
-            className="text-sm text-muted underline decoration-line underline-offset-[3px] hover:text-fg hover:decoration-fg transition-colors duration-150"
-          >
-            {t("seeFullExperience")}
-          </Link>
-        </div>
+        <a
+          href="mailto:juanignaciodelossantos01@gmail.com"
+          className="inline-flex items-center rounded-lg bg-fg text-bg text-sm font-medium px-3.5 py-2 transition-[scale,opacity] duration-150 ease-out-strong hover:opacity-85 active:scale-[0.96]"
+        >
+          {t("getInTouch")}
+        </a>
       </section>
     </>
   );

@@ -225,7 +225,7 @@ export default async function BlogPost({
         </nav>
       )}
       {headings.length >= 2 && (
-        <aside className="hidden min-[1100px]:block absolute left-full top-0 bottom-0 ml-12 w-[200px]">
+        <aside className="hidden min-[1180px]:block absolute left-full top-0 bottom-0 ml-12 w-[200px]">
           <Toc headings={headings} label={t("onThisPage")} />
         </aside>
       )}
