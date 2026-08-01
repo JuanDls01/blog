@@ -74,26 +74,28 @@ Que la aplicación aguante más tráfico del que aguanta hoy sin caerse.
 
 </details>
 
+{/*
 <details>
 <summary><strong>Latencia vs Throughput</strong> — tiempo de una request vs requests por segundo</summary>
 
 **Problema que resuelve**
 
-{/* TODO */}
+TODO
 
 **Cómo funciona**
 
-{/* TODO */}
+TODO
 
 **Trade-offs / cuándo no usarlo**
 
-{/* TODO */}
+TODO
 
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
 
 </details>
+*/}
 
 <details>
 <summary><strong>SPOF y Redundancy</strong> — el punto que si falla, tira todo abajo</summary>
@@ -162,13 +164,15 @@ Que no tengas que acordarte (ni tus usuarios) la IP de tus servidores.
 
 Por lo general son proveedores third-party que vinculan la IP de tus servidores a un nombre que le podés asignar. Ejemplo en AWS: `Route53`.
 
+{/*
 **Trade-offs / cuándo no usarlo**
 
-{/* TODO */}
+TODO
 
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
+*/}
 
 </details>
 
@@ -206,13 +210,15 @@ Que servir contenido estático (imágenes, CSS, HTML, JS) no dependa de la dista
 
 Es una red de servidores más chicos, los PoP (Points of Presence), distribuidos geográficamente — mucho más repartidos que los data centers. El cacheo suele basarse en el path, los query parameters y headers como el TTL (Time-to-Live). Ejemplo en AWS: `Cloudfront`.
 
+{/*
 **Trade-offs / cuándo no usarlo**
 
-{/* TODO */}
+TODO
 
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
+*/}
 
 </details>
 
@@ -227,13 +233,15 @@ No querer resolver rate limiting, auth, SSL, whitelisting de IPs y reverse proxy
 
 Es un servicio fully-managed que actúa como middleware entre el cliente y tus servicios, y suele soportar rate limiting, autenticación, IP whitelisting, terminación de SSL, servir contenido estático y reverse proxy. Ejemplo en AWS: `Amazon API Gateway`.
 
+{/*
 **Trade-offs / cuándo no usarlo**
 
-{/* TODO */}
+TODO
 
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
+*/}
 
 </details>
 
@@ -252,13 +260,15 @@ Los data centers son instalaciones físicas con gran poder de cómputo, a difere
 - **Data synchronization:** si un data center se cae y redirigís el tráfico a otro, puede que ese otro no tenga la data a la que el usuario accedía — de ahí la necesidad de replicar datos entre regiones.
 - **Test y deployment:** hay que poder testear en las distintas regiones, no solo en una.
 
+{/*
 **Trade-offs / cuándo no usarlo**
 
-{/* TODO */}
+TODO
 
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
+*/}
 
 </details>
 
@@ -335,13 +345,15 @@ Es un componente que vive en memoria y permite comunicación asíncrona entre pa
 
 ![Diagrama de una cola de mensajes: el producer publica mensajes en la queue, el consumer los consume de forma asíncrona](/blog/system-design-interviews/colas-de-mensajes.svg)
 
+{/*
 **Trade-offs / cuándo no usarlo**
 
-{/* TODO — at-least-once vs at-most-once, dead-letter queues, quedan pendientes de profundizar. */}
+TODO — at-least-once vs at-most-once, dead-letter queues, quedan pendientes de profundizar.
 
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
+*/}
 
 </details>
 
@@ -375,7 +387,6 @@ TODO
 | SQL vs NoSQL     | Relacional: tablas y filas, consistencia fuerte. No relacional: key-value, document, graph o column store. | Según necesites consistencia estricta o velocidad/flexibilidad.               |
 | Replicación      | Duplicar la base de datos, típicamente con relación master/slave.                                          | Para separar lecturas de escrituras y ganar reliability.                      |
 | Sharding         | Partir la base de datos en shards más chicas, cada una con su propio servidor.                             | Cuando una sola base de datos ya no da abasto (horizontal scaling de datos).  |
-| Indexing         | {/* TODO */}                                                                                               | {/* TODO */}                                                                  |
 | Caching          | Guardar en memoria datos caros de obtener o muy consultados.                                               | Cuando los datos se leen mucho y cambian poco.                                |
 | Desnormalización | Duplicar información entre tablas para evitar joins caros.                                                 | Cuando el join es el cuello de botella y podés sacrificar algo de integridad. |
 
@@ -491,9 +502,11 @@ Se agrega información redundante, que en un modelo normalizado estaría en otra
 
 Se pierde algo de integridad de los datos (la información duplicada se puede desincronizar), pero se gana en performance al evitar el join.
 
+{/*
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
+*/}
 
 </details>
 
@@ -561,30 +574,27 @@ ACID da garantías fuertes pero cuesta en performance y disponibilidad cuando el
 
 | Concepto        | Resumen                                                                  | Cuándo importa                                                     |
 | --------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| Circuit Breaker | {/* TODO */}                                                             | {/* TODO */}                                                       |
-| Retry / Backoff | {/* TODO */}                                                             | {/* TODO */}                                                       |
-| Bulkhead        | {/* TODO */}                                                             | {/* TODO */}                                                       |
 | Rate Limiting   | Controla cuánto tráfico dejás pasar por cliente o por ventana de tiempo. | Para evitar DoS, sobrecarga y costos innecesarios contra terceros. |
-| Idempotencia    | {/* TODO */}                                                             | {/* TODO */}                                                       |
 
+{/*
 <details>
 <summary><strong>Circuit Breaker</strong> — corta llamadas a un servicio que está fallando</summary>
 
 **Problema que resuelve**
 
-{/* TODO */}
+TODO
 
 **Cómo funciona**
 
-{/* TODO — estados closed / open / half-open. */}
+TODO — estados closed / open / half-open.
 
 **Trade-offs / cuándo no usarlo**
 
-{/* TODO */}
+TODO
 
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
 
 </details>
 
@@ -593,21 +603,22 @@ ACID da garantías fuertes pero cuesta en performance y disponibilidad cuando el
 
 **Problema que resuelve**
 
-{/* TODO */}
+TODO
 
 **Cómo funciona**
 
-{/* TODO */}
+TODO
 
 **Trade-offs / cuándo no usarlo**
 
-{/* TODO */}
+TODO
 
 **Pregunta típica de entrevista**
 
-{/* TODO */}
+TODO
 
 </details>
+*/}
 
 <details>
 <summary><strong>Rate Limiting</strong> — controlar cuánto tráfico dejás pasar</summary>
