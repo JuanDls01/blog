@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { z } from "zod";
 import { routing } from "@/i18n/routing";
+import { slugify } from "@/lib/utils";
 
 const CONTENT_DIR = path.join(process.cwd(), "src", "content");
 
@@ -135,6 +136,55 @@ export function getPost(slug: string, locale: PostLocale): Post | undefined {
 
 export function getAllSlugs(): string[] {
   return Array.from(new Set(getAllPosts().map((post) => post.slug)));
+}
+
+export type Heading = {
+  level: 2 | 3;
+  text: string;
+  slug: string;
+};
+
+// The MDX renderer slugifies the heading's *rendered* text (inline markup
+// already resolved), so strip inline markdown before slugifying to match.
+function stripInlineMarkdown(text: string): string {
+  return text
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/`([^`]*)`/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/_([^_]+)_/g, "$1")
+    .trim();
+}
+
+/** h2/h3 headings of a post, for the on-page table of contents. */
+export function extractHeadings(content: string): Heading[] {
+  const headings: Heading[] = [];
+  let inFence = false;
+
+  // MDX comments ({/* ... */}) can span whole sections — the renderer skips
+  // them, so their headings must not reach the TOC either
+  const visible = content.replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
+
+  for (const line of visible.split("\n")) {
+    if (/^(```|~~~)/.test(line.trim())) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+
+    const match = /^(#{2,3})\s+(.+?)\s*#*\s*$/.exec(line);
+    if (!match) continue;
+
+    const text = stripInlineMarkdown(match[2]);
+    headings.push({
+      level: match[1].length as Heading["level"],
+      text,
+      slug: slugify(text),
+    });
+  }
+
+  return headings;
 }
 
 export function formatDate(date: string, locale: PostLocale = "en") {

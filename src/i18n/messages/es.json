@@ -141,7 +141,12 @@
     "draft": "Borrador",
     "readingTime": "{minutes} min de lectura",
     "updated": "Actualizado el {date}",
-    "fallbackNotice": "Esta entrada todavía no está traducida al español — se muestra la versión original."
+    "fallbackNotice": "Esta entrada todavía no está traducida al español — se muestra la versión original.",
+    "allEntries": "Todas las entradas",
+    "onThisPage": "En esta página",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "morePosts": "Más entradas"
   },
   "notFound": {
     "title": "404 - Página no encontrada",

@@ -32,6 +32,12 @@ export async function BlogPosts({ locale }: { locale: PostLocale }) {
                   {post.metadata.summary}
                 </span>
               )}
+              <span className="block text-[12.5px] text-faint mt-1.5 tabular-nums">
+                {[
+                  t("readingTime", { minutes: post.readingMinutes }),
+                  ...post.metadata.tags,
+                ].join(" · ")}
+              </span>
             </span>
             <time className="text-[13px] text-faint tabular-nums whitespace-nowrap">
               {formatDate(post.metadata.publishedAt, locale)}

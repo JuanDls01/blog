@@ -8,7 +8,7 @@ import rehypeKatex from "rehype-katex";
 import { highlightCode } from "@/lib/shiki";
 import { CopyButton } from "./copy";
 import { Callout, Note, Tip, Warning, Danger, Info, Success } from "./callout";
-import { cn } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 
 interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -37,17 +37,6 @@ function CustomLink({ href, children, ...props }: CustomLinkProps) {
       {children}
     </a>
   );
-}
-
-function slugify(str: string): string {
-  return str
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/&/g, "-and-")
-    .replace(/[^\w\-]+/g, "")
-    .replace(/\-\-+/g, "-");
 }
 
 function flattenChildren(children: React.ReactNode): string {
