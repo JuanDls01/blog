@@ -19,6 +19,7 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "metadata" });
+  const ogImage = `/og?title=${encodeURIComponent(t("ogTitle"))}`;
 
   return {
     title: {
@@ -34,6 +35,13 @@ export async function generateMetadata({
       siteName: "Juan De los Santos | Portfolio",
       locale: locale === "es" ? "es_ES" : "en_US",
       type: "website",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: t("ogTitle") }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      images: [ogImage],
     },
     robots: {
       index: true,
