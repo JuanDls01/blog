@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Juan De los Santos | Software Engineer",
-    "description": "Juan De los Santos, Software Engineer building scalable web apps with React, Next.js, and TypeScript, focused on AI-driven solutions and performance.",
+    "description": "Juan De los Santos, Software Engineer building complex, scalable systems with Next.js, NestJS, and AWS, focused on AI-driven solutions and performance.",
     "ogTitle": "Juan De los Santos | Software Engineer",
     "ogDescription": "Software Engineer building with React, Next.js, and AI-driven solutions. Projects, experience, and writing."
   },
@@ -12,7 +12,7 @@
   },
   "home": {
     "role": "Software Engineer",
-    "bio": "I build fast, thoughtful web applications with <strong>React</strong>, <strong>Next.js</strong> and <strong>TypeScript</strong>. My industrial engineering background shapes how I work: break the complex problem down, then ship the simple solution.",
+    "bio": "I build complex, scalable systems with <strong>Next.js</strong>, <strong>NestJS</strong> and <strong>AWS</strong>. My industrial engineering background shapes how I work: break the complex problem down, then ship the simple solution.",
     "nowLabel": "Now",
     "now": "Frontend at <geoactio>GeoActio</geoactio>, building <estacionar>EstacionAR</estacionar> at night.",
     "sections": {
@@ -136,6 +136,7 @@
   },
   "notFound": {
     "title": "404 - Page Not Found",
-    "description": "The page you are looking for does not exist."
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back to home"
   }
 }
