@@ -11,11 +11,6 @@ export function SiteShell({
 }) {
   return (
     <>
-      <div
-        className="aurora fixed inset-0 -z-10 overflow-hidden pointer-events-none"
-        aria-hidden
-      />
-
       <header className="scroll-edge sticky top-0 z-50 bg-nav backdrop-blur-lg backdrop-saturate-150">
         <div className="max-w-170 mx-auto px-6">{nav}</div>
       </header>

@@ -16,7 +16,7 @@
   --line: rgba(0, 0, 0, 0.08);
   --surface: rgba(0, 0, 0, 0.035);
   --surface-hover: rgba(0, 0, 0, 0.06);
-  --accent: #0d6e5f;
+  --accent: #1a1a19;
   --nav-bg: rgba(253, 253, 252, 0.7);
   --spot: rgba(0, 0, 0, 0.045);
   --shimmer: rgba(255, 255, 255, 0.9);
@@ -43,7 +43,7 @@
   --line: rgba(255, 255, 255, 0.09);
   --surface: rgba(255, 255, 255, 0.045);
   --surface-hover: rgba(255, 255, 255, 0.08);
-  --accent: #3ecfae;
+  --accent: #ededea;
   --nav-bg: rgba(17, 17, 16, 0.7);
   --spot: rgba(255, 255, 255, 0.06);
   --shimmer: rgba(255, 255, 255, 0.7);
@@ -178,33 +178,6 @@ input[type="email"] {
   }
 }
 
-/* Aurora background */
-.aurora::before,
-.aurora::after {
-  content: "";
-  position: absolute;
-  width: 55vw;
-  height: 40vh;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.13;
-  animation: aurora-drift 26s var(--ease-in-out-strong) infinite alternate;
-}
-.aurora::before {
-  top: -20vh;
-  left: -10vw;
-  background: var(--accent);
-}
-.aurora::after {
-  top: -25vh;
-  right: -15vw;
-  background: #5b7cfa;
-  animation-delay: -13s;
-}
-@keyframes aurora-drift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(6vw, 4vh, 0) scale(1.15); }
-}
 
 /* Shiny text: slow shimmer sweep (ReactBits-style) */
 .shine {

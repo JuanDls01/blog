@@ -5,6 +5,8 @@ import { Link } from "@/i18n/navigation";
 import { getTrainingData } from "@/lib/intervals";
 import { Training } from "./components/training";
 import profilePic from "../../../public/me.jpg";
+import dinoNight from "../../../public/pixels/dino-night.png";
+import forest from "../../../public/pixels/forest.jpg";
 
 export const revalidate = 3600;
 
@@ -68,34 +70,51 @@ export default async function Page({
 
   return (
     <>
-      <section className="reveal flex flex-col gap-5">
-        <div className="flex items-center gap-4">
+      <section className="flex flex-col gap-5">
+        <div aria-hidden className="reveal -mt-8">
           <Image
-            src={profilePic}
-            width={56}
-            height={56}
-            quality={95}
-            alt="Juani De los Santos"
-            className="rounded-full border border-line size-14 object-cover"
+            src={forest}
+            alt=""
             priority
+            className="w-full rounded-xl aspect-[1200/352] object-cover object-[center_35%] [image-rendering:pixelated] dark:hidden"
           />
-          <div>
-            <h1 className="text-[19px] font-semibold tracking-[-0.01em] leading-tight">
-              <span className="shine">Juani De los Santos</span>
-            </h1>
-            <p className="text-sm text-muted mt-0.5">{t("role")}</p>
+          <Image
+            src={dinoNight}
+            alt=""
+            priority
+            className="hidden w-full rounded-xl aspect-[1200/352] object-cover [image-rendering:pixelated] dark:block"
+          />
+        </div>
+        <div className="reveal">
+          <div className="relative -mt-15 w-fit">
+            <Image
+              src={profilePic}
+              width={80}
+              height={80}
+              quality={95}
+              alt="Juani De los Santos"
+              className="rounded-full size-20 object-cover border-[3px] border-bg"
+              priority
+            />
+            <span className="absolute bottom-[5px] right-[5px] flex size-3.5">
+              <span className="ripple absolute inset-0 rounded-full bg-green-500/40 dark:bg-green-400/40" />
+              <span className="relative size-full rounded-full bg-green-500 dark:bg-green-400 border-2 border-bg" />
+            </span>
           </div>
+          <h1 className="mt-3 text-[19px] font-semibold tracking-[-0.01em] leading-tight">
+            <span className="shine">Juani De los Santos</span>
+          </h1>
+          <p className="text-sm text-muted mt-0.5">{t("role")}</p>
         </div>
 
-        <p className="text-muted [&_strong]:text-fg [&_strong]:font-medium">
+        <p className="reveal reveal-1 text-muted [&_strong]:text-fg [&_strong]:font-medium">
           {t.rich("bio", {
             strong: (chunks) => <strong>{chunks}</strong>,
           })}
         </p>
 
-        <p className="flex items-baseline gap-2.5 text-[14px]">
+        <p className="reveal reveal-2 flex items-baseline gap-2.5 text-[14px]">
           <span className="inline-flex items-center gap-1.5 shrink-0">
-            <span className="size-[7px] rounded-full bg-accent" />
             <span className="text-[11px] font-semibold uppercase tracking-[0.08em] leading-none text-faint">
               {t("nowLabel")}
             </span>
@@ -112,7 +131,7 @@ export default async function Page({
           </span>
         </p>
 
-        <div className="flex items-center gap-1 -ml-2">
+        <div className="reveal reveal-2 flex items-center gap-1 -ml-2">
           {socials.map(({ label, href, icon: Icon }) => (
             <a
               key={label}
@@ -129,7 +148,7 @@ export default async function Page({
         </div>
       </section>
 
-      <section className="reveal reveal-1 mt-16">
+      <section className="reveal reveal-3 mt-16">
         <SectionTitle>{t("sections.experience")}</SectionTitle>
         <ul className="flex flex-col">
           {experienceMeta.map((job, i) => (
@@ -160,7 +179,7 @@ export default async function Page({
         </Link>
       </section>
 
-      <section className="reveal reveal-2 mt-16">
+      <section className="reveal reveal-4 mt-16">
         <SectionTitle>{t("sections.beyond")}</SectionTitle>
         <p className="text-muted">{t("beyond.body")}</p>
         {training && (
@@ -179,7 +198,7 @@ export default async function Page({
         )}
       </section>
 
-      <section className="reveal reveal-3 mt-16">
+      <section className="reveal reveal-5 mt-16">
         <SectionTitle>{t("sections.contact")}</SectionTitle>
         <p className="text-muted mb-5">{t("contactIntro")}</p>
         <a
