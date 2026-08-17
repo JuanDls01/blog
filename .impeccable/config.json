@@ -77,6 +77,12 @@
         ],
         "createdAt": "2026-08-17T14:45:06.608Z",
         "reason": "the recurring 'Dense Content' step (Shiki code, prose tables, TOC rail), documented in DESIGN.md Typography > Hierarchy and design.json typographyMeta"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "geist",
+        "createdAt": "2026-08-17T17:02:43.547Z",
+        "reason": "Geist Sans is DESIGN.md's documented display/body font (var(--font-geist-sans)); react-pdf can't consume CSS custom properties so the CV embeds the same Geist TTF files directly via Font.register — same typeface, not drift."
       }
     ]
   }

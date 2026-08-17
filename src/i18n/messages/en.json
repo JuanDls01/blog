@@ -9,7 +9,8 @@
     "home": "Home",
     "work": "Work",
     "blog": "Blog",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "downloadCv": "Download CV"
   },
   "home": {
     "role": "Software Engineer",
@@ -120,6 +121,70 @@
       "henry": {
         "degree": "Full Stack Web Developer",
         "note": "Intensive full-time program: JavaScript, React, Node.js, SQL."
+      }
+    }
+  },
+  "cv": {
+    "role": "Software Engineer",
+    "sections": {
+      "profile": "Profile",
+      "experience": "Experience",
+      "projects": "Highlighted Projects",
+      "skills": "Skills",
+      "education": "Education",
+      "languages": "Languages",
+      "contact": "Contact"
+    },
+    "profileSummary": "I help companies solve real problems by building complex, scalable systems with software and Artificial Intelligence. My industrial engineering background shapes how I work: break the complex problem down, then ship the simple solution. Working across different products and domains has given me the judgment to choose the solution the context calls for, not the tool I already know.",
+    "downloadHint": "Your download should start automatically. If it doesn't, use the button below.",
+    "experience": {
+      "geoactio": {
+        "role": "Frontend Engineer",
+        "bullets": [
+          "Building ActioTicket, a SaaS platform modernizing public transport ticketing in Spain, serving operators like Navarra and Sabadell.",
+          "Designed a multi-brand theming architecture with Next.js, TypeScript and Material UI, with custom styling per operator.",
+          "Implemented the end-to-end origin–destination ticket purchase flow — routes, dates, fares and checkout — for the Navarra operator.",
+          "Refactored key components with the Composite pattern and kept unit test coverage above 80% with Vitest and React Testing Library."
+        ]
+      },
+      "crombie": {
+        "role": "Software Engineer",
+        "bullets": [
+          "Led Crombie's internal AI Center of Excellence, designing intelligent agents with custom tools and controlled workflows using Vercel AI SDK, AWS Bedrock and Langchain.",
+          "Sr. FullStack Engineer on Puma's e-commerce across the US, Canada, UK, Japan and India — improved LCP from 4.5s to 3.8s and cut bundle size by 20%.",
+          "Implemented technical SEO and GA4 tracking for Puma, and built and maintained a shared Storybook component library used across markets.",
+          "Led a 4-person team building Crombie's own site with Next.js App Router, configured AWS deploy pipelines with SST, and mentored new developers.",
+          "Taught JavaScript, TypeScript and React in Escuelita Crombie, the company's internal developer school.",
+          "Started as a Jr. FullStack Developer building a Django REST API and React/Vite interfaces before growing into senior and leadership roles."
+        ]
+      }
+    },
+    "projects": {
+      "estacionar": {
+        "title": "EstacionAR",
+        "description": "Parking reservation platform: drivers discover and book spots, operators manage their garages."
+      },
+      "actioticket": {
+        "title": "ActioTicket",
+        "description": "Multi-brand transit ticketing SaaS with custom theming per operator across Spain."
+      },
+      "aiCoe": {
+        "title": "AI Center of Excellence",
+        "description": "Agent platform and controlled workflows for AI-driven internal products."
+      },
+      "puma": {
+        "title": "Puma E-commerce",
+        "description": "Global storefront (US, CA, UK, JP, IN) with SSR/CSR and a headless CMS."
+      }
+    },
+    "languages": {
+      "spanish": {
+        "name": "Spanish",
+        "level": "Native"
+      },
+      "english": {
+        "name": "English",
+        "level": "B2"
       }
     }
   },

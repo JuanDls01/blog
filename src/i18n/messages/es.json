@@ -9,7 +9,8 @@
     "home": "Inicio",
     "work": "Experiencia",
     "blog": "Blog",
-    "skipToContent": "Saltar al contenido"
+    "skipToContent": "Saltar al contenido",
+    "downloadCv": "Descargar CV"
   },
   "home": {
     "role": "Ingeniero de Software",
@@ -120,6 +121,70 @@
       "henry": {
         "degree": "Full Stack Web Developer",
         "note": "Programa intensivo full-time: JavaScript, React, Node.js, SQL."
+      }
+    }
+  },
+  "cv": {
+    "role": "Ingeniero de Software",
+    "sections": {
+      "profile": "Perfil",
+      "experience": "Experiencia",
+      "projects": "Proyectos Destacados",
+      "skills": "Habilidades",
+      "education": "Educación",
+      "languages": "Idiomas",
+      "contact": "Contacto"
+    },
+    "profileSummary": "Ayudo a empresas a resolver problemas reales construyendo sistemas complejos y escalables con software e Inteligencia Artificial. Mi formación en ingeniería industrial define cómo trabajo: descomponer el problema complejo y después entregar la solución simple. Trabajar en distintos productos y dominios me dio criterio para elegir la solución que pide el contexto, y no la herramienta que ya conozco.",
+    "downloadHint": "La descarga debería empezar sola. Si no, usá el botón de abajo.",
+    "experience": {
+      "geoactio": {
+        "role": "Frontend Engineer",
+        "bullets": [
+          "Desarrollo de ActioTicket, una plataforma SaaS que moderniza la venta de boletos de transporte público en España, para operadores como Navarra y Sabadell.",
+          "Diseñé una arquitectura de theming multi-marca con Next.js, TypeScript y Material UI, con estilos personalizados por operador.",
+          "Implementé el flujo end-to-end de compra de boletos origen-destino — rutas, fechas, tarifas y checkout — para el operador de Navarra.",
+          "Refactoricé componentes clave con el patrón Composite y mantuve la cobertura de tests por encima del 80% con Vitest y React Testing Library."
+        ]
+      },
+      "crombie": {
+        "role": "Software Engineer",
+        "bullets": [
+          "Lideré el Centro de Excelencia de IA interno de Crombie, diseñando agentes inteligentes con herramientas propias y workflows controlados con Vercel AI SDK, AWS Bedrock y Langchain.",
+          "Sr. FullStack Engineer en el e-commerce de Puma en Estados Unidos, Canadá, Reino Unido, Japón e India — mejoré el LCP de 4.5s a 3.8s y reduje el bundle un 20%.",
+          "Implementé SEO técnico y tracking con GA4 para Puma, y construí y mantuve una librería de componentes compartida en Storybook entre mercados.",
+          "Lideré un equipo de 4 personas construyendo el sitio de Crombie con Next.js App Router, configuré pipelines de deploy en AWS con SST y mentoreé a nuevos desarrolladores.",
+          "Enseñé JavaScript, TypeScript y React en Escuelita Crombie, la escuela interna de desarrollo de la empresa.",
+          "Empecé como Jr. FullStack Developer construyendo una API REST con Django y UIs con React/Vite, hasta crecer a roles senior y de liderazgo."
+        ]
+      }
+    },
+    "projects": {
+      "estacionar": {
+        "title": "EstacionAR",
+        "description": "Plataforma de reserva de estacionamientos: los conductores descubren y reservan lugares, los operadores gestionan sus playas."
+      },
+      "actioticket": {
+        "title": "ActioTicket",
+        "description": "SaaS de venta de boletos multi-marca, con theming personalizado por operador en España."
+      },
+      "aiCoe": {
+        "title": "Centro de Excelencia de IA",
+        "description": "Plataforma de agentes y workflows controlados para productos internos basados en IA."
+      },
+      "puma": {
+        "title": "E-commerce de Puma",
+        "description": "Storefront global (EE.UU., Canadá, Reino Unido, Japón, India) con SSR/CSR y un CMS headless."
+      }
+    },
+    "languages": {
+      "spanish": {
+        "name": "Español",
+        "level": "Nativo"
+      },
+      "english": {
+        "name": "Inglés",
+        "level": "B2"
       }
     }
   },
