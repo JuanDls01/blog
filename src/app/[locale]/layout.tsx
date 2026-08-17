@@ -18,6 +18,10 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
+  if (!routing.locales.includes(locale as Locale)) {
+    notFound();
+  }
+
   const t = await getTranslations({ locale, namespace: "metadata" });
   const ogImage = `/og?title=${encodeURIComponent(t("ogTitle"))}`;
 
