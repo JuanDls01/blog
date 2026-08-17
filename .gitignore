@@ -34,6 +34,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# impeccable (per-developer overrides and local cache; see .impeccable/config.json for the shared config)
+.impeccable/config.local.json
+.impeccable/hook.cache.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-17T00:00:00.000Z",
+  "title": "Design System: Juani De los Santos — Portfolio & Blog",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(99.3% 0.001 90)",
+        "tonalRamp": [
+          "oklch(15% 0.001 90)",
+          "oklch(28% 0.001 90)",
+          "oklch(40% 0.001 90)",
+          "oklch(55% 0.001 90)",
+          "oklch(68% 0.001 90)",
+          "oklch(80% 0.001 90)",
+          "oklch(90% 0.001 90)",
+          "oklch(99.3% 0.001 90)"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Ink",
+        "canonical": "oklch(19% 0.002 90)",
+        "tonalRamp": [
+          "oklch(15% 0.002 90)",
+          "oklch(28% 0.002 90)",
+          "oklch(40% 0.002 90)",
+          "oklch(55% 0.002 90)",
+          "oklch(68% 0.002 90)",
+          "oklch(80% 0.002 90)",
+          "oklch(90% 0.002 90)",
+          "oklch(96% 0.002 90)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "oklch(48% 0.002 90)"
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Faint Ink",
+        "canonical": "oklch(68% 0.004 90)"
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(0, 0, 0, 0.08)"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface Wash",
+        "canonical": "rgba(0, 0, 0, 0.035)"
+      },
+      "surface-hover": {
+        "role": "neutral",
+        "displayName": "Surface Wash (Hover)",
+        "canonical": "rgba(0, 0, 0, 0.06)"
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Ink (Accent)",
+        "canonical": "oklch(19% 0.002 90)"
+      },
+      "signal-green": {
+        "role": "secondary",
+        "displayName": "Signal Green",
+        "canonical": "oklch(72% 0.19 145)",
+        "tonalRamp": [
+          "oklch(20% 0.09 145)",
+          "oklch(32% 0.13 145)",
+          "oklch(44% 0.16 145)",
+          "oklch(56% 0.18 145)",
+          "oklch(64% 0.19 145)",
+          "oklch(72% 0.19 145)",
+          "oklch(84% 0.15 145)",
+          "oklch(93% 0.08 145)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Blog post titles only — the single largest text in the system." },
+      "headline": { "displayName": "Headline", "purpose": "Page-level h1: homepage name, 'Work' and 'Blog' page titles." },
+      "title": { "displayName": "Title", "purpose": "In-article prose h2 (1.4rem); prose runs its own internal sub-scale around it (h1 1.75rem, h3 1.15rem, h4 1rem) that this 5-role schema has no separate slot for." },
+      "body": { "displayName": "Body", "purpose": "Default UI text (15px); long-form prose runs its own 16px/1.7 body size for reading comfort — a second literal value by design, not drift." },
+      "label": { "displayName": "Label", "purpose": "Eyebrows, tabular metadata (dates, reading time)." },
+      "micro-label": { "displayName": "Micro-label", "purpose": "One step below Label (11px) — draft/status/fallback-language chips, Kicker's xs size. Single- or two-word tags only." },
+      "dense-content": { "displayName": "Dense Content", "purpose": "0.875rem/14px — Shiki code blocks, prose tables, and the in-article TOC rail. Reference material, not prose." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out-strong", "value": "cubic-bezier(0.23, 1, 0.32, 1)", "purpose": "Default easing for enter transitions, hover/press feedback, reveal stagger, spotlight arrow." },
+      { "name": "ease-in-out-strong", "value": "cubic-bezier(0.77, 0, 0.175, 1)", "purpose": "Theme crossfade (view transition) and shine sweep." },
+      { "name": "press-scale", "value": "scale(0.96)", "purpose": "Universal :active feedback on buttons, nav pills, and icon buttons, 150ms." }
+    ],
+    "breakpoints": [
+      { "name": "floor", "value": "360px" },
+      { "name": "sm", "value": "640px" },
+      { "name": "toc", "value": "1180px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink-filled CTA button, e.g. 'Get in touch'.",
+      "html": "<button class=\"ds-btn-primary\">Get in touch</button>",
+      "css": ".ds-btn-primary { background: #1a1a19; color: #fdfdfc; border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 500; border: none; transition: opacity 150ms cubic-bezier(0.23,1,0.32,1), scale 150ms cubic-bezier(0.23,1,0.32,1); } .ds-btn-primary:hover { opacity: 0.85; } .ds-btn-primary:active { scale: 0.96; } .ds-btn-primary:focus-visible { outline: 2px solid #1a1a19; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Icon Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Transparent icon button used for social links and the theme toggle.",
+      "html": "<button class=\"ds-btn-ghost\" aria-label=\"GitHub\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\"><path d=\"M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5v-1.75c-2.78.62-3.37-1.36-3.37-1.36-.46-1.2-1.11-1.52-1.11-1.52-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .28.18.61.69.5A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z\"/></svg></button>",
+      "css": ".ds-btn-ghost { background: transparent; color: #a3a39e; border-radius: 8px; padding: 8px; border: none; display: inline-flex; transition: color 150ms, background-color 150ms, scale 150ms cubic-bezier(0.23,1,0.32,1); } .ds-btn-ghost:hover { color: #1a1a19; background: rgba(0,0,0,0.035); } .ds-btn-ghost:active { scale: 0.96; } .ds-btn-ghost:focus-visible { outline: 2px solid #1a1a19; outline-offset: 2px; }"
+    },
+    {
+      "name": "Nav Pill",
+      "kind": "nav",
+      "refersTo": "nav-pill-active",
+      "description": "Text-only route pill; active route is full ink + medium weight, no background.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-pill ds-nav-pill--active\">Home</a><a href=\"#\" class=\"ds-nav-pill\">Work</a><a href=\"#\" class=\"ds-nav-pill\">Blog</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 4px; } .ds-nav-pill { padding: 6px 10px; border-radius: 8px; font-size: 14px; color: #6f6f6c; text-decoration: none; transition: color 150ms, background-color 150ms, scale 150ms; } .ds-nav-pill:hover { color: #1a1a19; background: rgba(0,0,0,0.035); } .ds-nav-pill:active { scale: 0.96; } .ds-nav-pill--active { color: #1a1a19; font-weight: 500; }"
+    },
+    {
+      "name": "Spotlight Row",
+      "kind": "custom",
+      "refersTo": "spotlight-row",
+      "description": "Signature list-row pattern for blog posts and adjacent-post links: radial cursor-following highlight, arrow reveal on hover.",
+      "html": "<a href=\"#\" class=\"ds-spotlight-row\"><span><span class=\"ds-row-title\">Post title <span class=\"ds-row-arrow\">→</span></span><span class=\"ds-row-summary\">One-line summary of the post.</span></span><time class=\"ds-row-date\">Jan 12</time></a>",
+      "css": ".ds-spotlight-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; border-radius: 10px; padding: 12px; text-decoration: none; color: inherit; transition: background-color 150ms; } .ds-spotlight-row:hover { background: radial-gradient(180px circle at var(--mx,50%) var(--my,50%), rgba(0,0,0,0.045), transparent 70%); } .ds-spotlight-row:active { background: rgba(0,0,0,0.06); } .ds-row-title { font-size: 14.5px; font-weight: 500; color: #1a1a19; } .ds-row-arrow { display: inline-block; opacity: 0; transform: translateX(-4px); transition: opacity 200ms cubic-bezier(0.23,1,0.32,1), transform 200ms cubic-bezier(0.23,1,0.32,1); } .ds-spotlight-row:hover .ds-row-arrow { opacity: 1; transform: translateX(0); } .ds-row-summary { display: block; font-size: 13.5px; color: #6f6f6c; margin-top: 2px; } .ds-row-date { font-size: 13px; color: #a3a39e; font-variant-numeric: tabular-nums; white-space: nowrap; }"
+    },
+    {
+      "name": "Draft Chip",
+      "kind": "chip",
+      "refersTo": "chip-draft",
+      "description": "Small hairline-bordered status chip flagging unpublished content.",
+      "html": "<span class=\"ds-chip\">Draft</span>",
+      "css": ".ds-chip { display: inline-block; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #a3a39e; border: 1px solid rgba(0,0,0,0.08); border-radius: 4px; padding: 2px 6px; }"
+    },
+    {
+      "name": "Status Dot",
+      "kind": "custom",
+      "refersTo": "signal-dot",
+      "description": "The system's one saturated-color element: a live-status indicator with a soft ripple pulse, used on the profile photo and the current-week training bar.",
+      "html": "<span class=\"ds-status-dot-wrap\"><span class=\"ds-status-ripple\"></span><span class=\"ds-status-dot\"></span></span>",
+      "css": ".ds-status-dot-wrap { position: relative; display: inline-flex; width: 14px; height: 14px; } .ds-status-dot { position: relative; width: 100%; height: 100%; border-radius: 9999px; background: #22c55e; border: 2px solid #fdfdfc; } .ds-status-ripple { position: absolute; inset: 0; border-radius: 9999px; background: rgba(34,197,94,0.4); animation: ds-ripple 3s cubic-bezier(0.23,1,0.32,1) infinite; } @keyframes ds-ripple { 0% { scale: 0.55; opacity: 0.8; } 70%, 100% { scale: 1.9; opacity: 0; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Engineer's Notebook",
+    "overview": "This is a grayscale ledger, not a landing page. Nearly every color in the interface is a step of ink-on-paper: near-black text on near-white paper (inverted in dark mode), fading through muted and faint grays for secondary and tertiary information. There is exactly one saturated color in the whole system — a signal green, reserved for the single live-status dot on the profile photo — and exactly one deliberately handmade flourish: a pixel-art hero banner (a sunlit forest in light mode, a dino under a night sky in dark mode) that swaps with the theme. Everything else earns its place through typographic weight, spacing, and hairline dividers, never through boxes, shadows, or brand color. The system previously used an aurora/gradient hero treatment; that was explicitly replaced (commit 84796bd, \"swap aurora for pixel-art banners and monochrome accent\") in favor of this quieter, more literal identity. Gradient hero backgrounds and decorative color are a confirmed rejection, not an unexplored option. Content reads like status rows in a report: experience entries, training stats, and blog posts are laid out as dividing-line lists rather than cards, with dates and numbers set in tabular figures so they align like a ledger column.",
+    "keyCharacteristics": [
+      "Achromatic by default — color is reserved for live/status signals only (see The One Signal Rule).",
+      "Single-column, narrow measure (680px), generous vertical rhythm between sections.",
+      "No shadows, no cards with fill — depth comes from tonal surface washes and 1px hairlines.",
+      "Restrained, snappy motion (150–250ms) — a one-time load-in stagger, a cursor-following spotlight, a view-transition theme crossfade.",
+      "One handmade pixel-art image is the system's only expressive/decorative element; it is intentionally the exception, not a pattern to repeat elsewhere."
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Color is reserved for live or status information only — never for decoration, brand expression, or emphasis. Today that means exactly one saturated color exists in the entire system: Signal Green, used solely for the 'available' status dot and the current-week training bar. Do not introduce a second hue, a gradient, or a tinted button anywhere else.", "section": "colors" },
+      { "name": "The Tabular Rule", "body": "Any number that could be compared to another number — dates, durations, distances, counts — is set with tabular-nums. Ragged numeral widths are treated as a bug.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Never add box-shadow to communicate elevation. If something needs to separate from its background, use a surface tonal wash or a hairline border — both already scale correctly across light and dark mode; a fixed-color shadow does not.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep all UI chrome grayscale (ink/paper/muted/faint) and reserve Signal Green strictly for live-status information (The One Signal Rule).",
+      "Do set every comparable number — dates, distances, counts, periods — with tabular figures (The Tabular Rule).",
+      "Do convey depth with surface/surface-hover tonal washes and 1px hairlines, never box-shadow (The Flat-By-Default Rule).",
+      "Do separate list items with hairline top-borders rather than wrapping each in its own bordered card.",
+      "Do keep radii in the 4–12px range, reserving true circles for photos/dots/rings only.",
+      "Do keep motion snappy and purposeful (150–250ms, ease-out-strong/ease-in-out-strong) and respect prefers-reduced-motion.",
+      "Do treat the pixel-art banner as the one deliberate ornament — everything else should stay plain by comparison."
+    ],
+    "donts": [
+      "Don't reintroduce gradient/aurora backgrounds or any decorative color wash — explicitly rejected in favor of this monochrome + pixel-art direction.",
+      "Don't add a second saturated/brand hue, tinted button, or colored badge outside the Signal Green status use.",
+      "Don't add box-shadow anywhere, including on hover/focus states — use tonal surface or hairline border instead.",
+      "Don't wrap list rows (experience, blog posts, work history) in individually bordered/filled cards; keep the divided-list pattern.",
+      "Don't widen the content column past 680px or introduce a multi-column grid on the main content well; the TOC rail is the one sanctioned exception, and only ≥1180px."
+    ]
+  }
+}

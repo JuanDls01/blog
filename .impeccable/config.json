@@ -1,0 +1,83 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font-size",
+        "value": "11px",
+        "createdAt": "2026-08-17T14:37:54.009Z",
+        "reason": "DESIGN.md Label section already names the 11px uppercase draft/status chip; badge.tsx/kicker.tsx(xs) centralize that pre-existing size, training.tsx axis labels bumped 10->11px for the 12px legibility floor"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.35rem",
+        "createdAt": "2026-08-17T14:38:00.790Z",
+        "reason": "False positive: DESIGN.md Display entry itself defines this as the >=640px responsive step (2rem -> 2.35rem), the detector just doesn't parse the prose range"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "2px",
+        "files": [
+          "src/app/global.css"
+        ],
+        "createdAt": "2026-08-17T14:45:06.392Z",
+        "reason": "focus-visible outline radius: a browser-affordance detail below the 4px content-shape floor, documented in DESIGN.md Shapes"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "1px",
+        "files": [
+          "src/app/global.css"
+        ],
+        "createdAt": "2026-08-17T14:45:06.425Z",
+        "reason": "TOC active-indicator bar (2px wide) rounding its tip, below the content-shape floor, documented in DESIGN.md Shapes"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#0d1117",
+        "files": [
+          "src/app/global.css"
+        ],
+        "createdAt": "2026-08-17T14:45:06.460Z",
+        "reason": "Shiki code block bg intentionally stays fixed-dark in both themes, documented in DESIGN.md Components > Code Blocks"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1rem",
+        "files": [
+          "src/app/global.css"
+        ],
+        "createdAt": "2026-08-17T14:45:06.495Z",
+        "reason": "prose body (16px) and prose h4 share this value; both documented in DESIGN.md Typography > Hierarchy"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.75rem",
+        "files": [
+          "src/app/global.css"
+        ],
+        "createdAt": "2026-08-17T14:45:06.534Z",
+        "reason": "prose h1, the top of prose's internal sub-scale; documented in DESIGN.md Typography > Hierarchy (Title)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.15rem",
+        "files": [
+          "src/app/global.css"
+        ],
+        "createdAt": "2026-08-17T14:45:06.571Z",
+        "reason": "prose h3, documented in DESIGN.md Typography > Hierarchy (Title)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.875rem",
+        "files": [
+          "src/app/global.css"
+        ],
+        "createdAt": "2026-08-17T14:45:06.608Z",
+        "reason": "the recurring 'Dense Content' step (Shiki code, prose tables, TOC rail), documented in DESIGN.md Typography > Hierarchy and design.json typographyMeta"
+      }
+    ]
+  }
+}
