@@ -40,18 +40,19 @@ export function Navbar() {
           );
         })}
       </div>
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-1.5 text-[13px] tabular-nums">
+      <div className="flex items-center gap-1">
+        <div className="flex items-center text-[13px] tabular-nums">
           {locales.map((loc, i) => (
-            <span key={loc} className="flex items-center gap-1.5">
-              {i > 0 && <span className="text-faint">·</span>}
+            <span key={loc} className="flex items-center">
+              {i > 0 && <span className="text-faint px-0.5">·</span>}
               <Link
                 href={pathname}
                 locale={loc}
-                className={`uppercase transition-colors duration-150 ${
+                aria-current={locale === loc ? "true" : undefined}
+                className={`px-1.5 py-1 rounded-lg uppercase transition-[color,background-color,scale] duration-150 active:scale-[0.96] ${
                   locale === loc
                     ? "text-fg font-medium"
-                    : "text-faint hover:text-fg"
+                    : "text-faint hover:text-fg hover:bg-surface"
                 }`}
               >
                 {loc}
