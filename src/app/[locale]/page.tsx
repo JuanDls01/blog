@@ -52,7 +52,7 @@ export default async function Page({
   const t = await getTranslations({ locale, namespace: "home" });
   const tNav = await getTranslations({ locale, namespace: "nav" });
   const training = await getTrainingData();
-  const cvHref = getPathname({ href: "/cv", locale });
+  const cvHref = getPathname({ href: "/cv/download", locale });
 
   return (
     <>
@@ -138,7 +138,6 @@ export default async function Page({
           <span aria-hidden className="w-px h-4 bg-line mx-1" />
           <a
             href={cvHref}
-            target="_blank"
             className="inline-flex items-center gap-1.5 px-2.5 py-2 -my-0.5 text-[13px] text-faint hover:text-fg hover:bg-surface rounded-lg transition-[color,background-color,scale] duration-150 active:scale-[0.96]"
           >
             <Download size={15} strokeWidth={1.75} />
