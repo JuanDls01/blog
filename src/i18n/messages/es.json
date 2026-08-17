@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Juan De los Santos | Ingeniero de Software",
-    "description": "Juan De los Santos, Ingeniero de Software: sistemas complejos y escalables con Next.js, NestJS y AWS, con foco en soluciones con IA y performance.",
+    "description": "Juan De los Santos, Ingeniero de Software: convierte problemas complejos en software simple y escalable con Next.js, NestJS y AWS, con foco en soluciones con IA y performance.",
     "ogTitle": "Juan De los Santos | Ingeniero de Software",
     "ogDescription": "Ingeniero de Software especializado en React, Next.js y soluciones con IA. Proyectos, experiencia y artículos."
   },
@@ -14,10 +14,10 @@
   },
   "home": {
     "role": "Ingeniero de Software",
-    "bio": "Construyo sistemas complejos y escalables con <strong>Next.js</strong>, <strong>NestJS</strong> y <strong>AWS</strong>. Mi formación en ingeniería industrial define cómo trabajo: descomponer el problema complejo y después enviar la solución simple.",
+    "bio": "Convierto problemas complejos en software simple y escalable con <strong>Next.js</strong>, <strong>NestJS</strong> y <strong>AWS</strong>. Mi formación en ingeniería industrial define cómo trabajo: descompongo el problema y entrego la solución más simple que funciona.",
     "availableStatus": "Disponible para trabajar",
     "nowLabel": "Now",
-    "now": "Frontend en <geoactio>GeoActio</geoactio>, construyendo <estacionar>EstacionAR</estacionar> de noche.",
+    "now": "FullStack en <geoactio>GeoActio</geoactio>, construyendo <estacionar>EstacionAR</estacionar> de noche.",
     "sections": {
       "experience": "Experiencia",
       "beyond": "Más allá del código",
@@ -25,7 +25,7 @@
     },
     "experience": {
       "geoactio": {
-        "role": "Frontend Engineer",
+        "role": "FullStack Engineer",
         "summary": "Venta de boletos de transporte público para España. Theming multi-marca y flujos de compra end-to-end con Next.js."
       },
       "crombieAiLead": {
@@ -59,7 +59,7 @@
         ]
       },
       "geoactioFrontend": {
-        "role": "Frontend Engineer",
+        "role": "FullStack Engineer",
         "highlights": [
           "Desarrollo de ActioTicket, una plataforma SaaS que moderniza la venta de boletos de transporte público en España, para operadores como Navarra y Sabadell.",
           "Diseñé una arquitectura de theming multi-marca con Next.js, TypeScript y Material UI, con estilos personalizados por operador.",
@@ -135,11 +135,11 @@
       "languages": "Idiomas",
       "contact": "Contacto"
     },
-    "profileSummary": "Ayudo a empresas a resolver problemas reales construyendo sistemas complejos y escalables con software e Inteligencia Artificial. Mi formación en ingeniería industrial define cómo trabajo: descomponer el problema complejo y después entregar la solución simple. Trabajar en distintos productos y dominios me dio criterio para elegir la solución que pide el contexto, y no la herramienta que ya conozco.",
+    "profileSummary": "Ayudo a empresas a convertir problemas complejos en software simple y escalable. Mi formación en ingeniería industrial define cómo trabajo: descompongo el problema y entrego la solución más simple que funciona. Haber trabajado en productos y dominios distintos me dio criterio para elegir lo que pide el contexto, y no la herramienta que ya conozco.",
     "downloadHint": "La descarga debería empezar sola. Si no, usá el botón de abajo.",
     "experience": {
       "geoactio": {
-        "role": "Frontend Engineer",
+        "role": "FullStack Engineer",
         "bullets": [
           "Desarrollo de ActioTicket, una plataforma SaaS que moderniza la venta de boletos de transporte público en España, para operadores como Navarra y Sabadell.",
           "Diseñé una arquitectura de theming multi-marca con Next.js, TypeScript y Material UI, con estilos personalizados por operador.",
