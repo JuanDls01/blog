@@ -76,6 +76,9 @@
 /* ============ Base ============ */
 html {
   min-width: 360px;
+  /* Unclipped decorative content (e.g. .tip's CSS-only tooltips) must never
+     force a horizontal scrollbar on the page. */
+  overflow-x: clip;
   scroll-behavior: smooth;
   /* Lets block-size: 0 → auto interpolate (details expand/collapse) */
   interpolate-size: allow-keywords;
