@@ -58,7 +58,7 @@ export function Callout({ type = 'note', title, children, className }: CalloutPr
         className
       )}
     >
-      <Icon className={cn('size-4 shrink-0 mt-0.5', config.iconClassName)} />
+      <Icon aria-hidden className={cn('size-4 shrink-0 mt-0.5', config.iconClassName)} />
       <div className="flex-1 min-w-0">
         <div className="font-semibold text-fg mb-1">
           {title || defaultTitle}

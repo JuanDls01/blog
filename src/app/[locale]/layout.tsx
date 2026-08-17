@@ -83,10 +83,13 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const t = await getTranslations({ locale, namespace: "nav" });
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <SiteShell nav={<Navbar />}>{children}</SiteShell>
+      <SiteShell nav={<Navbar />} skipToContentLabel={t("skipToContent")}>
+        {children}
+      </SiteShell>
     </NextIntlClientProvider>
   );
 }

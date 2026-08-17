@@ -4,18 +4,30 @@ import Footer from "./footer";
 
 export function SiteShell({
   nav,
+  skipToContentLabel,
   children,
 }: {
   nav: React.ReactNode;
+  skipToContentLabel: string;
   children: React.ReactNode;
 }) {
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-3 focus-visible:left-3 focus-visible:z-[100] focus-visible:rounded-lg focus-visible:bg-fg focus-visible:px-3 focus-visible:py-2 focus-visible:text-sm focus-visible:font-medium focus-visible:text-bg"
+      >
+        {skipToContentLabel}
+      </a>
       <header className="scroll-edge sticky top-0 z-50 bg-nav backdrop-blur-lg backdrop-saturate-150">
         <div className="max-w-170 mx-auto px-6">{nav}</div>
       </header>
 
-      <main className="max-w-170 w-full mx-auto px-6 pt-14 pb-10 flex-1 flex flex-col">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="max-w-170 w-full mx-auto px-6 pt-14 pb-10 flex-1 flex flex-col outline-none"
+      >
         <div className="flex-1">{children}</div>
         <Footer />
         <Analytics />

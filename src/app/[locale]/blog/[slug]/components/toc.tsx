@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { Heading } from "@/lib/posts";
 import { cn } from "@/lib/utils";
+import { Kicker } from "@/components/ui/kicker";
 
 export function Toc({ headings, label }: { headings: Heading[]; label: string }) {
   const listRef = useRef<HTMLUListElement>(null);
@@ -65,9 +66,9 @@ export function Toc({ headings, label }: { headings: Heading[]; label: string })
       aria-label={label}
       className="reveal reveal-2 sticky top-24 text-[13px] leading-normal"
     >
-      <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-faint mb-3">
+      <Kicker as="p" size="xs" className="mb-3">
         {label}
-      </p>
+      </Kicker>
       <ul ref={listRef} className="toc-rail relative list-none border-l border-line pl-3.5">
         <span ref={indicatorRef} className="toc-indicator" aria-hidden />
         {headings.map((heading, i) => (

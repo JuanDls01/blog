@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Kicker } from "@/components/ui/kicker";
+import { MetaText } from "@/components/ui/meta-text";
+import { PageTitle } from "@/components/ui/page-title";
 
 type PositionMeta = {
   key: string;
@@ -68,27 +71,21 @@ const WorkPage = async ({
 
   return (
     <section className="reveal">
-      <h1 className="text-[19px] font-semibold tracking-[-0.01em]">
-        {t("title")}
-      </h1>
+      <PageTitle>{t("title")}</PageTitle>
       <p className="text-muted mt-3">{t("intro")}</p>
 
       <div className="mt-10 flex flex-col gap-10">
         {jobsMeta.map((job) => (
           <div key={job.company}>
-            <h2 className="text-[13px] font-medium uppercase tracking-[0.05em] text-faint mb-4">
-              {job.company}
-            </h2>
+            <Kicker className="mb-4">{job.company}</Kicker>
             <ul className="flex flex-col gap-6">
               {job.positions.map((position) => (
                 <li key={position.key}>
                   <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="text-[14.5px] font-medium">
+                    <p className="text-[14.5px] font-medium">
                       {t(`positions.${position.key}.role`)}
-                    </h3>
-                    <span className="text-[13px] text-faint tabular-nums whitespace-nowrap">
-                      {position.period}
-                    </span>
+                    </p>
+                    <MetaText nowrap>{position.period}</MetaText>
                   </div>
                   <ul className="mt-2 flex flex-col gap-1.5">
                     {(
@@ -109,22 +106,18 @@ const WorkPage = async ({
         ))}
 
         <div>
-          <h2 className="text-[13px] font-medium uppercase tracking-[0.05em] text-faint mb-4">
-            {t("sections.education")}
-          </h2>
+          <Kicker className="mb-4">{t("sections.education")}</Kicker>
           <ul className="flex flex-col gap-6">
             {educationMeta.map((item) => (
               <li key={item.key}>
                 <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="text-[14.5px] font-medium">
+                  <p className="text-[14.5px] font-medium">
                     {t(`education.${item.key}.degree`)} ·{" "}
                     <span className="text-muted font-normal">
                       {item.school}
                     </span>
-                  </h3>
-                  <span className="text-[13px] text-faint tabular-nums whitespace-nowrap">
-                    {item.period}
-                  </span>
+                  </p>
+                  <MetaText nowrap>{item.period}</MetaText>
                 </div>
                 <p className="text-[13.5px] text-muted mt-1">
                   {t(`education.${item.key}.note`)}

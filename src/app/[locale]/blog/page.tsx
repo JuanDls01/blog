@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { PageTitle } from "@/components/ui/page-title";
 import { BlogPosts } from "./components/list";
 import type { PostLocale } from "@/lib/posts";
 
@@ -26,9 +27,7 @@ export default async function BlogPage({
 
   return (
     <section className="reveal">
-      <h1 className="text-[19px] font-semibold tracking-[-0.01em]">
-        {t("title")}
-      </h1>
+      <PageTitle>{t("title")}</PageTitle>
       <p className="text-muted mt-3 mb-8">{t("intro")}</p>
       <BlogPosts locale={locale as PostLocale} />
     </section>

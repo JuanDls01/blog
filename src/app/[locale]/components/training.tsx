@@ -43,7 +43,7 @@ export async function Training({
   return (
     <div>
       <div aria-hidden>
-        <div className="relative h-5 text-[10px] text-faint tabular-nums">
+        <div className="relative h-5 text-[11px] text-faint tabular-nums">
           <span className="absolute left-0 bottom-1">0</span>
           {ticks.map((left, i) => (
             <span
@@ -116,7 +116,7 @@ export async function Training({
             </div>
           ))}
         </div>
-        <div className="relative h-4 mt-1.5 text-[10px] text-faint">
+        <div className="relative h-4 mt-1.5 text-[11px] text-faint">
           {quarters.map(({ week, label }) => (
             <span
               key={week}

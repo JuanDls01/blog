@@ -13,6 +13,8 @@ import {
 } from "@/lib/posts";
 import { routing } from "@/i18n/routing";
 import { baseUrl } from "@/lib/site";
+import { Badge } from "@/components/ui/badge";
+import { MetaText } from "@/components/ui/meta-text";
 import { CustomMDX } from "./components/mdx";
 import { Toc } from "./components/toc";
 
@@ -162,7 +164,7 @@ export default async function BlogPost({
           <h1 className="title font-semibold text-[2rem] sm:text-[2.35rem] leading-[1.15] tracking-[-0.025em]">
             {post.metadata.title}
           </h1>
-          <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 mt-3.5 text-[13.5px] text-faint tabular-nums">
+          <MetaText as="div" className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 mt-3.5">
             <time dateTime={post.metadata.publishedAt}>
               {formatDate(post.metadata.publishedAt, locale as PostLocale)}
             </time>
@@ -176,12 +178,8 @@ export default async function BlogPost({
                 ))}
               </>
             )}
-            {!post.metadata.published && (
-              <span className="text-[11px] font-medium uppercase tracking-wider text-faint border border-line rounded px-1.5 py-0.5">
-                {t("draft")}
-              </span>
-            )}
-          </div>
+            {!post.metadata.published && <Badge>{t("draft")}</Badge>}
+          </MetaText>
           {post.metadata.summary && (
             <p className="mt-4 text-[15.5px] leading-relaxed text-muted [text-wrap:pretty]">
               {post.metadata.summary}

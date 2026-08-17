@@ -1,8 +1,12 @@
 import Image from "next/image";
 import { Github, Linkedin, Mail, X } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { getTrainingData } from "@/lib/intervals";
+import { Kicker } from "@/components/ui/kicker";
+import { MetaText } from "@/components/ui/meta-text";
+import { TextLink } from "@/components/ui/text-link";
+import { PageTitle } from "@/components/ui/page-title";
+import { Button } from "@/components/ui/button";
 import { Training } from "./components/training";
 import profilePic from "../../../public/me.jpg";
 import dinoNight from "../../../public/pixels/dino-night.png";
@@ -14,27 +18,6 @@ const experienceMeta = [
   { key: "geoactio", company: "GeoActio", period: "2025 — Now" },
   { key: "crombieAiLead", company: "Crombie", period: "2025" },
 ];
-
-function TextLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-fg underline decoration-faint underline-offset-[3px] hover:decoration-fg transition-colors duration-150"
-    >
-      {children}
-    </a>
-  );
-}
-
-function SectionTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-[13px] font-medium uppercase tracking-[0.05em] text-faint mb-5">
-      {children}
-    </h2>
-  );
-}
 
 const socials = [
   {
@@ -96,14 +79,18 @@ export default async function Page({
               className="rounded-full size-20 object-cover border-[3px] border-bg"
               priority
             />
-            <span className="absolute bottom-[5px] right-[5px] flex size-3.5">
-              <span className="ripple absolute inset-0 rounded-full bg-green-500/40 dark:bg-green-400/40" />
-              <span className="relative size-full rounded-full bg-green-500 dark:bg-green-400 border-2 border-bg" />
+            <span
+              role="img"
+              aria-label={t("availableStatus")}
+              className="absolute bottom-[5px] right-[5px] flex size-3.5"
+            >
+              <span aria-hidden className="ripple absolute inset-0 rounded-full bg-green-500/40 dark:bg-green-400/40" />
+              <span aria-hidden className="relative size-full rounded-full bg-green-500 dark:bg-green-400 border-2 border-bg" />
             </span>
           </div>
-          <h1 className="mt-3 text-[19px] font-semibold tracking-[-0.01em] leading-tight">
+          <PageTitle className="mt-3 leading-tight">
             <span className="shine">Juani De los Santos</span>
-          </h1>
+          </PageTitle>
           <p className="text-sm text-muted mt-0.5">{t("role")}</p>
         </div>
 
@@ -115,9 +102,9 @@ export default async function Page({
 
         <p className="reveal reveal-2 flex items-baseline gap-2.5 text-[14px]">
           <span className="inline-flex items-center gap-1.5 shrink-0">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.08em] leading-none text-faint">
+            <Kicker as="span" size="xs" className="leading-none">
               {t("nowLabel")}
-            </span>
+            </Kicker>
           </span>
           <span className="text-muted">
             {t.rich("now", {
@@ -149,7 +136,7 @@ export default async function Page({
       </section>
 
       <section className="reveal reveal-3 mt-16">
-        <SectionTitle>{t("sections.experience")}</SectionTitle>
+        <Kicker className="mb-5">{t("sections.experience")}</Kicker>
         <ul className="flex flex-col">
           {experienceMeta.map((job, i) => (
             <li
@@ -162,51 +149,45 @@ export default async function Page({
                 {t(`experience.${job.key}.role`)} ·{" "}
                 <span className="text-muted font-normal">{job.company}</span>
               </span>
-              <span className="text-[13px] text-faint tabular-nums whitespace-nowrap pt-px">
+              <MetaText nowrap className="pt-px">
                 {job.period}
-              </span>
+              </MetaText>
               <span className="col-span-full text-[13.5px] text-muted mt-1">
                 {t(`experience.${job.key}.summary`)}
               </span>
             </li>
           ))}
         </ul>
-        <Link
-          href="/work"
-          className="inline-block mt-3 text-[13.5px] text-muted underline decoration-line underline-offset-[3px] hover:text-fg hover:decoration-fg transition-colors duration-150"
-        >
+        <TextLink href="/work" variant="quiet" className="inline-block mt-3">
           {t("seeFullExperience")}
-        </Link>
+        </TextLink>
       </section>
 
       <section className="reveal reveal-4 mt-16">
-        <SectionTitle>{t("sections.beyond")}</SectionTitle>
+        <Kicker className="mb-5">{t("sections.beyond")}</Kicker>
         <p className="text-muted">{t("beyond.body")}</p>
         {training && (
           <>
             <div className="mt-7">
               <Training data={training} locale={locale} />
             </div>
-            <p className="mt-4 text-[13px] text-faint tabular-nums">
+            <MetaText as="p" className="mt-4">
               {t("beyond.stats", {
                 recentKm: training.running.recentDistanceKm,
                 recentRuns: training.running.recentRuns,
                 ytdKm: training.running.ytdDistanceKm,
               })}
-            </p>
+            </MetaText>
           </>
         )}
       </section>
 
       <section className="reveal reveal-5 mt-16">
-        <SectionTitle>{t("sections.contact")}</SectionTitle>
+        <Kicker className="mb-5">{t("sections.contact")}</Kicker>
         <p className="text-muted mb-5">{t("contactIntro")}</p>
-        <a
-          href="mailto:juanignaciodelossantos01@gmail.com"
-          className="inline-flex items-center rounded-lg bg-fg text-bg text-sm font-medium px-3.5 py-2 transition-[scale,opacity] duration-150 ease-out-strong hover:opacity-85 active:scale-[0.96]"
-        >
+        <Button href="mailto:juanignaciodelossantos01@gmail.com">
           {t("getInTouch")}
-        </a>
+        </Button>
       </section>
     </>
   );

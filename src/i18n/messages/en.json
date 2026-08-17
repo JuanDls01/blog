@@ -8,11 +8,13 @@
   "nav": {
     "home": "Home",
     "work": "Work",
-    "blog": "Blog"
+    "blog": "Blog",
+    "skipToContent": "Skip to content"
   },
   "home": {
     "role": "Software Engineer",
     "bio": "I build complex, scalable systems with <strong>Next.js</strong>, <strong>NestJS</strong> and <strong>AWS</strong>. My industrial engineering background shapes how I work: break the complex problem down, then ship the simple solution.",
+    "availableStatus": "Available for work",
     "nowLabel": "Now",
     "now": "Frontend at <geoactio>GeoActio</geoactio>, building <estacionar>EstacionAR</estacionar> at night.",
     "sections": {
@@ -135,7 +137,7 @@
     "morePosts": "More posts"
   },
   "notFound": {
-    "title": "404 - Page Not Found",
+    "title": "404 — Page not found",
     "description": "The page you are looking for does not exist.",
     "backHome": "Back to home"
   }

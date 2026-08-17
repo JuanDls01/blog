@@ -8,11 +8,13 @@
   "nav": {
     "home": "Inicio",
     "work": "Experiencia",
-    "blog": "Blog"
+    "blog": "Blog",
+    "skipToContent": "Saltar al contenido"
   },
   "home": {
     "role": "Ingeniero de Software",
     "bio": "Construyo sistemas complejos y escalables con <strong>Next.js</strong>, <strong>NestJS</strong> y <strong>AWS</strong>. Mi formación en ingeniería industrial define cómo trabajo: descomponer el problema complejo y después enviar la solución simple.",
+    "availableStatus": "Disponible para trabajar",
     "nowLabel": "Now",
     "now": "Frontend en <geoactio>GeoActio</geoactio>, construyendo <estacionar>EstacionAR</estacionar> de noche.",
     "sections": {
@@ -135,7 +137,7 @@
     "morePosts": "Más entradas"
   },
   "notFound": {
-    "title": "404 - Página no encontrada",
+    "title": "404 — Página no encontrada",
     "description": "La página que buscás no existe.",
     "backHome": "Volver al inicio"
   }

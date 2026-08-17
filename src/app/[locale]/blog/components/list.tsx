@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { formatDate, getBlogPosts, type PostLocale } from "@/lib/posts";
 import { routing } from "@/i18n/routing";
 import { SpotlightRow, RowArrow } from "@/components/spotlight/row";
+import { Badge } from "@/components/ui/badge";
+import { MetaText } from "@/components/ui/meta-text";
 
 function blogHref(slug: string, locale: PostLocale) {
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
@@ -20,11 +22,7 @@ export async function BlogPosts({ locale }: { locale: PostLocale }) {
             <span className="min-w-0">
               <span className="inline-flex items-center gap-1.5 text-[14.5px] font-medium">
                 {post.metadata.title}
-                {!post.metadata.published && (
-                  <span className="text-[11px] font-medium uppercase tracking-[0.05em] text-faint border border-line rounded px-1.5 py-0.5">
-                    {t("draft")}
-                  </span>
-                )}
+                {!post.metadata.published && <Badge>{t("draft")}</Badge>}
                 <RowArrow />
               </span>
               {post.metadata.summary && (
@@ -39,9 +37,9 @@ export async function BlogPosts({ locale }: { locale: PostLocale }) {
                 ].join(" · ")}
               </span>
             </span>
-            <time className="text-[13px] text-faint tabular-nums whitespace-nowrap">
+            <MetaText as="time" nowrap>
               {formatDate(post.metadata.publishedAt, locale)}
-            </time>
+            </MetaText>
           </SpotlightRow>
         </li>
       ))}

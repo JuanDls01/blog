@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { PageTitle } from "@/components/ui/page-title";
+import { TextLink } from "@/components/ui/text-link";
 import dinoNight from "../../../public/pixels/dino-night.png";
 
 export default async function NotFound() {
@@ -16,17 +17,12 @@ export default async function NotFound() {
         className="w-full rounded-xl border border-line [image-rendering:pixelated]"
       />
       <div>
-        <h1 className="text-2xl font-semibold tracking-tighter">
-          {t("title")}
-        </h1>
+        <PageTitle>{t("title")}</PageTitle>
         <p className="mt-2 text-muted">{t("description")}</p>
       </div>
-      <Link
-        href="/"
-        className="self-start text-[13.5px] text-muted underline decoration-line underline-offset-[3px] hover:text-fg hover:decoration-fg transition-colors duration-150"
-      >
+      <TextLink href="/" variant="quiet" className="self-start">
         {t("backHome")}
-      </Link>
+      </TextLink>
     </section>
   );
 }
