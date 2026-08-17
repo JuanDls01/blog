@@ -33,8 +33,8 @@ export const educationMeta = [
 export const languagesMeta = [{ key: "spanish" }, { key: "english" }] as const;
 
 export const experienceMeta = [
-  { key: "geoactio", company: "GeoActio", period: "Jul 2025 — Now" },
-  { key: "crombie", company: "Crombie", period: "Nov 2022 — Jul 2025" },
+  { key: "geoactio", company: "GeoActio", start: "Jul 2025", end: null },
+  { key: "crombie", company: "Crombie", start: "Nov 2022", end: "Jul 2025" },
 ] as const;
 
 export const projectsMeta = [
@@ -62,6 +62,7 @@ export async function getCvContent(locale: string) {
     profileSummary: t("profileSummary"),
     experience: experienceMeta.map((job) => ({
       ...job,
+      period: `${job.start} — ${job.end ?? t("present")}`,
       role: t(`experience.${job.key}.role`),
       bullets: t.raw(`experience.${job.key}.bullets`) as string[],
     })),

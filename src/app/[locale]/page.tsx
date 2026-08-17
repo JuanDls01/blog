@@ -15,11 +15,6 @@ import forest from "../../../public/pixels/forest.jpg";
 
 export const revalidate = 3600;
 
-const experienceMeta = [
-  { key: "geoactio", company: "GeoActio", period: "2025 — Now" },
-  { key: "crombieAiLead", company: "Crombie", period: "2025" },
-];
-
 const socials = [
   {
     label: "GitHub",
@@ -53,6 +48,11 @@ export default async function Page({
   const tNav = await getTranslations({ locale, namespace: "nav" });
   const training = await getTrainingData();
   const cvHref = getPathname({ href: "/cv/download", locale });
+
+  const experienceMeta = [
+    { key: "geoactio", company: "GeoActio", period: `2025 — ${t("present")}` },
+    { key: "crombieAiLead", company: "Crombie", period: "2025" },
+  ];
 
   return (
     <>

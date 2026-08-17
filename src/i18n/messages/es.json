@@ -16,7 +16,8 @@
     "role": "Ingeniero de Software",
     "bio": "Convierto problemas complejos en software simple y escalable con <strong>Next.js</strong>, <strong>NestJS</strong> y <strong>AWS</strong>. Mi formación en ingeniería industrial define cómo trabajo: descompongo el problema y entrego la solución más simple que funciona.",
     "availableStatus": "Disponible para trabajar",
-    "nowLabel": "Now",
+    "nowLabel": "Ahora",
+    "present": "Actualidad",
     "now": "FullStack en <geoactio>GeoActio</geoactio>, construyendo <estacionar>EstacionAR</estacionar> de noche.",
     "sections": {
       "experience": "Experiencia",
@@ -126,6 +127,7 @@
   },
   "cv": {
     "role": "Ingeniero de Software",
+    "present": "Actualidad",
     "sections": {
       "profile": "Perfil",
       "experience": "Experiencia",

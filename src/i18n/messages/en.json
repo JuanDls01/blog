@@ -17,6 +17,7 @@
     "bio": "I turn complex problems into simple, scalable software with <strong>Next.js</strong>, <strong>NestJS</strong> and <strong>AWS</strong>. My industrial engineering background shapes how I work: I break the problem down and ship the simplest solution that works.",
     "availableStatus": "Available for work",
     "nowLabel": "Now",
+    "present": "Now",
     "now": "FullStack at <geoactio>GeoActio</geoactio>, building <estacionar>EstacionAR</estacionar> at night.",
     "sections": {
       "experience": "Experience",
@@ -126,6 +127,7 @@
   },
   "cv": {
     "role": "Software Engineer",
+    "present": "Now",
     "sections": {
       "profile": "Profile",
       "experience": "Experience",
