@@ -100,7 +100,7 @@ export default async function Page({
           })}
         </p>
 
-        <p className="reveal reveal-2 flex items-baseline gap-2.5 text-[14px]">
+        <p className="reveal reveal-2 flex items-baseline gap-2.5 text-[13px]">
           <span className="inline-flex items-center gap-1.5 shrink-0">
             <Kicker as="span" size="xs" className="leading-none">
               {t("nowLabel")}

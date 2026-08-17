@@ -94,7 +94,7 @@ function AdjacentLink({
       href={blogPath(locale, post.slug)}
       className={`group flex flex-col gap-0.5 rounded-[10px] p-3 -m-3 no-underline text-inherit transition-colors duration-150 hover:bg-surface active:bg-surface-hover ${next ? "items-end text-right" : "items-start"}`}
     >
-      <span className="text-[11.5px] uppercase tracking-[0.06em] text-faint">
+      <span className="text-[11px] uppercase tracking-[0.06em] text-faint">
         {next ? `${label} →` : `← ${label}`}
       </span>
       <span className="font-medium text-[13.5px]">{post.metadata.title}</span>
