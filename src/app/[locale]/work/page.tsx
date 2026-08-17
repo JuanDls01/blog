@@ -87,10 +87,7 @@ const WorkPage = async ({
             </div>
             <ul className="flex flex-col gap-6">
               {job.positions.map((position) => (
-                <li
-                  key={position.key}
-                  className={job.positions.length > 1 ? "pl-4" : undefined}
-                >
+                <li key={position.key}>
                   <p className="text-[14.5px] font-medium">
                     {t(`positions.${position.key}.role`)}
                   </p>
