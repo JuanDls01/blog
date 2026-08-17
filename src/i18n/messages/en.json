@@ -141,21 +141,21 @@
       "geoactio": {
         "role": "FullStack Engineer",
         "bullets": [
-          "Building ActioTicket, a SaaS platform modernizing public transport ticketing in Spain, serving operators like Navarra and Sabadell.",
-          "Designed a multi-brand theming architecture with Next.js, TypeScript and Material UI, with custom styling per operator.",
-          "Implemented the end-to-end origin–destination ticket purchase flow — routes, dates, fares and checkout — for the Navarra operator.",
-          "Refactored key components with the Composite pattern and kept unit test coverage above 80% with Vitest and React Testing Library."
+          "Building ActioTicket, the SaaS platform modernizing public transport ticketing in Spain, now with 10,000+ registered users in production.",
+          "Designed the multi-brand theming architecture that lets new operators launch under their own branding without duplicating code, built with Next.js, TypeScript and Material UI.",
+          "Implemented the origin–destination purchase flow end to end — routes, dates, fares and checkout.",
+          "Refactored key components around the Composite pattern so brands reuse the same base, keeping test coverage above 80% with Vitest and React Testing Library.",
+          "Apply Spec-Driven Development (OpenSpec): every change is specced before implementation, reducing ambiguity and rework."
         ]
       },
       "crombie": {
         "role": "Software Engineer",
         "bullets": [
-          "Led Crombie's internal AI Center of Excellence, designing intelligent agents with custom tools and controlled workflows using Vercel AI SDK, AWS Bedrock and Langchain.",
-          "Sr. FullStack Engineer on Puma's e-commerce across the US, Canada, UK, Japan and India — improved LCP from 4.5s to 3.8s and cut bundle size by 20%.",
-          "Implemented technical SEO and GA4 tracking for Puma, and built and maintained a shared Storybook component library used across markets.",
-          "Led a 4-person team building Crombie's own site with Next.js App Router, configured AWS deploy pipelines with SST, and mentored new developers.",
-          "Taught JavaScript, TypeScript and React in Escuelita Crombie, the company's internal developer school.",
-          "Started as a Jr. FullStack Developer building a Django REST API and React/Vite interfaces before growing into senior and leadership roles."
+          "First technical lead of the AI Center of Excellence: designed agents with custom tools and controlled workflows on Vercel AI SDK, AWS Bedrock and Langchain.",
+          "Built an internal agent that resolves the CX team's repetitive queries, cutting their operational load by around 20%.",
+          "As Sr. FullStack Engineer on Puma's global e-commerce (US, Canada, UK, Japan and India), improved LCP from 4.5s to 3.8s by eliminating duplicate server requests and cut the bundle by 20% with dynamic imports.",
+          "Implemented Puma's technical SEO strategy and GA4 e-commerce tracking, and contributed components to the cross-market design system, documented in Storybook.",
+          "Led a 4-person team building Crombie's own site with Next.js App Router, set up AWS deploy pipelines with SST, and mentored new developers."
         ]
       }
     },
