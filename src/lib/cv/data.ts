@@ -16,10 +16,13 @@ export const skills = [
   "TypeScript",
   "Node.js",
   "NestJS",
+  "Python",
   "AWS",
+  "Docker",
   "PostgreSQL",
   "AI / LLM tooling",
   "Tailwind CSS",
+  "Git",
 ];
 
 export const educationMeta = [
