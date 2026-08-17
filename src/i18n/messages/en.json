@@ -75,7 +75,7 @@
         ]
       },
       "crombiePuma": {
-        "role": "Frontend Engineer",
+        "role": "Sr. FullStack Engineer",
         "highlights": [
           "Puma e-commerce across the U.S., Canada, UK, Japan and India with Next.js (SSR + CSR) and Sanity as headless CMS.",
           "Improved LCP from 4.5s to 3.8s by tracing duplicate server requests with Google Cloud Trace, and cut bundle size by 20% with dynamic imports.",

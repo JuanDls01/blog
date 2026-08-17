@@ -6,36 +6,40 @@ import { PageTitle } from "@/components/ui/page-title";
 
 type PositionMeta = {
   key: string;
-  period: string;
 };
 
 type JobMeta = {
   company: string;
+  period: string;
   positions: PositionMeta[];
 };
 
 const jobsMeta: JobMeta[] = [
   {
     company: "EstacionAR",
-    positions: [{ key: "estacionarFounder", period: "2026 — Now" }],
+    period: "2026 — Now",
+    positions: [{ key: "estacionarFounder" }],
   },
   {
     company: "GeoActio",
-    positions: [{ key: "geoactioFrontend", period: "Jul 2025 — Now" }],
+    period: "Jul 2025 — Now",
+    positions: [{ key: "geoactioFrontend" }],
   },
   {
     company: "Crombie",
+    period: "Nov 2022 — Jul 2025",
     positions: [
-      { key: "crombieAiLead", period: "May 2025 — Jul 2025" },
-      { key: "crombiePuma", period: "Nov 2023 — May 2025" },
-      { key: "crombieInstructor", period: "Jul 2023 — Nov 2023" },
-      { key: "crombieSsrFullstack", period: "May 2023 — Nov 2023" },
-      { key: "crombieJrFullstack", period: "Nov 2022 — May 2023" },
+      { key: "crombieAiLead" },
+      { key: "crombiePuma" },
+      { key: "crombieInstructor" },
+      { key: "crombieSsrFullstack" },
+      { key: "crombieJrFullstack" },
     ],
   },
   {
     company: "CAGSA",
-    positions: [{ key: "cagsaIntern", period: "Jan 2021 — Jan 2022" }],
+    period: "Jan 2021 — Jan 2022",
+    positions: [{ key: "cagsaIntern" }],
   },
 ];
 
@@ -77,16 +81,19 @@ const WorkPage = async ({
       <div className="mt-10 flex flex-col gap-10">
         {jobsMeta.map((job) => (
           <div key={job.company}>
-            <Kicker className="mb-4">{job.company}</Kicker>
+            <div className="flex items-baseline justify-between gap-4 pb-4 mb-4 border-b border-line">
+              <Kicker>{job.company}</Kicker>
+              <MetaText nowrap>{job.period}</MetaText>
+            </div>
             <ul className="flex flex-col gap-6">
               {job.positions.map((position) => (
-                <li key={position.key}>
-                  <div className="flex items-baseline justify-between gap-4">
-                    <p className="text-[14.5px] font-medium">
-                      {t(`positions.${position.key}.role`)}
-                    </p>
-                    <MetaText nowrap>{position.period}</MetaText>
-                  </div>
+                <li
+                  key={position.key}
+                  className={job.positions.length > 1 ? "pl-4" : undefined}
+                >
+                  <p className="text-[14.5px] font-medium">
+                    {t(`positions.${position.key}.role`)}
+                  </p>
                   <ul className="mt-2 flex flex-col gap-1.5">
                     {(
                       t.raw(`positions.${position.key}.highlights`) as string[]
