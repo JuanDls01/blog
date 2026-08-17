@@ -23,6 +23,11 @@ export async function BlogPosts({ locale }: { locale: PostLocale }) {
               <span className="inline-flex items-center gap-1.5 text-[14.5px] font-medium">
                 {post.metadata.title}
                 {!post.metadata.published && <Badge>{t("draft")}</Badge>}
+                {post.isFallback && (
+                  <Badge title={t("fallbackNotice")}>
+                    {t("fallbackBadge", { locale: post.locale.toUpperCase() })}
+                  </Badge>
+                )}
                 <RowArrow />
               </span>
               {post.metadata.summary && (

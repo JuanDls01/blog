@@ -130,6 +130,7 @@
     "readingTime": "{minutes} min read",
     "updated": "Updated {date}",
     "fallbackNotice": "This post is not translated to English yet — showing the original version.",
+    "fallbackBadge": "{locale} only",
     "allEntries": "All entries",
     "onThisPage": "On this page",
     "previous": "Previous",
