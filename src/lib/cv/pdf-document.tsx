@@ -1,5 +1,5 @@
 import path from "node:path";
-import { Document, Page, View, Text, Image, Svg, Path, Circle, Font, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, View, Text, Image, Svg, Path, Circle, Font, StyleSheet, Link } from "@react-pdf/renderer";
 import { identity, skills, type CvContent } from "./data";
 
 const fontsDir = path.join(process.cwd(), "src/lib/cv/fonts");
@@ -218,12 +218,12 @@ function GlobeIcon() {
 export function CvDocument({ content, locale }: { content: CvContent; locale: string }) {
   const [emailUser, emailDomain] = identity.email.split("@");
   const contactRows = [
-    { icon: <MailIcon />, lines: [emailUser, `@${emailDomain}`] },
-    identity.phone ? { icon: <PhoneIcon />, lines: [identity.phone] } : null,
+    { icon: <MailIcon />, lines: [emailUser, `@${emailDomain}`], href: `mailto:${identity.email}` },
+    identity.phone ? { icon: <PhoneIcon />, lines: [identity.phone], href: `tel:${identity.phone}` } : null,
     identity.location ? { icon: <PinIcon />, lines: [identity.location] } : null,
-    { icon: <LinkedinIcon />, lines: [identity.linkedin] },
-    { icon: <GlobeIcon />, lines: [identity.portfolio] },
-  ].filter(Boolean) as { icon: JSX.Element; lines: string[] }[];
+    { icon: <LinkedinIcon />, lines: [identity.linkedin], href: `https://${identity.linkedin}` },
+    { icon: <GlobeIcon />, lines: [identity.portfolio], href: `https://${identity.portfolio}` },
+  ].filter(Boolean) as { icon: JSX.Element; lines: string[]; href?: string }[];
 
   return (
     <Document
@@ -249,11 +249,17 @@ export function CvDocument({ content, locale }: { content: CvContent; locale: st
                 <View key={row.lines[0]} style={styles.contactRow}>
                   {row.icon}
                   <View>
-                    {row.lines.map((line) => (
-                      <Text key={line} style={styles.contactText}>
-                        {line}
-                      </Text>
-                    ))}
+                    {row.lines.map((line) =>
+                      row.href ? (
+                        <Link key={line} src={row.href} style={styles.contactText}>
+                          {line}
+                        </Link>
+                      ) : (
+                        <Text key={line} style={styles.contactText}>
+                          {line}
+                        </Text>
+                      ),
+                    )}
                   </View>
                 </View>
               ))}
