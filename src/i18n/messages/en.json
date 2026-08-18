@@ -137,7 +137,7 @@
       "languages": "Languages",
       "contact": "Contact"
     },
-    "profileSummary": "I help companies turn complex problems into simple, scalable software. My industrial engineering background shapes how I work: I break the problem down and ship the simplest solution that works. Working across different products and domains has given me the judgment to choose what the context calls for, not the tool I already know.",
+    "profileSummary": "I turn complex problems into simple, scalable software. Industrial engineering left me with a method: break it down, understand the constraints, and solve with the minimum necessary. Working across different products and domains taught me that the best tool is usually the one the context calls for, not the one I already know.",
     "experience": {
       "geoactio": {
         "role": "FullStack Engineer",
